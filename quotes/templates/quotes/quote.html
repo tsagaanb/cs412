@@ -1,0 +1,13 @@
+<!-- quote/templates/quotes/quote.html -->
+
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+    <div class = "quote">
+        <h1>Quote of the Day</h1>
+        <img src="{{ image }}" alt="John Lennon" />
+        <p class = "quote">{{quote}}</p>
+        <p><i><b>- John Lennon</b></i></p>
+    </div>
+    
+{% endblock %}

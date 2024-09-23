@@ -1,0 +1,25 @@
+<!-- quote/templates/quotes/about.html -->
+
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+    <div class = "about">
+        <h1>About John Lennon</h1>
+        
+        <div class="bio">
+            <img src="{{ image }}" alt="John Lennon" />
+            <p>John Lennon (1940-1980) was an English musician, singer, and songwriter who gained worldwide fame as a co-founder of The Beatles. Known for his influential and groundbreaking work, Lennon was a key figure in the evolution of modern music. His songwriting partnership with Paul McCartney is one of the most successful in the history of popular music.</p>
+            <img src="{{ wife }}" alt="John Lennon with wife" />
+            <p>Beyond his musical achievements, Lennon was also known for his activism and advocacy for peace. He and his wife, Yoko Ono, famously staged "bed-ins" for peace and were vocal critics of the Vietnam War. Lennon's influence extends beyond his music, leaving a lasting impact on culture and society.</p>
+        </div>
+    </div>
+    <div class = "creator">
+        <h1>Creator of the web application</h1>
+        <div class = "bio">
+            <p>Tsagaandari Battugs</p>
+            <p>Boston University</p>
+            <p>CS412 Fall 2024</p>
+
+        </div>        
+    </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!-- hw/templates/hw/base.html 
+This is the base page from which all  other pages 
+will inherit.
+Put common code here, specific code in separate pages -->
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{%  static 'styles.css' %}">
+        <title>hello, world!</title>
+    </head> 
+    <!-- Common code ^ -->
+
+    <body>
+
+        {% block content %}
+        <!-- put the interesting (specific stuff) here -->
+        {% endblock %}
+        <hr>
+        This page was generate at {{current_time}}. 
+    </body>
+    <nav>
+        <ul>
+            <!-- <a href="/hw/">Home</a> -->
+            <!-- <a href="/hw/about">About</a> --> 
+            <!-- Use the scriptlet URL function to look up a URL by name -->
+            <a href="{% url 'home' %}">Home</a>
+            <!-- <a href="{% url 'about' %}">About</a> -->
+            <a href="/hw/about">About</a>
+        </ul>
+    </nav>
+</html>

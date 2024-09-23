@@ -1,0 +1,16 @@
+<!-- quote/templates/quotes/show_all.html -->
+
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Quotes by John Lennon</h1>
+        {% for quote, image in quotes_and_images %}
+        <div class="quote-item">
+            <img src="{{ image }}" alt="Image related to quote">
+            <p>{{ quote }}</p>
+            <p><b><i>- John Lennon</i></b></p>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

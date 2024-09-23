@@ -1,0 +1,232 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Quicksand, sans-serif;
+    line-height: 1.6;
+    background-color: #f8dfb4;
+}
+
+h1 {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 50px auto; 
+    margin-bottom: 20px;
+    text-align: justify; 
+    text-align-last: center; 
+    color:#695ac8;
+}
+
+p {
+    font-family: Quicksand, sans-serif;
+    font-size: 25px; 
+    color: #333;     
+    line-height: 1.6; 
+    text-align: justify; 
+    text-align-last: center; 
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+/* Navigation Bar */
+header {
+    background-color: #9086d2; 
+    color: white;
+    /* padding: 10px 0; */
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+nav {
+    width: 80%;
+    margin: 0 auto;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    
+}
+
+nav li {
+    margin: 0 15px;
+    color:#9086d2;
+    font-size: 20px;
+    font-family: Quicksand, sans-serif;
+    margin: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #87CEFA; 
+    
+}
+
+
+/* Single Quote page */
+.quote {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-top: 90px;
+    margin-bottom: 20px;
+}
+
+.quote img {
+    display: block;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+.quote h1 {
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.quote p {
+    font-family: Quicksand, sans-serif;
+    font-size: 25px; 
+    color: #333;     
+    line-height: 1.6; 
+    text-align: justify; 
+    text-align-last: center; 
+    padding-top: 20px;
+    padding-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 70%;
+}
+
+/* Show-All Styles */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* .container h1 {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 50%;
+} */
+
+.quote-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quote-item img {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.quote-item p {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+    padding-left: 40px;
+}
+
+@media (max-width: 768px) {
+    .quote-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .quote-item img {
+        margin-right: 0;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
+
+/* About Page Styles */
+.about {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 90px;
+    margin-bottom: 20px;
+}
+
+.about h1 {
+    margin: 5px;
+}
+
+.bio {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.bio img {
+    display: block;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    width: 60%;
+
+}
+
+.bio p {
+    font-family: Quicksand, sans-serif;
+    font-size: 25px; 
+    color: #333;     
+    line-height: 1.6; 
+    text-align: justify; 
+    text-align-last: center; 
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+.creator {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.creator h1 {
+    padding-top: 0px;
+}

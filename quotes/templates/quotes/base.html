@@ -1,0 +1,31 @@
+<!-- quotes/templates/quotes/base.html 
+This is the base page from which all  other pages 
+will inherit.
+Put common code here, specific code in separate pages -->
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{%  static 'quotes_styles.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet"></head>
+        <title>Quotes (John Lennon)</title>
+    </head> 
+    <!-- Common code ^ -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'quote' %}">Quote</a></li>
+                <li><a href="{% url 'show_all' %}">All Quotes</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <body>
+
+        {% block content %}
+        <!-- put the interesting (specific stuff) here -->
+        {% endblock %}
+        
+    </body>
+    
+</html>
