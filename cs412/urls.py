@@ -23,4 +23,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("hw/", include("hw.urls")), ## New path
     path("quotes/", include("quotes.urls")) ## Assignment 3
+    path("", include("quotes.urls"))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
