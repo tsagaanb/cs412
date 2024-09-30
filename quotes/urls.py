@@ -1,4 +1,4 @@
-## hw/urls.py
+## quotes/urls.py
 ## description: the app-specific URLS for the hw application
 
 from django.urls import path
