@@ -1,7 +1,7 @@
 ## restaurant/views.py
 # description: the logic to handle URL requests
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 import time
 import random
