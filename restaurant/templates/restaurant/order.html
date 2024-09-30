@@ -5,6 +5,7 @@
 {% block content %}
     <div class = "order">
         <h1>Place an Order</h1>
+        <hr>
         <form action="{% url 'confirmation' %}" method="POST">
             {% csrf_token %}  
             <table>
@@ -39,8 +40,8 @@
                         <div class="tabbed-options">
                             <p>Choose extra sauce:</p>
                             <input type="radio" name="sauce" value="None" checked> None<br>
-                            <input type="radio" name="sauce" value="Spicy Sauce"> Spicy Sauce<br>
-                            <input type="radio" name="sauce" value="Garlic Sauce"> Garlic Sauce
+                            <input type="radio" name="sauce" value="Spicy Sauce"> Spicy Sauce ($2)<br>
+                            <input type="radio" name="sauce" value="Garlic Sauce"> Garlic Sauce ($2)
                         </div>
 
                     </td>

@@ -13,6 +13,12 @@ MENU_PRICES = {
     "Boortsog": 6,
 }
 
+SAUCE_PRICES = {
+    "None": 0,
+    "Spicy Sauce": 2,
+    "Garlic Sauce": 2
+}
+
 
 dailySpecials = [
     "Ortz Soup: A hearty lamb and potato stew cooked with traditional Mongolian herbs.",
@@ -97,12 +103,14 @@ def confirmation(request):
 
         # read the order data into python variables
         order = request.POST.getlist("order[]") 
+        sauce = request.POST.get("sauce", "")
         daily_special = request.POST.get("daily_special", "")
         daily_special_price = request.POST.get("daily_special_price", 0)
         special_instructions = request.POST.get("special_instructions", "")
         name = request.POST.get("name", "")
         phone = request.POST.get("phone", "")
         email = request.POST.get("email", "")
+
 
         total_price = 0
         for item in order:
@@ -112,18 +120,21 @@ def confirmation(request):
             total_price += int(daily_special_price)
             daily_special = daily_special.split(':')[0]
             
+        if sauce:
+            total_price += SAUCE_PRICES.get(sauce, 0)
         # Add the daily special price if it exists (this assumes you store prices for specials)
 
         # package the data up to be used in response
         context = {
             'ready_time': ready_time,
             'order': order,
+            'sauce' : sauce,
             'daily_special': daily_special,
             'special_instructions': special_instructions,
             'name': name,
             'phone': phone,
             'email': email,
-            'total_price': total_price 
+            'total_price': total_price,
         }
 
         # Generate a repsonse

@@ -7,7 +7,9 @@
         <h1>Confirmation</h1>
         <p>Thank you for your order!</p>
         <p><b>Your order will be ready at: {{ready_time}}</b></p>
+        <hr>
         <h3>Your order is confirmed: </h3>
+
         {% for item in order %}
            <p>{{ item }}</p> <br>
         {% endfor %}
@@ -15,11 +17,16 @@
         {% if daily_special %}
             <p>{{ daily_special }}</p>
         {% endif %}
+
+        {% if sauce %}
+            <p>{{ sauce }}</p>
+        {% endif %}
+
         {% if special_instructions %}
             <h3>Special Instructions:</h3>
             <p>{{special_instructions}}</p>
         {% endif %}
-        
+
         <p><b>Total: $ {{total_price}}</b></p>
         <h3>Customer Information:</h3>
         <p>{{name}}</p>
