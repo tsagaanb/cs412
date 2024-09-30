@@ -1,0 +1,147 @@
+<!-- restaurant/templates/restaurant/order.html -->
+
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+    <div class = "order">
+        <h1>Place an Order</h1>
+        <form action="{% url 'confirmation' %}" method="POST">
+            {% csrf_token %}  
+            <table>
+                <th>                        
+                    <h2>Select Your Items:</h2>
+                </th>
+                <!-- <tr>
+                    <td>
+                        <h2>Select Your Items:</h2>
+                    </td>
+                </tr> -->
+                <!-- First item: Buuz -->
+
+                <tr>
+                    <td>
+                        <input type="checkbox" name="order[]" value="Buuz"> Buuz (Mongolian Dumplings) ($9)
+                        <p>Steamed dumplings filled with seasoned ground beef and onions.</p>
+                    </td>
+                    <td>
+                        <img src="/static/images/buuz.jpg" alt="Buuz" width="200" height="200">
+                    </td>
+                    
+                </tr>
+            
+                <!-- Second item: Khuushuur -->
+                <tr>
+                    <td>
+                        <input type="checkbox" name="order[]" value="Khuushuur"> Khuushuur (Fried Meat Pies) ($10)
+                        <p>Crispy fried pastry stuffed with savory lamb and spices.</p>
+                        <br>
+                        <!-- Extra option (e.g., sauce choice) -->
+                        <div class="tabbed-options">
+                            <p>Choose extra sauce:</p>
+                            <input type="radio" name="sauce" value="None" checked> None<br>
+                            <input type="radio" name="sauce" value="Spicy Sauce"> Spicy Sauce<br>
+                            <input type="radio" name="sauce" value="Garlic Sauce"> Garlic Sauce
+                        </div>
+
+                    </td>
+                    <td>
+                        <img src="/static/images/khuushuur.jpeg" alt="Khuushuur" width="200" height="200">
+                    </td>
+                    
+                </tr>
+            
+                <!-- Third Item: Tsuivan -->
+                <tr>
+                    <td>
+                        <input type="checkbox" name="order[]" value="Tsuivan"> Tsuivan (Stir-fried Noodles) ($12)
+                        <p>Hand-pulled noodles stir-fried with beef, carrots, and cabbage.</p>
+                    </td>
+                    <td>
+                        <img src="/static/images/tsuivan.jpeg" alt="Tsuivan" width="200" height="200">
+                    </td>
+                 
+                </tr>
+            
+                <!-- Fourth Item: Boortsog -->
+                <tr>
+                    <td>
+                        <input type="checkbox" name="order[]" value="Boortsog"> Boortsog (Mongolian Fried Bread) ($6)
+                        <p>Lightly fried dough served with honey and butter.</p>
+                    </td>
+                    <td>
+                        <img src="/static/images/boortsog.jpeg" alt="Boortsog" width="200" height="200">
+                    </td>
+                   
+                </tr>
+            </table>
+            <table>
+                <tr>     
+                    <td>
+                        <h2>Today's Special:</h2>
+                    </td>          
+                </tr>
+                <tr>
+                    <td>                        
+                        <input type="checkbox" name="daily_special" value="{{daily_special}}">(${{daily_special_price}}) {{daily_special}}<br>
+                    </td>
+                    <td>
+                        <img src="{{daily_special_photo}}" alt="{{daily_special}}" width="200" height="200"><br>
+                        <input type="hidden" name="daily_special_price" value="{{ daily_special_price }}">
+
+
+                    </td>
+
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <h2>Special Instructions</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="special_instructions">Please share any special instructions:</label>
+                        <textarea name="special_instructions" id="" cols="40" rows="5"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h2>Customer Informations</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="name">Name:</label>
+                        <input type="text" name="name">
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td>
+                        <label for="phone">Phone:</label>
+                        <input type="text" name="phone">
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td>
+                        <label for="email">Email:</label>
+                        <input type="text" name="email">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h2>Place Your Order:</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;">
+                        <input type="submit" value="Submit">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    
+{% endblock %}

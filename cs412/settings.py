@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "hw", # new app ## get in the habit of adding the comma at the end,
     "quotes",
     "formdata",
+    "restaurant",
 ]
 
 MIDDLEWARE = [
