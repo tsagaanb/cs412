@@ -1,0 +1,32 @@
+<!-- mini_fb/templates/mini_fb/base.html 
+This is the base page from which all  other pages 
+will inherit.
+Put common code here, specific code in separate pages -->
+{% load static %}
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet"></head>
+        <link rel="stylesheet" href="{%  static 'mini_fb_styles.css' %}">
+
+        <title>Mini Facebook</title>
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <h1>Mini Facebook</h1>
+            </nav>
+        </header>
+        
+        <main>
+            {% block content %}
+            <!-- put the interesting (specific stuff) here -->
+            {% endblock %}
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Mini Facebook by Tsagaandari Battugs</p>
+        </footer>
+    </body>
+</html>
+

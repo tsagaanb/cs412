@@ -8,5 +8,5 @@ from . import views
 # create a list of URLs for this app:
 urlpatterns = [
     # path(url, view, name) format
-    path(r'', views.ShowAllView.as_view(), name="show_all"), 
+    path(r'', views.ShowAllProfilesView.as_view(), name='show_all_profiles'),
 ]
