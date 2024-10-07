@@ -12,7 +12,7 @@
                 <div class="profile-card">
                     <div class="profile-image">
                         {% if profile.profile_image %}
-                            <img src="{{ profile.profile_image.url }}" alt="{{ profile.first_name }}'s profile image">
+                            <img src="{{ profile.profile_image }}" alt="{{ profile.first_name }}'s profile image">
                         {% else %}
                             No image
                         {% endif %}

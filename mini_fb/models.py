@@ -12,7 +12,7 @@ class Profile(models.Model):
     last_name = models.TextField(blank=False)
     city = models.TextField(blank=False)
     email = models.EmailField(unique=True)
-    profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
+    profile_image = models.URLField(blank=True)
 
 
 # make migrations only when you modify the data attibutes
