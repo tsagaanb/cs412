@@ -24,15 +24,23 @@
         <h2>Comments</h2>
         <!-- Comments:
         {{article.get_comments}} -->
-        {% for c in article.get_comments %}
-        <article>
+        {% if article.get_commnets %}
+        
+            {% for c in article.get_comments %}
+            <article>
+                <div>
+                <strong>by {{c.author}} at {{c.published}}</strong>
+                <p>
+                {{c.text}}
+                </div>
+            </article>
+            {% endfor %}
+
+        {% else %}
             <div>
-            <strong>by {{c.author}} at {{c.published}}</strong>
-            <p>
-            {{c.text}}
+                <h2>No comments.</h2>
             </div>
-        </article>
-        {% endfor %}
+
     </div>
 </main>   
 
