@@ -1,0 +1,44 @@
+<!-- blog/template/blog/show_all.html -->
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h1>{{article.title}}</h1>
+
+<!-- print out the context variable called articles -->
+<!-- {{articles}} -->
+
+<main class="article"> 
+    <article>
+        <img src="{{article.image_url}}" alt="{{article.image_url}}">
+
+        <div>
+            <h2>{{article.title}}</h2>
+            <h3>by {{article.author}} at {{article.published}}</h3>
+            <p>
+                {{article.text}}
+            </p>
+        </div>
+    </article>
+    <div>
+        <h2>Comments</h2>
+        <!-- Comments:
+        {{article.get_comments}} -->
+        {% for c in article.get_comments %}
+        <article>
+            <div>
+            <strong>by {{c.author}} at {{c.published}}</strong>
+            <p>
+            {{c.text}}
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</main>   
+
+{% endblock %}
+   
+
+
+
+

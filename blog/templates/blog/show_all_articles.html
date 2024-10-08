@@ -11,8 +11,9 @@
 <main class="grid-container"> 
     {% for a in articles %}
     <article>
-        <img src="{{a.image_url}}" alt="{{a.image_url}}">
-
+        <a href="{% url 'article' a.pk  %}"> <!-- Use object -->
+            <img src="{{a.image_url}}" alt="{{a.image_url}}">
+        </a>
         <div>
             <h2>{{a.title}}</h2>
             <h3>by {{a.author}} at {{a.published}}</h3>
