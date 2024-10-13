@@ -3,6 +3,8 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+<h2>Add a comment about {{article}}</h2>
+<a href="{% url 'create_comment' article.pk %}">Add a Comment</a>
 <h1>{{article.title}}</h1>
 
 <!-- print out the context variable called articles -->
@@ -12,6 +14,7 @@
     <article>
         <img src="{{article.image_url}}" alt="{{article.image_url}}">
 
+       
         <div>
             <h2>{{article.title}}</h2>
             <h3>by {{article.author}} at {{article.published}}</h3>
@@ -24,7 +27,7 @@
         <h2>Comments</h2>
         <!-- Comments:
         {{article.get_comments}} -->
-        {% if article.get_commnets %}
+        {% if article.get_comments %}
         
             {% for c in article.get_comments %}
             <article>
@@ -36,10 +39,12 @@
             </article>
             {% endfor %}
 
+
         {% else %}
             <div>
                 <h2>No comments.</h2>
             </div>
+        {% endif %}
 
     </div>
 </main>   

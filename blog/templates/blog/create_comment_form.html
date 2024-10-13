@@ -1,0 +1,30 @@
+<!-- blog/templates/blog/create_comment_form.html -->
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h2>Add a comment</h2>
+    <form method = 'POST'>
+        
+    <!-- show this first -->
+    <!-- {{form}}  -->
+
+    <!-- shows each field in their own paragraph -->
+    <!-- {{form.as_p}} -->
+
+    <!-- then show this version -->
+        <table>
+            {{form.as_table}}
+            <tr>    
+                <td></td>
+                <td>
+                    <input type='submit' name = 'Add Comment!' value= 'Add Comment!'>
+                </td>
+            </tr>
+
+        </table>
+        {% csrf_token %}
+    </form>
+    <form action="{{% url 'article' article.pk %}}">
+        <input type="submit" name ="Cancel" value="Cancel">
+    </form>
+{% endblock %}
