@@ -27,8 +27,11 @@
             </table>
         </div>
     </div>
-    <h3>Status Messages</h3>
+    <a href="{% url 'create_status' profile.pk %}" class="form-button">Post a Status Message</a>
+
     <div class="status-messages">
+        <h3><u>Status Messages</u></h3>
+
         {% if profile.get_status_messages %}
             {% for s in profile.get_status_messages %}
                 <div class="status-message">

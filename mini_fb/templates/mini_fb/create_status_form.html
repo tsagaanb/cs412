@@ -1,0 +1,14 @@
+<!-- mini_fb/templates/mini_fb/create_status_form.html -->
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+    <div class="form-container">
+        <h2>Post a Status Message for {{ profile.first_name }}</h2>  <!-- Optionally, replace with {{ view.object.profile.first_name }} -->
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="form-button">Create Status</button>
+            <a href="{% url 'show_profile' profile.pk %}" class="form-button cancel-button">Cancel</a>
+        </form>
+    </div>
+{% endblock %}
