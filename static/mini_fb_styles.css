@@ -52,6 +52,7 @@ nav ul li a:hover {
 /* Main Content */
 main {
     margin-top: 120px; /* Adjust to allow for fixed header */
+    margin-bottom: 100px;
     padding: 20px;
     width: 80%;
     margin: 100px auto 0;
@@ -228,4 +229,24 @@ footer {
     margin: 0;
     color: #555;
     font-size: 0.95rem;
+}
+
+
+/* Create Profile Buttons */
+.form-button {
+    background-color: #9086d2;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.form-button:hover {
+    background-color: #695ac8;
 }
