@@ -85,4 +85,4 @@ class CreateCommentView(CreateView):
 
         # add the article to the context data
         context['article'] = article 
-        return super().get_context_data(**kwargs)
+        return context

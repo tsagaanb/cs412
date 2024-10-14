@@ -24,7 +24,7 @@
         </table>
         {% csrf_token %}
     </form>
-    <form action="{{% url 'article' article.pk %}}">
-        <input type="submit" name ="Cancel" value="Cancel">
+    <form action="{% url 'article' article.pk %}">
+        <input type="submit" name="Cancel" value="Cancel">
     </form>
 {% endblock %}
