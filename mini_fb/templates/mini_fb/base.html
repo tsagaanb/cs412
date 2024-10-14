@@ -12,9 +12,13 @@ Put common code here, specific code in separate pages -->
     </head>
 
     <body>
-        <header>
+        <header>                
+            <h1>Mini Facebook</h1>
             <nav>
-                <h1>Mini Facebook</h1>
+                <ul>
+                    <li><a href="{% url 'show_all_profiles' %}">All Profiles</a> </li>
+                    <li><a href="{% url 'create_profile' %}">Create Profile</a></li>
+                </ul>
             </nav>
         </header>
         
