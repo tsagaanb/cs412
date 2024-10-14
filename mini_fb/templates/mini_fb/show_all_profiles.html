@@ -1,4 +1,4 @@
-<!-- mini_fb/templates/mini_fb/main.html -->
+<!-- mini_fb/templates/mini_fb/show_all_profiles.html -->
 
 {% extends 'mini_fb/base.html' %}
 
@@ -10,17 +10,18 @@
             <div class="profile-grid">
                 {% for profile in profiles %}
                 <div class="profile-card">
-                    <div class="profile-image">
-                        {% if profile.profile_image %}
-                            <img src="{{ profile.profile_image }}" alt="{{ profile.first_name }}'s profile image">
-                        {% else %}
-                            No image
-                        {% endif %}
-                    </div>
-                    <div class="profile-info">
-                        <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
-                        <p>{{ profile.city }}</p>
-                    </div>
+                    <a href="{% url 'show_profile' profile.pk %}">
+                        <div class="profile-image">
+                            {% if profile.profile_image %}
+                                <img src="{{ profile.profile_image }}" alt="{{ profile.first_name }}'s profile image">
+                            {% else %}
+                                No image
+                            {% endif %}
+                        </div>
+                        <div class="profile-info">
+                            <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
+                            <p>{{ profile.city }}</p>
+                        </div>
                 </div>
                 {% endfor %}
             </div>
@@ -28,4 +29,3 @@
     </table>
     
 {% endblock %}
-
