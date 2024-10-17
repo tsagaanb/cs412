@@ -12,7 +12,7 @@
     {% for a in articles %}
     <article>
         <a href="{% url 'article' a.pk  %}"> <!-- Use object -->
-            <img src="{{a.image_url}}" alt="{{a.image_url}}">
+            <img src="{{a.image_file.url}}" alt="{{a.image_file.url}}">
         </a>
         <div>
             <h2>{{a.title}}</h2>
