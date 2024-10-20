@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from . models import *
 from . forms import *
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.urls import reverse
 
 
@@ -66,3 +66,15 @@ class CreateStatusMessageView(CreateView):
     def get_success_url(self):
         ''' redirect back to the Profile page after successful submission '''
         return reverse('show_profile', kwargs=self.kwargs)
+
+class UpdateProfileView(UpdateView):
+    ''' a view to process the UpdateProfile form '''
+    model = Profile 
+    # when i try to run the code on the server, it kept saying 
+    # i don't have a model even though i did on the UpdateProfileForm,
+    # so i had to define it explicitly
+    
+    form_class = UpdateProfileForm
+    template_name = "mini_fb/update_profile_form.html"
+
+    
