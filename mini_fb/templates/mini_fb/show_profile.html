@@ -37,12 +37,13 @@
         {% if profile.get_status_messages %}
             {% for s in profile.get_status_messages %}
                 <div class="status-message">
-                    <p>{{ s.message }} <br>
-                        <strong>{{ s.timestamp|date:"M d, Y H:i" }}:</strong> </p>
-                
-                    {% for image in s.get_images %}
-                        <img src="{{image.image.url}}" alt="image.image.url" style="max-width: 200px; max-height: 200px;">
-                    {% endfor %}
+                    <p>{{ s.message }} <br></p>
+                    {% if s.get_images %}
+                        {% for image in s.get_images %}
+                            <img src="{{image.image.url}}" alt="image.image.url" style="max-width: 200px; max-height: 200px;">
+                        {% endfor %}
+                    {% endif %}
+                    <p><strong>{{ s.timestamp|date:"M d, Y P" }}</strong></p>
                     
                 </div>  
 
