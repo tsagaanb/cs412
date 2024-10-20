@@ -43,4 +43,19 @@ class StatusMessage(models.Model):
     def __str__(self):
         '''Return a string representation of this Facebook Status object.'''
         return f'{self.message}'
+        
+    def get_images(self):
+        ''' Return the image related to the StatusMessage object '''
+        image = Image.objects.filter(status_message=self)
+        return image
+    
+class Image(models.Model):
+    ''' 
+    Model for the data attributes of the Image related to a single StatusMessage
+    '''
+
+    image = models.ImageField(blank=True)
+    status_message = models.ForeignKey('StatusMessage', on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
     

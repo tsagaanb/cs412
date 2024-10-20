@@ -37,7 +37,14 @@
                 <div class="status-message">
                     <p>{{ s.message }} <br>
                         <strong>{{ s.timestamp|date:"M d, Y H:i" }}:</strong> </p>
+                
+                    {% for image in s.get_images %}
+                        <img src="{{image.image.url}}" alt="image.image.url" style="max-width: 200px; max-height: 200px;">
+                    {% endfor %}
+                    
                 </div>  
+
+                
             {% endfor %}
         {% else %}
             <div>
