@@ -1,0 +1,25 @@
+<!-- mini_fb/templates/mini_fb/delete_status_form.html -->
+
+{% extends "mini_fb/base.html" %}
+
+{% block content %}
+    <h2 style="text-align: left;">Update Status Message</h2>
+  
+    <div class="status-messages">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Display form fields -->
+            
+            <!-- Save and Cancel buttons -->
+            <div style="display: inline;" class="button-container">
+                <input type="submit" class="form-button" name="Update" value="Update">
+            </div>
+        </form>
+        <form method="GET" action="{% url 'show_profile' status_message.profile.id %}" style="display: inline;">
+            <input type="submit" class="form-button" name="Cancel" value="Cancel">
+        </form>
+    
+    </div>      
+    
+    
+{% endblock %}

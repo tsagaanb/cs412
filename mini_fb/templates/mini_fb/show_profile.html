@@ -44,6 +44,7 @@
                         {% endfor %}
                     {% endif %}
                     <p><strong>{{ s.timestamp|date:"M d, Y P" }}</strong></p>
+                    <a href="{% url 'update_status' s.pk %}" class='form-button' style="font-size: 12px;padding: 5px 10px;">Update Status</a>
                     <a href="{% url 'delete_status' s.pk %}" class='form-button' style="font-size: 12px;padding: 5px 10px;">Delete</a>
 
                     
