@@ -3,12 +3,12 @@
 
 {% block content %}
     <div class="form-container">
-        <h2>Post a Status Message for {{ profile.first_name }}</h2>  <!-- Optionally, replace with {{ view.object.profile.first_name }} -->
+        <h2>Post a Status Message for {{ profile.first_name }}</h2>  
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="file" name = "files" multiple /> <br>
-            <button type="submit" class="form-button">Create Status</button>
+            <input type="submit" class="form-button" name="CreateStatus" value="Create Status">
             <a href="{% url 'show_profile' profile.pk %}" class="form-button cancel-button">Cancel</a>
         </form>
     </div>

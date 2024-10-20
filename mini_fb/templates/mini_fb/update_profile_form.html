@@ -7,8 +7,10 @@
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="form-button">Update Profile</button>
+            <input type="submit" class="form-button" name="Update Profile" value="Update Profile">
         </form>
-        <a href="{% url 'show_profile' profile.pk %}" class="form-button cancel-button">Cancel</a>
+        <form method="GET" action="{% url 'show_profile' profile.pk %}">
+            <input type="submit" class="form-button" name="Cancel" value="Cancel">
+        </form>
     </div>
 {% endblock %}

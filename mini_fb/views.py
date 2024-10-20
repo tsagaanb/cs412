@@ -4,7 +4,8 @@ from django.shortcuts import render
 
 from . models import *
 from . forms import *
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, \
+    DeleteView
 from django.urls import reverse
 
 
@@ -78,3 +79,13 @@ class UpdateProfileView(UpdateView):
     template_name = "mini_fb/update_profile_form.html"
 
     
+class DeleteStatusMessageView(DeleteView):
+    ''' a view to delete a status message '''
+    model = StatusMessage
+    template_name = "mini_fb/delete_status_form.html"
+    context_object_name = "status_message"
+
+    def get_success_url(self):
+        ''' redirect back to the Profile page after successful submission '''
+        return reverse('show_profile', kwargs={'pk': self.object.profile.id})
+       
