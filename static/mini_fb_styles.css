@@ -273,3 +273,46 @@ footer {
     text-align: center;
     margin-top: 10%;
 }
+
+/* Friends list on a profile */
+.friends-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 20px;
+    padding: 20px;
+    background-color:#beb6f4;
+    border-radius: 8px;
+}
+
+.friend-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    text-align: center;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.friend-card img {
+    width: 100px; /* Adjust based on desired image size */
+    height: 100px; /* Keeps the image square */
+    border-radius: 50%; /* Make the image circular */
+    border: 3px solid white;
+    margin-bottom: 10px;
+}
+
+.friend-card h3 {
+    margin: 0;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.profile-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Adjust as needed for spacing */
+}

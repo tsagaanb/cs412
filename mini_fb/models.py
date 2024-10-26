@@ -21,10 +21,28 @@ class Profile(models.Model):
     def __str__(self):
         ''' Return a string represntation of this profile '''
         return f"{self.first_name} {self.last_name}"
+
     def get_status_messages(self):
         '''Return all of the status messages for this profile.'''
         status_message = StatusMessage.objects.filter(profile=self)
         return status_message
+
+    def get_friends(self):
+        ''' Return all the friends of a Profile object in a list '''
+        friends_profile1 = Friend.objects.filter(profile1=self)
+        friends_profile2 = Friend.objects.filter(profile2=self)
+
+        friends = []
+        # If the current profile is profile1:
+        for friend in friends_profile1:
+            friends.append(friend.profile2)
+
+         # If the current profile is profile2:
+        for friend in friends_profile2:
+            friends.append(friend.profile1)
+
+        return friends
+
 
     def get_absolute_url(self):
         ''' Return the Profile '''
@@ -49,6 +67,7 @@ class StatusMessage(models.Model):
         image = Image.objects.filter(status_message=self)
         return image
     
+
 class Image(models.Model):
     ''' 
     Model for the data attributes of the Image related to a single StatusMessage
@@ -58,4 +77,18 @@ class Image(models.Model):
     status_message = models.ForeignKey('StatusMessage', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
-    
+
+class Friend(models.Model):
+    '''
+    Model for the frienship of two Profile objects
+    '''
+    profile1 = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="profile1")
+    profile2 = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="profile2")
+    anniversary = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        ''' Return a string representation of the friendship between 2 profiles '''
+        return f"{self.profile1.first_name} {self.profile1.last_name} & {self.profile2.first_name} {self.profile2.last_name}"
+
+
+
