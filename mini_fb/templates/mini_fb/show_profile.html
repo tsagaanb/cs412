@@ -2,6 +2,14 @@
 
 {% extends 'mini_fb/base.html' %}
 
+<!-- Navigation Bar -->
+{% block extra_nav_links %}
+    <li><a href="{% url 'show_all_profiles' %}">All Profiles</a> </li>
+    <li><a href="{% url 'show_profile' profile.pk %}">Profile Page</a> </li>
+    <li><a href="{% url 'news_feed' profile.pk %}">News Feed</a> </li>
+{% endblock %}
+
+<!-- Body -->
 {% block content %}
     <a href="{% url 'show_all_profiles' %}" class="back-button">← Back to All Profiles</a>
 

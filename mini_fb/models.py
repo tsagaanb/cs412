@@ -24,7 +24,7 @@ class Profile(models.Model):
 
     def get_status_messages(self):
         '''Return all of the status messages for this profile.'''
-        status_message = StatusMessage.objects.filter(profile=self)
+        status_message = StatusMessage.objects.filter(profile=self).order_by('-timestamp')
         return status_message
 
     def get_friends(self):

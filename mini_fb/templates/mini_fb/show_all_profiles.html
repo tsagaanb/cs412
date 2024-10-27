@@ -2,7 +2,12 @@
 
 {% extends 'mini_fb/base.html' %}
 
+<!-- Navigation Bar -->
+{% block extra_nav_links %}
+    <li><a href="{% url 'create_profile' %}">Create Profile</a></li>
+{% endblock %}
 
+<!-- Body -->
 {% block content %}
     <h2>All Profiles</h2>
     <table>
