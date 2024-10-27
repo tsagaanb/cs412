@@ -31,10 +31,11 @@
     <div class="profile-button-container">
         <a href="{% url 'create_status' profile.pk %}" class="form-button" style="margin: 0 10px;">Post a Status Message</a>
         <a href="{% url 'update_profile' profile.pk %}" class="form-button" style="margin: 0 10px;">Update Profile</a>
+
     </div>
 
     <!-- Showing the friends list -->
-    <h2 style="text-align: left; margin-top: 20px;">{{ profile.first_name }}'s friends</h2> 
+    <h2 style="text-align: left; margin-top: 20px;"><u>{{ profile.first_name }}'s friends</u></h2> 
     <div class="friends-list">
         {% for friend in profile.get_friends %}
             <div class="profile-card">
@@ -55,6 +56,8 @@
             <p>{{ profile.first_name }} has no friends yet.</p>
         {% endfor %}
     </div>
+    <a href="{% url 'friend_suggestions' profile.pk %}" class="form-button">Friend Suggestions</a>
+
     
     
     <div class="status-messages">

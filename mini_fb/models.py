@@ -43,6 +43,40 @@ class Profile(models.Model):
 
         return friends
 
+    def add_friend(self, other):
+        ''' A method that takes a parameter other, which referes to another
+            Profile and adds a Friend relation for the 2 Profiles '''
+        if self == other:
+            raise ValueError("A profile cannot friend itself.")
+        
+        existing_friend = Friend.objects.filter(profile1=self, profile2=other) | \
+                            Friend.objects.filter(profile1=other, profile2=self)
+        if existing_friend:
+            print("Friend relationship already exists.")
+        else:
+            friend = Friend()
+            friend.profile1 = self
+            friend.profile2 = other
+            friend.save()
+
+    def get_friend_suggestions(self):
+        ''' Returns a list of possible friends for a Profile '''        
+        # Get the friends that already exist
+        existing_friends = self.get_friends()
+        friends_pks = []
+        for friend in existing_friends:
+            friends_pks.append(friend.pk)
+
+        suggestions = []
+        all_profiles = Profile.objects.all()
+
+        # Exclude the current profile and existing friends from the list of all profiles
+        for profile in all_profiles:
+            if ((profile != self) and (profile not in existing_friends)):
+                suggestions.append(profile)
+        
+        return suggestions
+        
 
     def get_absolute_url(self):
         ''' Return the Profile '''

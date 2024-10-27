@@ -1,11 +1,11 @@
 # mini_fb/views.py
 # views to show the mini_fb application
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from . models import *
 from . forms import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, \
-    DeleteView
+    DeleteView, View
 from django.urls import reverse
 
 
@@ -101,3 +101,29 @@ class UpdateStatusMessageView(UpdateView):
         ''' redirect back to the Profile page after successful update '''
         return reverse('show_profile', kwargs={'pk': self.object.profile.id})
 
+
+class CreateFriendView(View):
+    ''' A view to create a Friend relation between two Profile objects '''
+
+    def dispatch(self, request, *args, **kwargs):
+        # Retrieve the Profiles from the URL parameters
+        pk = self.kwargs.get('pk')
+        other_pk = self.kwargs.get('other_pk')
+        
+        # Get the profiles based on the primary keys provided
+        profile = Profile.objects.get(pk=pk)
+        other_profile = Profile.objects.get(pk=other_pk)
+
+        profile.add_friend(other_profile)
+
+        # Redirect back to the profile page of the initiating profile
+        return redirect(reverse('show_profile', kwargs={'pk': pk}))
+
+
+class ShowFriendSuggestionsView(DetailView):
+    ''' A view to show all the friend suggestions '''
+
+    model = Profile
+    template_name = "mini_fb/friend_suggestions.html"
+    context_object_name = "profile"
+    
