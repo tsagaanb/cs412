@@ -77,6 +77,24 @@ class Profile(models.Model):
         
         return suggestions
         
+    
+    def get_news_feed(self):
+        ''' Returns the status messages and images associated to a 
+            Profile and and that of their friends '''
+
+        pks = []
+        # Add the pk of the profile itself
+        pks.append(self.pk)
+
+        friends = self.get_friends()
+        # Add the pks of the friends
+        for friend in friends:
+            pks.append(friend.pk)
+        # Filter the statusmessages for everyone associated with the profile
+        news_feed = StatusMessage.objects.filter(profile__pk__in=pks).order_by('-timestamp')
+
+        return news_feed
+
 
     def get_absolute_url(self):
         ''' Return the Profile '''
