@@ -2,12 +2,16 @@
 # Define data models (objects) for use in the blog application
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Article(models.Model):
     ''' 
     Encapsulate the data for a blog Article by some author.
     '''
+    # Each article will be associated with a User
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
     # data attributes:
     title = models.TextField(blank=False)

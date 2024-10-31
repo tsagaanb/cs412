@@ -100,10 +100,32 @@ Put common code here, specific code in separate pages -->
         <header>
             <nav>
                 <ul>
+                    <!-- URLs that do not depend on authentication -->
                     <li><a href="{% url 'show_all_articles' %}">Show All</a></li>
                     <li><a href="{% url 'random' %}">Random</a></li>
-                    <li><a href="{% url 'create_article' %}">Create Article</a></li>
+
+                    <!-- URLs that show up depending on login -->
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'create_article' %}">Create Article</a></li>
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Logout">
+                        </form>
+
+
+                    {% else %}
+
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+
                 </ul>
+                <p>
+                    {% if request.user.is_authenticated %}
+                        Logged in user: {{ request.user }}
+                    {% else %}
+                        Not logged in.
+                    {% endif %}
+                </p>
             </nav>
         </header>
 
