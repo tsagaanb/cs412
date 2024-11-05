@@ -2,9 +2,8 @@
 
 <!-- Navigation Bar -->
 {% block extra_nav_links %}
-    <li><a href="{% url 'show_all_profiles' %}">All Profiles</a> </li>
-    <li><a href="{% url 'show_profile' profile.pk %}">Profile Page</a> </li>
-    <li><a href="{% url 'news_feed' profile.pk %}">News Feed</a> </li>
+    <li><a href="{% url 'show_profile' user_profile.pk %}">My Profile</a> </li>
+    <li><a href="{% url 'news_feed' %}">News Feed</a> </li>
 {% endblock %}
 
 <!-- Body -->

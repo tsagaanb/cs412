@@ -4,7 +4,10 @@
 
 <!-- Navigation Bar -->
 {% block extra_nav_links %}
-    <li><a href="{% url 'create_profile' %}">Create Profile</a></li>
+    {% if request.user.is_authenticated  %}
+        <li><a href="{% url 'show_profile' user_profile.pk %}">My Profile</a></li>
+        <li><a href="{% url 'news_feed' %}">News Feed</a> </li>
+    {% endif %} 
 {% endblock %}
 
 <!-- Body -->

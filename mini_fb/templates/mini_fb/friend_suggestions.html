@@ -21,7 +21,7 @@
                         </div>
                     </a>
                 </div>
-                <a href="{% url 'add_friend' profile.pk suggestion.pk %}" class="friend-form-button">Add Friend</a>
+                <a href="{% url 'add_friend' suggestion.pk %}" class="friend-form-button">Add Friend</a>
             </div>
         {% empty %}
             <p>No friend suggestions available.</p>
