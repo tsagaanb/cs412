@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
@@ -9,6 +10,9 @@ class Profile(models.Model):
     Model for the data attributes of individual Facebook user profiles.
     '''
 
+    # Each profile will be associated with a USER
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
     # data attributes:
     first_name = models.TextField(blank=False)
     last_name = models.TextField(blank=False)
