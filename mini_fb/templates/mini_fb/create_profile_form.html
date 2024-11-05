@@ -2,23 +2,36 @@
 {% extends 'mini_fb/base.html' %}
 
 {% block content %}
-    <h2>Create a Profile</h2>
-    <form action="{% url 'show_all_profiles' %}">
-        <input type="submit" class="form-button" name="Cancel" value="Cancel">
-    </form>
-    <form method = 'POST'>
-        <table>
-            {{form.as_table}}
-            <tr>    
-                <td></td>
-                <td>   
-                    <input type='submit' class="form-button" name = 'Create Profile' value= 'Create Profile'>
+
+<h2>Create a Profile</h2>
+<form action="{% url 'show_all_profiles' %}">
+    <input type="submit" class="form-button" name="Cancel" value="Cancel">
+</form>
+
+<div class="form-container-create-profile">
+    <form method="POST" class="profile-form">
+        {% csrf_token %}
+
+        <table class="profile-table">
+            <tr>
+                <th colspan="2"><u>User Account Information</u></th>
+            </tr>
+            {{ user_form.as_table }}
+            
+            <tr>
+                <th colspan="2"><u>Profile Information</u></th>
+            </tr>
+            {{ form.as_table }}
+            
+            <tr>
+                <td> </td>
+                <td colspan="2" class="button-container">
+                    <input type="submit" class="form-button" name="Create Profile" value="Create Profile">
                 </td>
             </tr>
-
         </table>
-        {% csrf_token %}
     </form>
+</div>
     
    
 {% endblock %}

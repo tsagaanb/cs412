@@ -12,6 +12,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect
+from typing import Any
+from django.contrib.auth.forms import UserCreationForm
+
+
 
 
 # Create your views here.
@@ -40,7 +44,7 @@ class ShowProfilePageView(DetailView):
     model = Profile
     template_name = 'mini_fb/show_profile.html'
     context_object_name = 'profile' 
-    
+
     def get_context_data(self, **kwargs):
          # Call the base implementation first to get the context
         context = super().get_context_data(**kwargs)
@@ -64,6 +68,29 @@ class CreateProfileView(CreateView):
     def get_login_url(self) -> str:
         ''' return the URL required for login '''
         return reverse('login')
+
+    def form_valid(self, form):
+        ''' process both forms if valid '''
+        # reconstruct the UserCreateForm ffrom the POST data
+        user_form = UserCreationForm(self.request.POST)
+        
+        # check if both forms are valid
+        if user_form.is_valid():
+            user = user_form.save()
+            form.instance.user = user
+            # automatically log the user in after registration
+            login(self.request, user)
+
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        ''' add UserCreationForm to the context '''
+        context = super().get_context_data(**kwargs)
+        user_form = UserCreationForm
+        context['user_form'] = user_form
+        return context
+
+    
 
 
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
