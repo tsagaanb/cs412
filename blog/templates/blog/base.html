@@ -107,7 +107,7 @@ Put common code here, specific code in separate pages -->
                     <!-- URLs that show up depending on login -->
                     {% if request.user.is_authenticated %}
                         <li><a href="{% url 'create_article' %}">Create Article</a></li>
-                        <form method="POST" action="{% url 'logout' %}">
+                        <form method="POST" action="{% url 'blog_logout' %}">
                             {% csrf_token %}
                             <input type="submit" value="Logout">
                         </form>
@@ -115,7 +115,7 @@ Put common code here, specific code in separate pages -->
 
                     {% else %}
 
-                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'blog_login' %}">Login</a></li>
                     {% endif %}
 
                 </ul>

@@ -122,7 +122,7 @@ class CreateArticleView(LoginRequiredMixin, CreateView):
 
     def get_login_url(self) -> str:
         ''' return the URL required for login '''
-        return reverse('login')
+        return reverse('blog_login')
 
 
 class RegistrationView(CreateView):
