@@ -20,7 +20,7 @@ urlpatterns = [
     path(r'profile/<int:pk>/friend_suggestions', views.ShowFriendSuggestionsView.as_view(), name='friend_suggestions'),
     path(r'profile/<int:pk>/news_feed', views.ShowNewsFeedView.as_view(), name='news_feed'),
     path(r'login/', auth_views.LoginView.as_view(template_name='mini_fb/login.html'), name='login'),
-    path(r'logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path(r'logout/', auth_views.LogoutView.as_view(template_name='mini_fb/logged_out.html'), name='logout'),
 
 
 ]

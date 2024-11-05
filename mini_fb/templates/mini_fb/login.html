@@ -1,0 +1,22 @@
+<!-- templates/blog/templates/base.html -->
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+    <div class="login-container">
+        <h1>Login</h1>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+            {% else %}
+                <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
+            {% endif %}
+            <button type="submit">Login</button>
+        </form>
+        <hr>
+        <p>Don’t have an account? <br>
+            <a href="{% url 'create_profile' %}">Create an account here.</a>.
+        </p>
+    </div>
+{% endblock %}

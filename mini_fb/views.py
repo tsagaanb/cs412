@@ -34,6 +34,10 @@ class CreateProfileView(CreateView):
     def get_success_url(self):
         ''' displays the Profile model '''
         return self.object.get_absolute_url()
+        
+    def get_login_url(self) -> str:
+        ''' return the URL required for login '''
+        return reverse('login')
 
 
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
