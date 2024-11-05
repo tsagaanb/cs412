@@ -19,7 +19,16 @@ Put common code here, specific code in separate pages -->
                     {% block extra_nav_links %}
                     <!-- Block for additional nav links on specific pages -->
                     {% endblock %}
+                    
                 </ul>
+                <p>
+                    {% if request.user.is_authenticated %}
+                        Logged in user: {{ request.user }}
+                    {% else %}
+                        Not logged in.
+                    {% endif %}
+                </p>
+
             </nav>
         </header>
         

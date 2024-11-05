@@ -51,9 +51,10 @@ nav ul li a:hover {
 
 /* Main Content */
 main {
-    margin-top: 120px; /* Adjust to allow for fixed header */
+    margin-top: 160px; /* Adjust to allow for fixed header */
     margin-bottom: 100px;
     padding: 20px;
+    padding-top: 50px;
     width: 80%;
     margin: 100px auto 0;
 }
