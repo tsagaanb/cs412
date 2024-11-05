@@ -5,8 +5,10 @@
 <!-- Navigation Bar -->
 {% block extra_nav_links %}
     <li><a href="{% url 'show_all_profiles' %}">All Profiles</a> </li>
-    <li><a href="{% url 'show_profile' profile.pk %}">Profile Page</a> </li>
-    <li><a href="{% url 'news_feed' profile.pk %}">News Feed</a> </li>
+    {% if request.user.is_authenticated %}
+        <li><a href="{% url 'show_profile' profile.pk %}">Profile Page</a> </li>
+        <li><a href="{% url 'news_feed' profile.pk %}">News Feed</a> </li>
+    {% endif %}
 {% endblock %}
 
 <!-- Body -->
@@ -35,12 +37,14 @@
             </table>
         </div>
     </div>
-    
-    <div class="profile-button-container">
-        <a href="{% url 'create_status' profile.pk %}" class="form-button" style="margin: 0 10px;">Post a Status Message</a>
-        <a href="{% url 'update_profile' profile.pk %}" class="form-button" style="margin: 0 10px;">Update Profile</a>
 
-    </div>
+    {% if request.user.is_authenticated and request.user == profile.user %}
+        <div class="profile-button-container">
+            <a href="{% url 'create_status' profile.pk %}" class="form-button" style="margin: 0 10px;">Post a Status Message</a>
+            <a href="{% url 'update_profile' profile.pk %}" class="form-button" style="margin: 0 10px;">Update Profile</a>
+
+        </div>
+    {% endif %}
 
     <!-- Showing the friends list -->
     <h2 style="text-align: left; margin-top: 20px;"><u>{{ profile.first_name }}'s friends</u></h2> 
@@ -64,7 +68,9 @@
             <p>{{ profile.first_name }} has no friends yet.</p>
         {% endfor %}
     </div>
-    <a href="{% url 'friend_suggestions' profile.pk %}" class="form-button">Friend Suggestions</a>
+    {% if request.user.is_authenticated and request.user == profile.user %}
+        <a href="{% url 'friend_suggestions' profile.pk %}" class="form-button">Friend Suggestions</a>
+    {% endif %}
 
     
     
@@ -81,9 +87,10 @@
                         {% endfor %}
                     {% endif %}
                     <p><strong>{{ s.timestamp|date:"M d, Y P" }}</strong></p>
-                    <a href="{% url 'update_status' s.pk %}" class='form-button' style="font-size: 12px;padding: 5px 10px;">Update Status</a>
-                    <a href="{% url 'delete_status' s.pk %}" class='form-button' style="font-size: 12px;padding: 5px 10px;">Delete</a>
-
+                    {% if request.user.is_authenticated and request.user == profile.user %}
+                        <a href="{% url 'update_status' s.pk %}" class='form-button' style="font-size: 12px;padding: 5px 10px;">Update Status</a>
+                        <a href="{% url 'delete_status' s.pk %}" class='form-button' style="font-size: 12px;padding: 5px 10px;">Delete</a>
+                    {% endif %}
                     
                 </div>  
 
