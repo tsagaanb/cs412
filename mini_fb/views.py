@@ -7,6 +7,7 @@ from . forms import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, \
     DeleteView, View
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin 
 
 
 # Create your views here.
@@ -35,7 +36,7 @@ class CreateProfileView(CreateView):
         return self.object.get_absolute_url()
 
 
-class CreateStatusMessageView(CreateView):
+class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     ''' a view to show/process the CreateStatuseMessage form '''
     form_class = CreateStatusMessageForm
     template_name = "mini_fb/create_status_form.html"
@@ -68,7 +69,7 @@ class CreateStatusMessageView(CreateView):
         ''' redirect back to the Profile page after successful submission '''
         return reverse('show_profile', kwargs=self.kwargs)
 
-class UpdateProfileView(UpdateView):
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
     ''' a view to process the UpdateProfile form '''
     model = Profile 
     # when i try to run the code on the server, it kept saying 
@@ -79,7 +80,7 @@ class UpdateProfileView(UpdateView):
     template_name = "mini_fb/update_profile_form.html"
 
     
-class DeleteStatusMessageView(DeleteView):
+class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     ''' a view to delete a status message '''
     model = StatusMessage
     template_name = "mini_fb/delete_status_form.html"
@@ -89,7 +90,7 @@ class DeleteStatusMessageView(DeleteView):
         ''' redirect back to the Profile page after successful deletion '''
         return reverse('show_profile', kwargs={'pk': self.object.profile.id})
        
-class UpdateStatusMessageView(UpdateView):
+class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     ''' A view to update a status message '''
     
     model = StatusMessage
@@ -102,7 +103,7 @@ class UpdateStatusMessageView(UpdateView):
         return reverse('show_profile', kwargs={'pk': self.object.profile.id})
 
 
-class CreateFriendView(View):
+class CreateFriendView(LoginRequiredMixin, View):
     ''' A view to create a Friend relation between two Profile objects '''
 
     def dispatch(self, request, *args, **kwargs):
@@ -120,14 +121,14 @@ class CreateFriendView(View):
         return redirect(reverse('show_profile', kwargs={'pk': pk}))
 
 
-class ShowFriendSuggestionsView(DetailView):
+class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView):
     ''' A view to show all the friend suggestions '''
 
     model = Profile
     template_name = "mini_fb/friend_suggestions.html"
     context_object_name = "profile"
     
-class ShowNewsFeedView(DetailView):
+class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     ''' A view to show the newsfeed for a Profile '''
     model = Profile
     template_name = "mini_fb/news_feed.html"
