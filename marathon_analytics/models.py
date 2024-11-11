@@ -53,7 +53,7 @@ def load_data():
     # delete existing records to prevent duplicates:
     Result.objects.all().delete()
     
-    filename = '/Users/tsagaandari0604/Downloads/2023_chicago_results.csv'
+    filename = './2023_chicago_results.csv'
     f = open(filename)
     f.readline() # discard headers
     # for row in range(5):
