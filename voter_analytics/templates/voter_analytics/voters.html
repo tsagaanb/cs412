@@ -1,0 +1,140 @@
+<!-- voter_analytics/templates/voter_analytics/voters.html -->
+
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2 class="header-title">Voters</h2>
+
+    <!-- Search Form -->
+    <form method="GET" action="{% url 'voters' %}">
+        <div class="filter-form">
+            <h3 class="form-title">Search Form</h3>
+            
+            <!-- Party Affiliation Filter -->
+            <div class="form-row">
+                <label for="party_affiliation">Party Affiliation:</label>
+                <select name="party_affiliation" id="party_affiliation">
+                    <option value="">Select party</option>
+                    <option value="U">U</option>
+                    <option value="D">D</option>
+                    <option value="R">R</option>
+                    <option value="J">J</option>
+                    <option value="A">A</option>
+                    <option value="CC">CC</option>
+                    <option value="X">X</option>
+                    <option value="L">L</option>
+                    <option value="Q">Q</option>
+                    <option value="S">S</option>
+                    <option value="FF">FF</option>
+                    <option value="G">G</option>
+                    <option value="HH">HH</option>
+                    <option value="T">T</option>
+                    <option value="AA">AA</option>
+                    <option value="GG">GG</option>
+                    <option value="Z">Z</option>
+                    <option value="O">O</option>
+                    <option value="P">P</option>
+                    <option value="E">E</option>
+                    <option value="V">V</option>
+                    <option value="H">H</option>
+                    <option value="Y">Y</option>
+                    <option value="W">W</option>
+                    <option value="EE">EE</option>
+                    <option value="K">K</option>
+                </select>
+            </div>
+
+            <!-- Minimum Date of Birth Filter -->
+            <div class="form-row">
+                <label for="min_dob">Minimum Birth Year:</label>
+                <select name="min_dob" id="min_dob">
+                    <option value="">Select Year</option>
+                    {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Maximum Date of Birth Filter -->
+            <div class="form-row">
+                <label for="max_dob">Maximum Birth Year:</label>
+                <select name="max_dob" id="max_dob">
+                    <option value="">Select Year</option>
+                    {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Voter Score Filter -->
+            <div class="form-row">
+                <label for="voter_score">Voter Score:</label>
+                <select name="voter_score" id="voter_score">
+                    <option value="">Select Score</option>
+                    {% for score in voter_scores %}
+                        <option value="{{ score }}">{{ score }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Specific Elections Filters -->
+            <div class="form-row checkbox-group">
+                <label>Voted in Elections:</label>
+                <label><input type="checkbox" name="v20state"> 2020 State Election</label>
+                <label><input type="checkbox" name="v21town"> 2021 Town Election</label>
+                <label><input type="checkbox" name="v21primary"> Primary Election</label>
+                <label><input type="checkbox" name="v22general"> 2022 General Election</label>
+                <label><input type="checkbox" name="v23town"> 2023 Town Election</label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-row form-buttons">
+                <button type="submit" class="filter-button">Search</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Voter Table -->
+    <table>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Street Address</th>
+            <th>Date of Birth</th>
+            <th>Party Affiliation</th>
+            <th>Voter Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for voter in voters %}
+          <tr>
+            <td><a href="{% url 'voter' voter.pk %}">{{ voter.first_name }}</a></td>
+            <td>{{ voter.last_name }}</td>
+            <td>{{ voter.address_street_number }} {{ voter.address_street_name }}</td>
+            <td>{{ voter.date_of_birth|date:"F j, Y" }}</td>
+            <td>{{ voter.party_affiliation }}</td>
+            <td>{{ voter.voter_score }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    <!-- Pagination controls -->
+    <div class="pagination">
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+          {% endif %}
+      
+          <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+          </span>
+      
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+          {% endif %}
+        </span>
+      </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,295 @@
+/* Reset and Base Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f6f9;
+    font-family: "Verdana", sans-serif;
+    color: #28368a;
+    line-height: 1.6;
+    padding-top: 80px;
+}
+
+/* Header and Navigation */
+header {
+    background-color: #28368a;
+    color: white;
+    padding: 0px 0; 
+    text-align: center;
+    font-size: 20px; 
+    font-weight: bold;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+nav ul {
+    list-style-type: none;
+    text-align: center;
+    padding: 0; 
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 10px; 
+}
+
+nav ul li a {
+    color: white;
+    font-size: 18px; 
+    text-decoration: none;
+    padding: 0px 5px; 
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #576ca8;
+}
+
+
+/* Main Content */
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: max-width 0.3s ease;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+/* Headings */
+h1 {
+    color: white;
+    margin-bottom: 8px;
+    text-align: center;
+    font-size: 25px;
+    margin-top: 10px;
+}
+.header-title {
+    color: #28368a;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+
+}
+
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 0.95rem;
+    color: #28368a;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #576ca8;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f4f6f9;
+}
+
+tr:hover {
+    background-color: #e6e9f0;
+}
+
+/* Pagination */
+.pagination {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.pagination a {
+    color: #28368a;
+    text-decoration: none;
+    font-size: 1rem;
+    margin: 0 5px;
+    padding: 8px 12px;
+    border: 1px solid #576ca8;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #576ca8;
+    color: white;
+}
+
+.pagination .current {
+    font-size: 1rem;
+    color: white;
+    background-color: #576ca8;
+    border: 1px solid #576ca8;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+/* Filter Form Styling */
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: left;
+    color: #28368a;
+    margin-bottom: 15px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-row label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #333;
+    width: 50%;
+}
+
+.form-row select, .form-row input[type="checkbox"] {
+    padding: 8px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 45%;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.checkbox-group label {
+    font-weight: normal;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.filter-button {
+    background-color: #28368a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-button:hover {
+    background-color: #576ca8;
+}
+
+/* Detail Table Styling */
+.detail-table {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.detail-table th, .detail-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.detail-table th {
+    background-color: #4457c8;
+    color: white;
+    font-weight: bold;
+}
+
+.detail-table tr:last-child td {
+    border-bottom: none;
+}
+
+.map-link, .back-link {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.map-link a, .back-link a {
+    color: #28368a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.map-link a:hover, .back-link a:hover {
+    text-decoration: underline;
+}
+
+/* Back Button at the Top Left */
+.back-button-top {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.back-button-top .button {
+    background-color: #28368a;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.back-button-top .button:hover {
+    background-color: #576ca8;
+}
+
+/* Adjust other buttons and elements */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+

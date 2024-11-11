@@ -1,0 +1,80 @@
+<!-- voter_analytics/templates/voter_analytics/voter_detail.html -->
+
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+  <div class="container">
+
+    <div class="back-button-top">
+      <a href="{% url 'voters' %}" class="button"><- Back to Voter List</a>
+    </div>
+
+    <h2 class="header-title">Voter Details</h2>
+
+    <table class="detail-table">
+      <tr>
+        <th>First Name</th>
+        <td>{{ voter.first_name }}</td>
+      </tr>
+      <tr>
+        <th>Last Name</th>
+        <td>{{ voter.last_name }}</td>
+      </tr>
+      <tr>
+        <th>Address</th>
+        <td>{{ voter.address_street_number }} {{ voter.address_street_name }} {{ voter.address_apt_number }}</td>
+      </tr>
+      <tr>
+        <th>Zip Code</th>
+        <td>{{ voter.address_zip_code }}</td>
+      </tr>
+      <tr>
+        <th>Date of Birth</th>
+        <td>{{ voter.date_of_birth|date:"F j, Y" }}</td>
+      </tr>
+      <tr>
+        <th>Date of Registration</th>
+        <td>{{ voter.date_of_registration|date:"F j, Y" }}</td>
+      </tr>
+      <tr>
+        <th>Party Affiliation</th>
+        <td>{{ voter.party_affiliation }}</td>
+      </tr>
+      <tr>
+        <th>Precinct Number</th>
+        <td>{{ voter.precinct_number }}</td>
+      </tr>
+      <tr>
+        <th>Voter Score</th>
+        <td>{{ voter.voter_score }}</td>
+      </tr>
+      <tr>
+        <th>Voted in 2020 State Election</th>
+        <td>{{ voter.v20state }}</td>
+      </tr>
+      <tr>
+        <th>Voted in 2021 Town Election</th>
+        <td>{{ voter.v21town }}</td>
+      </tr>
+      <tr>
+        <th>Voted in 2021 Primary Election</th>
+        <td>{{ voter.v21primary }}</td>
+      </tr>
+      <tr>
+        <th>Voted in 2022 General Election</th>
+        <td>{{ voter.v22general }}</td>
+      </tr>
+      <tr>
+        <th>Voted in 2023 Town Election</th>
+        <td>{{ voter.v23town }}</td>
+      </tr>
+    </table>
+
+    <!-- Google Maps Link -->
+    <div class="map-link">
+      <a href="https://www.google.com/maps/search/?api=1&query={{ voter.address_street_number }}+{{ voter.address_street_name }}+{{ voter.address_zip_code }}" target="_blank">
+        View Address on Google Maps
+      </a>
+    </div>
+  </div>
+{% endblock %}

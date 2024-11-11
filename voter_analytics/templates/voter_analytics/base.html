@@ -1,0 +1,27 @@
+<!-- voter_analytics/templates/voter_analytics/base.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Analytics</title>
+    <link rel="stylesheet" href="{% static 'voter_styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Voter Analytics</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'voters' %}">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
