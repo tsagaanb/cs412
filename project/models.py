@@ -19,7 +19,7 @@ class UserProfile(models.Model):
     user_profile_pic = models.ImageField(blank=False)
 
     def __str__(self):
-        ''' returns a string representation of the userprofile '''
+        ''' Returns a string representation of the userprofile '''
         return f"{self.user_first_name} {self.user_last_name}"
 
 
@@ -36,9 +36,21 @@ class Author(models.Model):
     author_biography = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        ''' returns a string representation of this author '''
+        ''' Returns a string representation of this author '''
         return f"{self.author_first_name} {self.author_last_name}"
 
+
+# Used for dividing all the books to different genres that they belong in 
+GENRE_GROUPS = {
+    "Fiction": ["general", "novel", "literature", "fiction", "contemporary"],
+    "Non-Fiction": ["biography", "memoir", "history", "self-help", "non-fiction"],
+    "Mystery & Thriller": ["mystery", "thriller", "crime", "suspense"],
+    "Science Fiction & Fantasy": ["science fiction", "fantasy", "dystopian", "space"],
+    "Romance": ["romance", "love", "romantic"],
+    "Horror": ["horror", "scary", "paranormal"],
+    "Children's Books": ["children", "kids", "juvenile"],
+    "Others": []  # Catch-all for unmatched categories
+}
 
 class Book(models.Model):
     '''
@@ -59,8 +71,19 @@ class Book(models.Model):
     book_languages = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        ''' returns a string representation of this book '''
+        ''' Returns a string representation of this book '''
         return f"{self.book_title} by {self.book_author}"
+
+    def classify_genre(self):
+        """
+        Classify the book into one of the predefined genres based on book_categories.
+        """
+        categories = (self.book_categories or "").lower()  # Convert to lowercase for comparison
+        for genre, keywords in GENRE_GROUPS.items():
+            for keyword in keywords:
+                if keyword in categories:
+                    return genre
+        return "Others"  # Default to "Others" if no match is found
 
 
 class Review(models.Model):
@@ -78,7 +101,7 @@ class Review(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        ''' returns a string representation of a book review written by a user '''
+        ''' Returns a string representation of a book review written by a user '''
         return f"Review of {self.book.book_title} by {self.user.user_first_name}"
 
 
@@ -97,7 +120,7 @@ class BookProgress(models.Model):
     rating = models.IntegerField(blank=True, null=True, choices=[(i, i) for i in range(1, 6)])  # 1-5 rating
 
     def __str__(self):
-        ''' returns a string representation of the book progress for a user '''
+        ''' Returns a string representation of the book progress for a user '''
         return f"book progress on {self.book.book_title} by {self.user.user_first_name}"
 
 class Friendship(models.Model):
@@ -111,6 +134,6 @@ class Friendship(models.Model):
     anniversary = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        ''' returns a string representation of a frienship between two users '''
+        ''' Returns a string representation of a frienship between two users '''
         return f"{self.user1.user_first_name} {self.user1.user_last_name} & \
             {self.user2.user_first_name} {self.user2.user_last_name}"

@@ -1,0 +1,61 @@
+<!-- project/templates/project/show_book.html -->
+
+{% extends 'project/base.html' %}
+
+<!-- Navigation Bar -->
+
+<!-- Body -->
+{% block content %}
+    <a href="{% url 'show_all_books' %}" class="back-button">← Back to All Books</a>
+
+    <!-- Book Detail table -->
+    <table class="book-detail">
+        
+        <tr>
+
+            <!-- Book cover image -->
+            <td>
+                <div class="book-cover-image">
+                    {% if book.book_cover_image %}
+                        <img src="{{ book.book_cover_image }}" alt="{{ book.book_title }}'s cover image" style="max-height: 100%; width: 200px;">
+                    {% else %}
+                        <img src="/static/images/placeholder.png" alt="No Cover Image" style="max-height: 100%; width: 200px;">
+                    {% endif %}
+                </div>
+            </td>
+
+            <!-- Book information  -->
+            <td>
+                <div class="book-information">
+                    <b><h3><b>Title:</b> {{ book.book_title }}</h3></b>
+                    <h4><b>Author:</b> {{ book.book_author }}</h4>
+                    
+                    {% if book.book_categories %}
+                        <p><b>Categories:</b> {{ book.book_categories }}</p>
+                    {% endif %}
+
+                    {% if book.book_categories %}
+                        <p><b>Subtitle:</b> {{ book.book_subtitle }}</p>
+                    {% endif %}
+
+                    {% if book.book_categories %}
+                        <p><b>Description:</b> {{ book.book_description }}</p>
+                    {% endif %}
+
+                    {% if book.book_categories %}
+                        <p><b>Publish Date:</b> {{ book.book_publish_date }}</p>
+                    {% endif %}
+
+                    {% if book.book_categories %}
+                        <p><b>Page Count:</b> {{ book.book_page_count }}</p>
+                    {% endif %}
+
+                    {% if book.book_categories %}
+                        <p><b>Language:</b> {{ book.book_languages }}</p>
+                    {% endif %}
+
+                </div>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

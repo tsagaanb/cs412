@@ -1,0 +1,36 @@
+<!-- project/templates/project/show_all_books.html -->
+
+{% extends 'project/base.html' %}
+
+<!-- Navigation Bar -->
+
+
+<!-- Body -->
+{% block content %}
+    <div class="genre-section">
+        <u><h2>Books by Genre</h2></u>
+
+        {% for genre, genre_books in genre_groups.items %}
+            <h3>{{ genre }}</h3>
+            <div class="book-grid">
+                {% for book in genre_books %}
+                    <div class="book-card">
+                        <a href="{% url 'show_book' book.pk %}">
+                        <div class="book-cover-image">
+                            {% if book.book_cover_image %}
+                                <img src="{{ book.book_cover_image }}" alt="{{ book.book_title }}'s cover image">
+                            {% else %}
+                                <img src="/static/images/placeholder.png" alt="No Cover Image">
+                            {% endif %}
+                        </div>
+                        <div class="book-info">
+                            <h4>{{ book.book_title }}</h4>
+                            <p>by {{ book.book_author }}</p>
+                        </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

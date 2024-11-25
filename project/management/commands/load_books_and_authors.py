@@ -178,7 +178,7 @@ class Command(BaseCommand):
         """
         Main command execution logic.
         """
-        query = "fiction"  # Modify this query to fetch different types of books
+        query = "bestsellers"  # Modify this query to fetch different types of books
         max_results = 40
         start_index = 0
 

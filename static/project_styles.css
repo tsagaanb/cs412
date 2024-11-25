@@ -1,0 +1,134 @@
+/* project_styles.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Playfair+Display, sans-serif;
+    line-height: 1.6;
+    background-color: #eccba4;
+}
+
+/* Navigation Bar */
+header {
+    background-color: #86a3d2;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    font-size: 30px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+nav ul li {
+    margin: 0 15px;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #87CEFA;
+}
+
+/* Show All Books Page */
+
+.genre-section {
+    margin: 60px;
+    margin-top: 140px;
+    margin-bottom: 40px;
+    font-size:18px;
+
+
+}
+
+.book-grid {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping into rows */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden;
+    gap: 15px; /* Space between book cards */
+    padding: 10px; /* Add space for better scroll visibility */
+    margin-bottom: 30px; /* Space between genres */
+    scroll-behavior: smooth; /* Smooth scrolling effect */
+    background-color: rgb(189, 219, 226);
+
+
+}
+
+.book-card {
+    flex: 0 0 auto; /* Ensure each card takes its own space */
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 350px; /* Adjust height dynamically */
+    max-width: 150px; /* Control maximum width of each book card */
+}
+
+.book-card a {
+    text-decoration: none;
+    color: inherit;  /* Optional: keeps the color consistent with surrounding text */
+}
+
+.book-cover-image img {
+    width: 100%;
+    height: auto;
+    max-height: 200px; /* Restrict image height */
+    border-radius: 3px;
+}
+
+.book-info {
+    font-size: 0.9em;
+    margin-top: 10px;
+    text-align: center;
+    word-wrap: break-word; /* Prevent long text overflow */
+}
+
+
+/* Book Detail Page */
+.book-detail {
+    margin: 40px;
+    margin-top: 120px;
+    background: rgb(223, 232, 234);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    display: flex;
+}
+
+.book-information {
+    margin: 40px;
+}
+
+.book-information h3 {
+    margin-top: 15px;
+}
+
+.book-information h4 {
+    margin-top: 15px;
+}
+
+.book-information p {
+    margin-top: 15px;
+}
