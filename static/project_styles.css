@@ -6,9 +6,16 @@
 }
 
 body {
-    font-family: Playfair+Display, sans-serif;
+    /* font-family: Roboto, sans-serif; */
     line-height: 1.6;
-    background-color: #eccba4;
+    /* background-color: #eccba4; */
+    background-image: url('/static/images/background.gif'); /* Replace with the path to your GIF */
+    background-size: cover; /* Ensures the GIF covers the entire background */
+    background-repeat: no-repeat; /* Prevents tiling of the GIF */
+    background-position: center; /* Centers the GIF */
+    background-attachment: fixed; 
+    font-family: 'Roboto';
+    font-weight: 300;
 }
 
 /* Navigation Bar */
@@ -21,6 +28,8 @@ header {
     width: 100%;
     top: 0;
     z-index: 100;
+    font-family: 'Roboto';
+    font-weight: 300;
 }
 
 header h1 {
@@ -44,6 +53,11 @@ nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: x-large;
+    border: 1px white;
+
 }
 
 nav ul li a:hover {
@@ -52,28 +66,46 @@ nav ul li a:hover {
 
 /* Show All Books Page */
 
+
 .genre-section {
     margin: 60px;
     margin-top: 140px;
     margin-bottom: 40px;
     font-size:18px;
+}
+
+.genre-section h2 {
+    text-align: center;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.genre-section h3 {
+    color: white;
+    margin-bottom: 15px;
+}
+
+.book-grid-container {
+    background-color:#86a3d2;
+    border-radius: 8px;
+    padding: 15px; /* Add space for better scroll visibility */
+    margin-bottom: 30px; /* Space between genres */
+
 
 
 }
-
 .book-grid {
     display: flex;
     flex-wrap: nowrap; /* Prevent wrapping into rows */
     overflow-x: auto; /* Enable horizontal scrolling */
     overflow-y: hidden;
     gap: 15px; /* Space between book cards */
-    padding: 10px; /* Add space for better scroll visibility */
-    margin-bottom: 30px; /* Space between genres */
     scroll-behavior: smooth; /* Smooth scrolling effect */
-    background-color: rgb(189, 219, 226);
-
-
+    background-color: rgb(229, 228, 214);
+    border-radius: 8px;
+    padding: 15px; /* Add space for better scroll visibility */
 }
+
 
 .book-card {
     flex: 0 0 auto; /* Ensure each card takes its own space */
@@ -107,10 +139,18 @@ nav ul li a:hover {
 
 
 /* Book Detail Page */
-.book-detail {
+.book-container {
     margin: 40px;
     margin-top: 120px;
     background: rgb(223, 232, 234);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+}
+.book-detail {
+    margin: 5px;
+    background: rgb(252, 252, 252);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 40px;
@@ -131,4 +171,8 @@ nav ul li a:hover {
 
 .book-information p {
     margin-top: 15px;
+    font-family: 'Roboto';
+    font-weight: 300;
+    line-height: 1.5;
+    word-spacing: 7;
 }

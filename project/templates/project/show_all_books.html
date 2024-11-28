@@ -8,10 +8,11 @@
 <!-- Body -->
 {% block content %}
     <div class="genre-section">
-        <u><h2>Books by Genre</h2></u>
+        <h2><u>Books by Genre</u></h2>
 
         {% for genre, genre_books in genre_groups.items %}
-            <h3>{{ genre }}</h3>
+        <div class="book-grid-container">
+            <h3><u>{{ genre }}</u></h3>
             <div class="book-grid">
                 {% for book in genre_books %}
                     <div class="book-card">
@@ -31,6 +32,7 @@
                     </div>
                 {% endfor %}
             </div>
+        </div>
         {% endfor %}
     </div>
 {% endblock %}

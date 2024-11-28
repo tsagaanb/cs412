@@ -1,0 +1,16 @@
+<!-- project/tmeplates/project/logged_out.html -->
+
+{% extends 'project/base/html' %}
+
+{% block content %}
+    <div class="logout-container">
+
+        <h3>You have been logged out.</h3>
+        
+        <p>
+            <a href="{% url 'login' %}">Log in again</a> or
+            <a href="{% url 'show_all_books %}">Browse Books</a>.
+        </p>
+
+    </div>
+{% endblock %}

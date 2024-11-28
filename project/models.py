@@ -22,6 +22,48 @@ class UserProfile(models.Model):
         ''' Returns a string representation of the userprofile '''
         return f"{self.user_first_name} {self.user_last_name}"
 
+    def get_friends(self):
+        ''' Returns all the frienships that exist with this User '''
+        
+        # find all the frienships that the user is involved with
+        # user can either be user1 or user2
+        friendships1 = Friendship.objects.filter(user1=self)
+        friendships2 = Frienship.objects.filter(user2=self)
+
+        friends = []
+        # if the user was user1:
+        for friendship in friendships1:
+            friends.append(friendship.user2)
+
+        # if the user was user2:
+        for frienship in frienships2:
+            friends.append(friendship.user1)
+
+        return friends
+
+    def add_friend(self, other):
+        ''' A method that takes a parameter other, which refers to anotherr
+            UserProfile object and adds a Frienship between the 2 UserProfiles '''
+
+        # if user is trying to friend themselves
+        if self == other:
+            raise ValueError("A profile can't friend itself.")
+
+        # Check if self and other are already friends 
+        existing_friend = Friendship.objects.filter(user1=self, user2=other) | \
+                            Friendship.object.fitler(user1=other, user2=self)
+
+        if existing_friend:
+            print("Friendship already exists!")
+
+        # create frienship if not already friends
+        else:
+            friendship = Friendship()
+            friendship.user1 = self
+            friendship.user2 = other
+            friendship.save()
+
+
 
 class Author(models.Model):
     '''
@@ -97,6 +139,7 @@ class Review(models.Model):
     book = models.ForeignKey('Book', on_delete=models.CASCADE, blank=True, null=True)
 
     # other data attributes:
+    rating = models.IntegerField(blank=True, null=True, choices=[(i, i) for i in range(1, 6)])  # 1-5 rating
     content = models.TextField(blank=False)
     timestamp = models.DateTimeField(auto_now_add=True)
 

@@ -1,0 +1,24 @@
+<!-- project/templates/project/login.html -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+    <div class="login-container">
+        <h1>Login</h1>
+        <form action="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+            {% else %}
+                <input type="hidden" name="next" value="{% url 'show_all_books' %}">
+            {% endif %}
+
+            <button type="submit">Login</button>
+        </form>
+        <hr>
+        <p>Don't have an account?</p><br>
+            <a href="{% url 'create_user_profile %}"></a>.
+        </p>
+    </div>
+{% endblock %}
