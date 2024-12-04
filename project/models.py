@@ -81,6 +81,12 @@ class Author(models.Model):
         ''' Returns a string representation of this author '''
         return f"{self.author_first_name} {self.author_last_name}"
 
+    def get_books(self):
+        ''' Returns all the books written by the specified author '''
+        books = Book.objects.filter(book_author = self).order_by('book_publish_date')
+        return books
+
+
 
 # Used for dividing all the books to different genres that they belong in 
 GENRE_GROUPS = {

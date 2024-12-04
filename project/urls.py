@@ -9,7 +9,8 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path(r'', views.ShowAllBooksView.as_view(), name='show_all_books'),
     path(r'book/<int:pk>/', views.ShowBookDetailsView.as_view(), name='show_book'),
+    path(r'authors/', views.ShowAllAuthorsView.as_view(), name='show_all_authors'),
+    path(r'authors/<int:pk>/', views.ShowAuthorDetailsView.as_view(), name='show_author'),
     path(r'login/', auth_views.LoginView.as_view(template_name='project/login.html'), name='login'),
     path(r'logout/', auth_views.LogoutView.as_view(template_name='project/logged_out.html'), name='logout'),
-
 ]

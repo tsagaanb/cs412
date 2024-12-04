@@ -1,0 +1,54 @@
+<!-- project/templates/project/show_author.html -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+    <a href="{% url 'show_all_authors' %}" class="back-button">← Back to All Authors</a>
+
+    <div class="author-detail">
+        <h2>{{ author.author_first_name }} {{ author.author_last_name }}</h2>
+
+        {% if author.author_birth_date %}
+            <p><b>Birth Date:</b> {{ author.author_birth_date }}</p>
+        {% else %}
+            <p><b>Birth Date:</b> Not Available</p>
+        {% endif %}
+
+        {% if author.author_death_date %}
+            <p><b>Death Date:</b> {{ author.author_death_date }}</p>
+        {% else %}
+            <p><b>Death Date:</b> Not Available</p>
+        {% endif %}
+
+        {% if author.author_biography %}
+            <p><b>Biography:</b> {{ author.author_biography }}</p>
+        {% else %}
+            <p><b>Biography:</b> Not Available</p>
+        {% endif %}
+    </div>
+
+    <div class="author-books">
+        <h3>Books by {{ author.author_first_name }} {{ author.author_last_name }}</h3>
+        <div class="author-book-grid">
+            {% for book in author.get_books %}
+                <div class="author-book-card">
+                    <a href="{% url 'show_book' book.pk %}">
+                        <div class="book-cover-image">
+                            {% if book.book_cover_image %}
+                                <img src="{{ book.book_cover_image }}" alt="{{ book.book_title }}'s cover image" style="max-width: 200px; max-height: 300px;">
+                            {% else %}
+                                <img src="/static/images/placeholder.png" alt="No Cover Image" style="max-width: 200px; max-height: 300px;">
+                            {% endif %}
+                        </div>
+                        <div class="book-info">
+                            <h4>{{ book.book_title }}</h4>
+                            <p>{{ book.book_publish_date|date:"M d, Y" }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% empty %}
+                <p>No books found for this author.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

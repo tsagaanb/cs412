@@ -16,7 +16,8 @@
                 <ul>
                     <!-- URLs that do not depend on authentication -->
                     <li><a href="{% url 'show_all_books' %}">All Books</a></li>
-
+                    <li><a href="{% url 'show_all_authors' %}">All Authors</a></li>
+                    
                     <!-- URLs that show up depending on login -->
 
                     {% block extra_nav_links %}

@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from django.views.generic import ListView, DetailView, CreateView, \
-                                 UpdateView, DeleteView
+                                 UpdateView, DeleteView, View
 from django.urls import reverse
 from collections import defaultdict
 from typing import Any
@@ -47,7 +47,10 @@ class ShowAllAuthorsView(ListView):
     model = Author
     template_name = 'project/show_all_authors.html'
     context_object_name = 'authors'
-
+    
+    def get_queryset(self):
+        # Order authors alphabetically by first name
+        return Author.objects.all().order_by('author_first_name')
 
 class ShowBookDetailsView(DetailView):
     ''' A view to show the details of one selected book '''

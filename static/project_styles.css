@@ -33,7 +33,7 @@ header {
 }
 
 header h1 {
-    font-size: 30px;
+    font-size: 25px;
 }
 
 nav ul {
@@ -55,7 +55,7 @@ nav ul li a {
     font-weight: bold;
     font-family: Roboto;
     font-weight: 300;
-    font-size: x-large;
+    font-size: 18px;;
     border: 1px white;
 
 }
@@ -132,6 +132,14 @@ nav ul li a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: 350px; /* Adjust height dynamically */
     max-width: 150px; /* Control maximum width of each book card */
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+
+}
+
+.book-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+
 }
 
 .book-card a {
@@ -162,7 +170,7 @@ nav ul li a:hover {
 /* Book Detail Page */
 .book-container {
     margin: 40px;
-    margin-top: 150px;
+    margin-top: 140px;
     background: rgb(223, 232, 234);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -232,4 +240,126 @@ nav ul li a:hover {
     background-color: #86a3d2;
     color: white;
 
+}
+
+/* All Authors List View */
+/* Container for the list */
+.authors-container {
+    padding: 20px;
+    background-color: #86a3d2;
+    border-radius: 8px;
+    margin: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 140px;
+}
+
+/* Section title */
+.section-title {
+    font-family: 'Roboto';
+    font-size: 25px;
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    text-decoration: underline;
+}
+
+
+/* Grid layout for authors */
+.authors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    background-color: rgb(229, 228, 214); 
+    gap: 15px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Each author card */
+.author-card {
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover effect for cards */
+.author-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Author link styling */
+.author-card a {
+    text-decoration: none;
+    font-family: 'Merriweather', serif;
+    font-size: 1em;
+    font-weight: bold;
+    color: #444;
+    text-transform: capitalize;
+}
+
+/* Hover effect for links */
+.author-card a:hover {
+    color: #007acc;
+}
+
+/* Adjust mobile view */
+@media (max-width: 768px) {
+    .authors-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    .author-card {
+        padding: 8px;
+    }
+}
+
+
+/* Author Detail View */
+.author-detail {
+    padding: 20px;
+    text-align: left;
+    margin: 0 auto;
+    max-width: 600px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.author-books {
+    margin-top: 40px;
+    padding: 20px;
+}
+
+.author-book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.author-book-card {
+    width: 200px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 10px;
+}
+
+.author-book-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.author-book-card img {
+    border-radius: 8px;
+}
+
+.author-book-card h4 {
+    font-size: 1rem;
+    margin-top: 10px;
+    font-weight: bold;
 }
