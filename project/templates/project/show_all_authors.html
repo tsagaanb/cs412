@@ -13,11 +13,11 @@
 
         <div class="authors-grid">
             {% for author in authors %}
-                <div class="author-card">
-                    <a href="{% url 'show_author' author.pk %}">
-                        <p>{{ author.author_first_name }} {{ author.author_last_name }}</p>
-                    </a>
-                </div>
+                    <div class="author-card">
+                        <a href="{% url 'show_author' author.pk %}">
+                            <p>{{ author.author_first_name }} {{ author.author_last_name }}</p>
+                        </a>
+                    </div>
             {% endfor %}
         </div>
     </div>

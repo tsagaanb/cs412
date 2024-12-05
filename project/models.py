@@ -87,16 +87,20 @@ class Author(models.Model):
         return books
 
 
-
 # Used for dividing all the books to different genres that they belong in 
 GENRE_GROUPS = {
-    "Fiction": ["general", "novel", "literature", "fiction", "contemporary"],
-    "Non-Fiction": ["biography", "memoir", "history", "self-help", "non-fiction"],
-    "Mystery & Thriller": ["mystery", "thriller", "crime", "suspense"],
-    "Science Fiction & Fantasy": ["science fiction", "fantasy", "dystopian", "space"],
-    "Romance": ["romance", "love", "romantic"],
-    "Horror": ["horror", "scary", "paranormal"],
-    "Children's Books": ["children", "kids", "juvenile"],
+    "Fiction": ["general", "novel", "literature", "fiction", "contemporary", "historical fiction", "drama", "adventure", "mythology","magical realism"],
+    "Non-Fiction": ["biography", "memoir", "history", "self-help", "non-fiction", "autobiography", "essays", "journalism", "politics", "philosophy", "economics", "psychology", "sociology", "travel", "education", "science", "true crime"],
+    "Mystery & Thriller": ["mystery", "thriller", "crime", "suspense", "detective", "whodunit", "spy", "noir", "legal thriller"],
+    "Science Fiction & Fantasy": ["science fiction", "fantasy", "dystopian", "space", "cyberpunk", "time travel", "post-apocalyptic", "steampunk", "high fantasy", "dark fantasy", "superheroes", "aliens", "epic fantasy"],
+    "Romance": ["romance", "love", "romantic", "chick-lit", "historical romance", "erotica", "young adult romance", "young adult romance", "young adult romance"],
+    "Horror": ["horror", "scary", "paranormal", "gothic","vampires", "ghosts", "ghost stories", "psychological horror", "slasher", "zombies", "demons"],
+    "Children's Books": ["children", "kids", "juvenile", "middle grade", "picture books", "young adult", "nursery rhymes", "fairy tales", "board books"],
+    "Lifestyle": ["health", "dating", "work-out", "health and wellness", "parenting", "self-improvement", "personal development", "mindfulness", "productivity", "wellness", "cooking"],
+    "Technology": ["technology", "computer", "artificial intelligence", "data science", "computer science", "coding", "robotics", "software engineering"],
+    "History": ["history", "ancient history", "military history", "world war", "medieval", "modern history", "cultural history"],
+    "Literature": ["literature", "classic literature", "poetry", "literary fiction", "short stories", "contemporary literature", "plays"],
+    "Art": ["painting", "drawing", "sculpture", "photography", "visual arts", "modern art", "art history", "digital art"],
     "Others": []  # Catch-all for unmatched categories
 }
 

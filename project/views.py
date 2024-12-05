@@ -19,6 +19,29 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin 
 from django.contrib.auth.forms import UserCreationForm
 
+# imports used for language selection
+from django.views.decorators.csrf import csrf_exempt
+
+
+@csrf_exempt
+def set_language(request):
+    ''' View to set the user's preferred language in the session '''
+    if request.method == 'POST':
+        language = request.POST.get('language', 'all')  # Default to All Books
+        request.session['language'] = language
+    return redirect(request.META.get('HTTP_REFERER', '/'))  # Redirect to the previous page
+
+def get_books(request):
+    ''' Returns books based on the selected language or show all books by default '''
+
+    selected_language = request.session.get('language', 'all')  # Default to showing all books if no language is selected
+    if selected_language and selected_language != 'all':
+        books = Book.objects.filter(book_languages=selected_language)
+    else:
+        books = Book.objects.all()  # Show all books when 'All Books' is selected or no language is set
+    return books
+
+
 
 class ShowAllBooksView(ListView):
     ''' A view to show a list of all the Books '''
@@ -41,16 +64,31 @@ class ShowAllBooksView(ListView):
         context['genre_groups'] = dict(genre_groups)  # Convert defaultdict to a normal dict for the template
         return context
 
+    def get_queryset(self):
+        # Use the get_books function to get books based on language
+        return get_books(self.request)
+
+
 class ShowAllAuthorsView(ListView):
     ''' A view to show a list of all the Authors '''
 
     model = Author
     template_name = 'project/show_all_authors.html'
     context_object_name = 'authors'
-    
+
     def get_queryset(self):
-        # Order authors alphabetically by first name
-        return Author.objects.all().order_by('author_first_name')
+        # Get the selected language from the session
+        selected_language = self.request.session.get('language', 'all')  # Default to "all"
+        
+        if selected_language == 'all' or not selected_language:
+            # Return all authors if "All Books" is selected
+            authors = Author.objects.all().order_by('author_first_name')
+        else:
+            # Filter authors who have books in the selected language
+            authors = Author.objects.filter(book__book_languages=selected_language).distinct().order_by('author_first_name')
+
+        return authors
+        
 
 class ShowBookDetailsView(DetailView):
     ''' A view to show the details of one selected book '''
@@ -66,6 +104,13 @@ class ShowAuthorDetailsView(DetailView):
     model = Author
     template_name = 'project/show_author.html'
     context_object_name = 'author'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Use the get_books function and filter further by author
+        all_books = get_books(self.request)
+        context['books'] = all_books.filter(book_author=self.object).order_by('book_publish_date')
+        return context
     
 class CreateUserProfileView(CreateView):
     ''' A view to show/process the CreateUserProfile form '''

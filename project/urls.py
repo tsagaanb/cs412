@@ -7,6 +7,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path(r'set-language/', views.set_language, name='set_language'),
     path(r'', views.ShowAllBooksView.as_view(), name='show_all_books'),
     path(r'book/<int:pk>/', views.ShowBookDetailsView.as_view(), name='show_book'),
     path(r'authors/', views.ShowAllAuthorsView.as_view(), name='show_all_authors'),

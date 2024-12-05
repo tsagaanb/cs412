@@ -26,7 +26,7 @@
                 <h3><b>Title:</b> {{ book.book_title }}</h3>
                 <h4>
                     <b>Author:</b> 
-                    <a href="https://en.wikipedia.org/wiki/Special:Search?search={{ book.book_author }}" target="_blank">
+                    <a href="{% url 'show_author' book.book_author.pk%}">
                         {{ book.book_author }}
                     </a>
                 </h4>

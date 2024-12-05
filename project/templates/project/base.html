@@ -17,7 +17,25 @@
                     <!-- URLs that do not depend on authentication -->
                     <li><a href="{% url 'show_all_books' %}">All Books</a></li>
                     <li><a href="{% url 'show_all_authors' %}">All Authors</a></li>
-                    
+                    <li>
+                        <!-- A language selection feature that is used to fetch books in different languages -->
+                        <form method="post" action="{% url 'set_language' %}">
+                            {% csrf_token %}
+                            <select name="language" onchange="this.form.submit()">
+                                <option value="all" {% if request.session.language == 'all' or not request.session.language %}selected{% endif %}>All Books</option>
+                                <option value="en" {% if request.session.language == 'en' %}selected{% endif %}>English</option>
+                                <option value="mn" {% if request.session.language == 'mn' %}selected{% endif %}>Mongolian</option>
+                                <option value="fr" {% if request.session.language == 'fr' %}selected{% endif %}>French</option>
+                                <option value="de" {% if request.session.language == 'de' %}selected{% endif %}>German</option>
+                                <option value="es" {% if request.session.language == 'es' %}selected{% endif %}>Spanish</option>
+                                <option value="ru" {% if request.session.language == 'ru' %}selected{% endif %}>Russian</option>
+                                <option value="id" {% if request.session.language == 'id' %}selected{% endif %}>Indonesian</option>
+                                <option value="it" {% if request.session.language == 'it' %}selected{% endif %}>Italian</option>
+                                <option value="zh-TW" {% if request.session.language == 'zh-TW' %}selected{% endif %}>Traditional Chinese (Taiwan)</option>
+                                <option value="zh-CN" {% if request.session.language == 'zh-CN' %}selected{% endif %}>Simplified Chinese (China)</option>
+                            </select>
+                        </form>
+                    </li>
                     <!-- URLs that show up depending on login -->
 
                     {% block extra_nav_links %}

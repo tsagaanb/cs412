@@ -11,6 +11,15 @@
         <h2><u>Books by Genre</u></h2>
 
         {% for genre, genre_books in genre_groups.items %}
+
+        <!-- FROG GIF! -->
+        {% if forloop.first %}
+            <!-- Add the Frog GIF for the first genre -->
+            <div class="frog-container">
+                <img src="/static/images/frog.gif" alt="Frog">
+            </div>
+        {% endif %}
+        
         <div class="book-grid-container">
             <h3><u>{{ genre }}</u></h3>
             <div class="book-grid">
