@@ -3,9 +3,15 @@
 {% extends 'project/base.html' %}
 
 {% block content %}
+<div class="login-page">
+    <!-- HI CAT GIF  -->
+    <div class="hi-gif-container">
+        <img src="/static/images/hi.gif" alt="hi_gif" class="jumping-gif">
+    </div>
+
     <div class="login-container">
         <h1>Login</h1>
-        <form action="POST">
+        <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
             {{ form.as_p }}
             {% if request.GET.next %}
@@ -18,7 +24,9 @@
         </form>
         <hr>
         <p>Don't have an account?</p><br>
-            <a href="{% url 'create_user_profile %}"></a>.
+        <!-- ADD THE CREATE ACCOUNT LINK HERE -->
         </p>
-    </div>
+    </div>  
+</div>
+    
 {% endblock %}

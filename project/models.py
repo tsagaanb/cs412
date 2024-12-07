@@ -16,7 +16,7 @@ class UserProfile(models.Model):
     user_last_name = models.TextField(blank=False)
     user_email = models.EmailField(unique=True)
     user_dob = models.DateField(blank=False)
-    user_profile_pic = models.ImageField(blank=False)
+    user_profile_pic = models.ImageField(blank=True)
 
     def __str__(self):
         ''' Returns a string representation of the userprofile '''
@@ -28,7 +28,7 @@ class UserProfile(models.Model):
         # find all the frienships that the user is involved with
         # user can either be user1 or user2
         friendships1 = Friendship.objects.filter(user1=self)
-        friendships2 = Frienship.objects.filter(user2=self)
+        friendships2 = Friendship.objects.filter(user2=self)
 
         friends = []
         # if the user was user1:
@@ -36,9 +36,9 @@ class UserProfile(models.Model):
             friends.append(friendship.user2)
 
         # if the user was user2:
-        for frienship in frienships2:
+        for friendship in friendships2:
             friends.append(friendship.user1)
-
+            
         return friends
 
     def add_friend(self, other):
@@ -51,7 +51,7 @@ class UserProfile(models.Model):
 
         # Check if self and other are already friends 
         existing_friend = Friendship.objects.filter(user1=self, user2=other) | \
-                            Friendship.object.fitler(user1=other, user2=self)
+                            Friendship.object.filter(user1=other, user2=self)
 
         if existing_friend:
             print("Friendship already exists!")

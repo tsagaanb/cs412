@@ -1,0 +1,59 @@
+<!-- project/tmeplates/project/show_user_profile.html -->
+
+{% extends 'project/base.html' %}
+
+<!-- Navigation Bar -->
+
+{% block extra_nav_links %}
+    <!-- Link to the profile of the user that is logged in -->
+    <li><a href="{% url 'show_user_profile' user_profile.pk %}">My Profile</a></li>
+
+{% endblock %}
+
+
+<!-- Body -->
+
+{% block content %}
+    <div class="profile-container">
+        <!-- Back to Profiles Button -->
+        <a href="{% url 'show_all_books' %}" class="back-button">← All Books</a>
+
+        <!-- User Profile Section -->
+        <div class="profile-header">
+            <div class="profile-image">
+                {% if user_profile.user_profile_pic %}
+                    <img src="{{ profile.user_profile_pic.url }}" alt="Profile Picture" class="rounded-profile-pic">
+                {% else %}
+                    <img src="/static/images/default_profile_img.jpg" alt="Default Profile Picture" class="rounded-profile-pic">
+                {% endif %}
+            </div>
+            <div class="profile-details">
+                <h2>{{ profile.user_first_name }} {{ profile.user_last_name }}</h2>
+                <p><strong>Email:</strong> {{ profile.user_email }}</p>
+            </div>
+        </div>
+
+        <!-- Friends Section -->
+        <div class="friends-section">
+            <h3>{{ profile.user_first_name }}'s Friends</h3>
+            <div class="friends-grid">
+                {% for friend in profile.get_friends %}
+                    <div class="friend-card">
+                        <a href="{% url 'show_user_profile' friend.pk %}">
+                            <div class="friend-profile-pic">
+                                {% if friend.user_profile_pic %}
+                                    <img src="{{ friend.user_profile_pic.url }}" alt="Profile Picture">
+                                {% else %}
+                                    <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture">
+                                {% endif %}
+                            </div>
+                            <h4>{{ friend.user_first_name }} {{ friend.user_last_name }}</h4>
+                        </a>
+                    </div>
+                {% empty %}
+                    <p>{{ user_profile.user_first_name }} has no friends added yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

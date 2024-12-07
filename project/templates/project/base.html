@@ -17,6 +17,25 @@
                     <!-- URLs that do not depend on authentication -->
                     <li><a href="{% url 'show_all_books' %}">All Books</a></li>
                     <li><a href="{% url 'show_all_authors' %}">All Authors</a></li>
+
+                    <!-- URLs that show up depending on login -->
+                    {% if request.user.is_authenticated %}
+
+                        {% block extra_nav_links %}
+                        <!-- Block for additional nav links on specific pages -->
+                        {% endblock %}
+
+                        <li>
+                            <form method="POST" action="{% url 'logout' %}" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="submit" value="Logout" class="logout-link">
+                            </form>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+
+
                     <li>
                         <!-- A language selection feature that is used to fetch books in different languages -->
                         <form method="post" action="{% url 'set_language' %}">
@@ -36,15 +55,7 @@
                             </select>
                         </form>
                     </li>
-                    <!-- URLs that show up depending on login -->
-
-                    {% block extra_nav_links %}
-                    <!-- Block for additional nav links on specific pages -->
-                    {% endblock %}
-
-                    <!--  -->
-                    <!-- add the user autheticated links here -->
-                    <!--  -->
+  
 
 
                 </ul>

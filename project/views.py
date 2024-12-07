@@ -42,7 +42,6 @@ def get_books(request):
     return books
 
 
-
 class ShowAllBooksView(ListView):
     ''' A view to show a list of all the Books '''
 
@@ -62,6 +61,13 @@ class ShowAllBooksView(ListView):
 
         # Add the grouped books to the context
         context['genre_groups'] = dict(genre_groups)  # Convert defaultdict to a normal dict for the template
+
+        # pass the User Profile to display the link to their profile on the NAV BAR
+        user_profile = None
+        if self.request.user.is_authenticated:
+            user_profile = UserProfile.objects.filter(user=self.request.user).first()
+        context['user_profile'] = user_profile
+
         return context
 
     def get_queryset(self):
@@ -88,7 +94,14 @@ class ShowAllAuthorsView(ListView):
             authors = Author.objects.filter(book__book_languages=selected_language).distinct().order_by('author_first_name')
 
         return authors
-        
+
+    def get_context_data(self):
+        # pass the User Profile to display the link to their profile on the NAV BAR
+        user_profile = None
+        if self.request.user.is_authenticated:
+            user_profile = UserProfile.objects.filter(user=self.request.user).first()
+        context['user_profile'] = user_profile
+
 
 class ShowBookDetailsView(DetailView):
     ''' A view to show the details of one selected book '''
@@ -112,11 +125,66 @@ class ShowAuthorDetailsView(DetailView):
         context['books'] = all_books.filter(book_author=self.object).order_by('book_publish_date')
         return context
     
+class ShowAllUserProfileView(ListView):
+    ''' A view to show the list of all the users '''
+    model = UserProfile
+    template_name = 'project/show_all_users.html'
+    context_object_name = 'profile'
+
+    def get_context_data(self):
+         # Call the base implementation first to get the context
+        context = super().get_context_data(**kwargs)
+        
+        # find the user who is logged in and make sure that they are autenticated
+        if self.request.user.is_authenticated: 
+            user_profile = UserProfile.objects.get(user = self.request.user)
+            context['user_profile'] = user_profile
+
+        return context
+
+
+class ShowUserProfileView(DetailView):
+    ''' A view to show the profile of a user '''
+    model = UserProfile
+    template_name = 'project/show_user_profile.html'
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+         # Call the base implementation first to get the context
+        context = super().get_context_data(**kwargs)
+        
+        # find the user who is logged in and make sure that they are autenticated
+        if self.request.user.is_authenticated: 
+            user_profile = UserProfile.objects.get(user = self.request.user)
+            context['user_profile'] = user_profile
+
+        return context
+
+
+    def get_object(self, queryset=None):
+        ''' Ensure we fetch the correct user profile based on the pk '''
+        pk = self.kwargs.get('pk')
+        return UserProfile.objects.get(pk=pk)
+
+
+    def get_absolute_url(self):
+        ''' Returns the Profile ''' 
+        return reverse('show_user_profile', kwargs={'pk': self.id})
+
 class CreateUserProfileView(CreateView):
     ''' A view to show/process the CreateUserProfile form '''
 
     form_class = CreateUserProfileForm
     template_name = 'project/create_user_profile_form.html'
+
+    def get_success_url(self):
+        ''' displays the UserProfile model '''
+        return self.object.get_absolute_url()
+
+    def get_login_url(self):
+        ''' return the URL required for login '''
+        return reverse('login')
+
 
 class CreateReviewView(LoginRequiredMixin, CreateView):
     ''' A view to show/process the CreateReview form '''
