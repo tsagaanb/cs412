@@ -211,6 +211,7 @@ nav ul li a:hover {
 }
 
 .book-detail {
+    flex: 4;
     margin: 5px;
     background: rgb(252, 252, 252);
     border-radius: 8px;
@@ -271,6 +272,95 @@ nav ul li a:hover {
     color: white;
 
 }
+
+.right-section {
+    flex: 1; 
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.remove-button {
+    background-color: #86a3d2; /* Red background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.remove-button:hover {
+    background-color: #97b5f5; /* Darker red on hover */
+}
+
+.add-to-shelf-container ,
+.friends-who-shelved-container {
+    background: rgb(252, 252, 252);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.friends-who-shelved-container h4 {
+    margin-bottom: 10px;
+}
+
+.friends-who-shelved-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.friend-entry {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.friend-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+
+.friend-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.friend-profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+.friend-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.friend-info strong {
+    font-size: 16px;
+    color: #333;
+}
+
+.friend-status {
+    font-size: 14px;
+    color: #777;
+    margin-top: 5px;
+}
+
 
 /* All Authors List View */
 /* Container for the list */

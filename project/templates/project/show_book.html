@@ -4,9 +4,15 @@
 
 <!-- Navigation Bar -->
 
+{% block extra_nav_links %}
+    <!-- Link to the profile of the user that is logged in -->
+    <li><a href="{% url 'show_user_profile' user_profile.pk %}">My Profile</a></li>
+
+{% endblock %}
+
 <!-- Body -->
 {% block content %}
-
+<div class="book-detail-page">
     <!-- Book Detail table -->
     <div class="book-container">
         <div class="book-detail">
@@ -56,7 +62,63 @@
                 {% endif %}
             </div>
         </div>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <!-- Add to Shelf Container -->
+            <div class="add-to-shelf-container">
+                <form method="POST" action="{% url 'add_book_progress' book.pk %}">
+                    {% csrf_token %}
+                    <b><label for="status">Add to Shelf:</label></b>
+                    <select name="status" id="status">
+                        <option value="-" {% if book_progress.status == None %}selected{% endif %}>-</option>
+                        <option value="want to read" {% if book_progress.status == "want to read" %}selected{% endif %}>Want to Read</option>
+                        <option value="reading" {% if book_progress.status == "reading" %}selected{% endif %}>Currently Reading</option>
+                        <option value="read" {% if book_progress.status == "read" %}selected{% endif %}>Read</option>
+                    </select>
+                    <button type="submit">Add</button>
+                </form>
+                <!-- delete from shelf button -->
+                {% if book_progress != None %}
+                    <form method="POST" action="{% url 'delete_book_progress' book_progress.pk %}" style="margin-top: 10px;">
+                        {% csrf_token %}
+                        <button type="submit" class="remove-button">Remove from Shelf</button>
+                    </form>
+                {% endif %}
+
+            </div>
+
+            <!-- Friends Who Shelved This Book Container -->
+            <div class="friends-who-shelved-container">
+                <h4>Friends Who Shelved This Book</h4>
+                {% if friends_progress %}
+                    <ul class="friends-list">
+                        {% for progress in friends_progress %}
+                            <li class="friend-entry">
+                                <a href="{% url 'show_user_profile' progress.user.pk %}" class="friend-link">
+                                    <div class="friend-profile">
+                                        {% if progress.user.user_profile_pic %}
+                                            <img src="{{ progress.user.user_profile_pic.url }}" alt="{{ progress.user.user_first_name }}'s Profile Picture" class="friend-profile-pic">
+                                        {% else %}
+                                            <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture" class="friend-profile-pic">
+                                        {% endif %}
+                                        <div class="friend-info">
+                                            <strong>{{ progress.user.user_first_name }} {{ progress.user.user_last_name }}</strong>
+                                            <p class="friend-status">{{ progress.status|title }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No friends have shelved this book yet.</p>
+                {% endif %}
+            </div>
+        </div>
+        
     </div>
+</div>
     
     
 {% endblock %}

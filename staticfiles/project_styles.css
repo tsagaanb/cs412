@@ -33,7 +33,7 @@ header {
 }
 
 header h1 {
-    font-size: 30px;
+    font-size: 25px;
 }
 
 nav ul {
@@ -55,7 +55,7 @@ nav ul li a {
     font-weight: bold;
     font-family: Roboto;
     font-weight: 300;
-    font-size: x-large;
+    font-size: 18px;;
     border: 1px white;
 
 }
@@ -79,6 +79,20 @@ nav ul li a:hover {
 
 .back-button:hover {
     background-color: #97b5f5;
+}
+
+/* Logout button on the navigation bar */
+.logout-link {
+    background: none;
+    border: none;
+    color: #fff; 
+    cursor: pointer;
+    font-size: inherit;
+    font-family: Roboto;
+    font-weight: 300;
+    padding: 0;
+    font-size: 18px;
+    display: inline;
 }
 
 
@@ -132,6 +146,14 @@ nav ul li a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: 350px; /* Adjust height dynamically */
     max-width: 150px; /* Control maximum width of each book card */
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+
+}
+
+.book-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+
 }
 
 .book-card a {
@@ -159,10 +181,26 @@ nav ul li a:hover {
 }
 
 
+/* Container for the frog image */
+.frog-container {
+    position: absolute; 
+    top: 161px; 
+    right: 80px; 
+    z-index: 10; 
+    text-align: right;
+}
+
+/* Style the frog image */
+.frog-container img{
+    max-height: 140px; 
+    width:auto;
+}
+
+
 /* Book Detail Page */
 .book-container {
     margin: 40px;
-    margin-top: 150px;
+    margin-top: 140px;
     background: rgb(223, 232, 234);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -231,5 +269,298 @@ nav ul li a:hover {
     margin-bottom: 40px;
     background-color: #86a3d2;
     color: white;
+
+}
+
+/* All Authors List View */
+/* Container for the list */
+.authors-container {
+    padding: 20px;
+    background-color: #86a3d2;
+    border-radius: 8px;
+    margin: 40px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 140px;
+}
+
+/* Section title */
+.section-title {
+    font-family: 'Roboto';
+    font-size: 25px;
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    text-decoration: underline;
+}
+
+
+/* Grid layout for authors */
+.authors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    background-color: rgb(229, 228, 214); 
+    gap: 15px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Each author card */
+.author-card {
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover effect for cards */
+.author-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Author link styling */
+.author-card a {
+    text-decoration: none;
+    font-family: 'Merriweather', serif;
+    font-size: 1em;
+    font-weight: bold;
+    color: #444;
+    text-transform: capitalize;
+}
+
+/* Hover effect for links */
+.author-card a:hover {
+    color: #007acc;
+}
+
+/* Adjust mobile view */
+@media (max-width: 768px) {
+    .authors-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    .author-card {
+        padding: 8px;
+    }
+}
+
+/* Author Detail View */
+.author-detail-container {
+    margin: 100px;
+    margin-top: 140px;
+    background: rgb(223, 232, 234);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    padding-top: 5px;
+    gap: 20px;
+}
+
+.author-detail-layout {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.author-detail {
+    flex: 1; /* Take up 1/3 of the space */
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px; /* Optional: To fix the width */
+}
+
+.author-books {
+    flex: 2; /* Take up 2/3 of the space */
+    padding: 20px;
+    background: rgb(252, 252, 252);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.author-book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.author-book-card {
+    width: 200px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 10px;
+}
+
+.author-book-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.author-book-card img {
+    border-radius: 2px;
+    width: 160px;
+    height: auto;
+}
+
+.author-book-card h4 {
+    font-size: 1rem;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Login Page */
+.login-page {
+    margin-top: 140px;
+}
+.hi-gif-container {
+    position: relative;
+    text-align: center;
+    margin-bottom: -10px; /* Adjust as needed to overlap with the login box */
+}
+
+.jumping-gif {
+    width: 150px; /* Adjust size as needed */
+}
+
+
+.login-container {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+    margin: auto;
+    width: 300px;
+    text-align: center;
+}
+
+/* Logged Out Page */
+.logout-container {
+    text-align: center;
+    margin-top: 200px;
+    background-color: rgb(252, 252, 252);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bye-gif img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.logout-container h3 {
+    font-size: 1.5rem;
+    color: #333;
+    font-family: Roboto;
+}
+
+.logout-container p {
+    font-size: 1rem;
+    margin-top: 20px;
+    font-family: 'Roboto';
+}
+
+.logout-container a {
+    color: #86a3d2;
+    text-decoration: none;
+    font-family: Roboto;
+}
+
+.logout-container a:hover {
+    color: #87CEFA;
+    text-decoration: underline;
+}
+
+/* User Profile Page */
+.profile-container {
+    max-width: 900px;
+    margin: 50px auto;
+    margin-top: 140px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background */
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.profile-image img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* Rounded image */
+    object-fit: cover;
+    border: 4px solid #e0e0e0; /* Light border around the profile picture */
+}
+
+.profile-details h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333333; /* Dark gray */
+}
+
+.profile-details p {
+    font-size: 16px;
+    color: #555555; /* Medium gray */
+}
+
+/* Friends section styling */
+.friends-section {
+    margin-top: 30px;
+}
+
+.friends-section h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333333; /* Dark gray */
+}
+
+/* Friends grid styling */
+.friends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive grid */
+    gap: 20px;
+}
+
+.friend-card {
+    text-align: center;
+    background-color: #ffffff; /* White background */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.friend-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.friend-profile-pic img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
 
 }

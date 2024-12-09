@@ -14,46 +14,132 @@
 <!-- Body -->
 
 {% block content %}
-    <div class="profile-container">
-        <!-- Back to Profiles Button -->
-        <a href="{% url 'show_all_books' %}" class="back-button">← All Books</a>
-
-        <!-- User Profile Section -->
-        <div class="profile-header">
-            <div class="profile-image">
-                {% if user_profile.user_profile_pic %}
-                    <img src="{{ profile.user_profile_pic.url }}" alt="Profile Picture" class="rounded-profile-pic">
-                {% else %}
-                    <img src="/static/images/default_profile_img.jpg" alt="Default Profile Picture" class="rounded-profile-pic">
-                {% endif %}
+<div class="profile-container">
+    <!-- Profile and Friends Container -->
+    <div class="profile-and-friends">
+        <!-- Profile Section -->
+        <div class="profile-main">
+            <a href="{% url 'show_all_books' %}" class="back-button">← All Books</a>
+            <div class="profile-header">
+                <div class="profile-image">
+                    {% if profile.user_profile_pic %}
+                        <img src="{{ profile.user_profile_pic.url }}" alt="Profile Picture" class="rounded-profile-pic">
+                    {% else %}
+                        <img src="/static/images/default_profile_img.jpg" alt="Default Profile Picture" class="rounded-profile-pic">
+                    {% endif %}
+                </div>
+                <div class="profile-details">
+                    <h2>{{ profile.user_first_name }} {{ profile.user_last_name }}</h2>
+                    <p><strong>Email:</strong> {{ profile.user_email }}</p>
+                </div>
             </div>
-            <div class="profile-details">
-                <h2>{{ profile.user_first_name }} {{ profile.user_last_name }}</h2>
-                <p><strong>Email:</strong> {{ profile.user_email }}</p>
+
+            <!-- Book Progress Section -->
+            <div class="book-progress-section">
+                <h3>Book Progress</h3>
+
+                <!-- Currently Reading Section -->
+                <div class="book-grid-container">
+                    <h4><u>Currently Reading</u></h4>
+                    <div class="book-grid">
+                        {% for progress in currently_reading %}
+                            <div class="book-card">
+                                <a href="{% url 'show_book' progress.book.pk %}">
+                                    <div class="book-cover-image">
+                                        {% if progress.book.book_cover_image %}
+                                            <img src="{{ progress.book.book_cover_image }}" alt="{{ progress.book.book_title }}'s cover image">
+                                        {% else %}
+                                            <img src="/static/images/placeholder.png" alt="No Cover Image">
+                                        {% endif %}
+                                    </div>
+                                    <div class="book-info">
+                                        <h4>{{ progress.book.book_title }}</h4>
+                                        <p>by {{ progress.book.book_author }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        {% empty %}
+                            <p>No books currently being read.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Read Section -->
+                <div class="book-grid-container">
+                    <h4><u>Read</u></h4>
+                    <div class="book-grid">
+                        {% for progress in read_books %}
+                            <div class="book-card">
+                                <a href="{% url 'show_book' progress.book.pk %}">
+                                    <div class="book-cover-image">
+                                        {% if progress.book.book_cover_image %}
+                                            <img src="{{ progress.book.book_cover_image }}" alt="{{ progress.book.book_title }}'s cover image">
+                                        {% else %}
+                                            <img src="/static/images/placeholder.png" alt="No Cover Image">
+                                        {% endif %}
+                                    </div>
+                                    <div class="book-info">
+                                        <h4>{{ progress.book.book_title }}</h4>
+                                        <p>by {{ progress.book.book_author }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        {% empty %}
+                            <p>No books read yet.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Want to Read Section -->
+                <div class="book-grid-container">
+                    <h4><u>Want to Read</u></h4>
+                    <div class="book-grid">
+                        {% for progress in want_to_read %}
+                            <div class="book-card">
+                                <a href="{% url 'show_book' progress.book.pk %}">
+                                    <div class="book-cover-image">
+                                        {% if progress.book.book_cover_image %}
+                                            <img src="{{ progress.book.book_cover_image }}" alt="{{ progress.book.book_title }}'s cover image">
+                                        {% else %}
+                                            <img src="/static/images/placeholder.png" alt="No Cover Image">
+                                        {% endif %}
+                                    </div>
+                                    <div class="book-info">
+                                        <h4>{{ progress.book.book_title }}</h4>
+                                        <p>by {{ progress.book.book_author }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        {% empty %}
+                            <p>No books added to 'Want to Read'.</p>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Friends Section -->
         <div class="friends-section">
             <h3>{{ profile.user_first_name }}'s Friends</h3>
-            <div class="friends-grid">
+            <ul class="friends-list">
                 {% for friend in profile.get_friends %}
-                    <div class="friend-card">
+                    <li class="friend-card">
                         <a href="{% url 'show_user_profile' friend.pk %}">
                             <div class="friend-profile-pic">
                                 {% if friend.user_profile_pic %}
-                                    <img src="{{ friend.user_profile_pic.url }}" alt="Profile Picture">
+                                    <img src="{{ friend.user_profile_pic.url }}" alt="Friend Profile Picture">
                                 {% else %}
                                     <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture">
                                 {% endif %}
                             </div>
                             <h4>{{ friend.user_first_name }} {{ friend.user_last_name }}</h4>
                         </a>
-                    </div>
+                    </li>
                 {% empty %}
-                    <p>{{ user_profile.user_first_name }} has no friends added yet.</p>
+                    <p>{{ profile.user_first_name }} has no friends added yet.</p>
                 {% endfor %}
-            </div>
+            </ul>
         </div>
     </div>
+</div>
 {% endblock %}

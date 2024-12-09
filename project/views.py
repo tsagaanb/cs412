@@ -98,6 +98,7 @@ class ShowAllAuthorsView(ListView):
     def get_context_data(self):
         # pass the User Profile to display the link to their profile on the NAV BAR
         user_profile = None
+        # find the user who is logged in and make sure that they are autenticated
         if self.request.user.is_authenticated:
             user_profile = UserProfile.objects.filter(user=self.request.user).first()
         context['user_profile'] = user_profile
@@ -110,6 +111,30 @@ class ShowBookDetailsView(DetailView):
     template_name = 'project/show_book.html'
     context_object_name = 'book'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        book = self.get_object()
+
+        # find the user who is logged in and make sure that they are autenticated
+        if self.request.user.is_authenticated: 
+            user_profile = UserProfile.objects.get(user = self.request.user)
+            context['user_profile'] = user_profile
+
+            # book progress (for add to shelf feature)
+            book_progress = BookProgress.objects.filter(user=user_profile, book=book).first()
+            default_shelf = book_progress if book_progress else None
+            context['book_progress'] = default_shelf
+
+            # section to get if any of the user's friends shelved this book
+            # Retrieve the user's friends
+            friends = user_profile.get_friends()
+
+            # Filter BookProgress for the friends and the current book
+            friends_progress = BookProgress.objects.filter(book=book, user__in=friends)
+
+            context['friends_progress'] = friends_progress
+
+        return context
 
 class ShowAuthorDetailsView(DetailView):
     ''' A view to show the details of one selected author '''
@@ -123,6 +148,12 @@ class ShowAuthorDetailsView(DetailView):
         # Use the get_books function and filter further by author
         all_books = get_books(self.request)
         context['books'] = all_books.filter(book_author=self.object).order_by('book_publish_date')
+
+        # find the user who is logged in and make sure that they are autenticated
+        if self.request.user.is_authenticated: 
+            user_profile = UserProfile.objects.get(user = self.request.user)
+            context['user_profile'] = user_profile
+
         return context
     
 class ShowAllUserProfileView(ListView):
@@ -158,6 +189,11 @@ class ShowUserProfileView(DetailView):
             user_profile = UserProfile.objects.get(user = self.request.user)
             context['user_profile'] = user_profile
 
+        # get the books that the user is READING/WANT TO READ/READ
+        user_profile = self.get_object()
+        context['currently_reading'] = BookProgress.objects.filter(user=user_profile, status='reading')
+        context['want_to_read'] = BookProgress.objects.filter(user=user_profile, status='want to read')
+        context['read_books'] = BookProgress.objects.filter(user=user_profile, status='read')
         return context
 
 
@@ -185,6 +221,54 @@ class CreateUserProfileView(CreateView):
         ''' return the URL required for login '''
         return reverse('login')
 
+class CreateBookProgressView(LoginRequiredMixin, CreateView):
+    ''' A view to create a BookProgress for a user '''
+
+    def dispatch(self, request, *args, **kwargs):
+        # get the logged in user
+        user = self.request.user
+        # get the user_profile instance of the logged in user
+        user_profile = UserProfile.objects.get(user = user)
+
+        # get the book that the user is trying to shelve
+        book_pk = self.kwargs.get('book_pk')
+        book = Book.objects.get(pk=book_pk)
+
+        # Get the progress status from the request (e.g., "reading", "read", "want to read")
+        status = self.request.POST.get('status')
+
+        # Check if status is provided
+        if not status:
+            return redirect(reverse('show_book', kwargs={'pk': book_pk}))
+
+        # Create or update the BookProgress
+        book_progress, created = BookProgress.objects.get_or_create(
+            user=user_profile,
+            book=book,
+            defaults={'status': status}
+        )
+        if not created:
+            book_progress.status = status
+            book_progress.save()
+
+        # Redirect back to the book detail page or profile page
+        return redirect(reverse('show_user_profile' , kwargs={'pk': user_profile.pk }))
+
+class DeleteBookProgressView(LoginRequiredMixin, DeleteView):
+    ''' A view to delete a BookProgress '''
+    model = BookProgress
+    context_object_name = 'book_progress'
+
+    def get_success_url(self):
+        ''' redirect back to the book detail page '''
+        return reverse('show_book', kwargs={'pk': self.object.book.pk})
+
+    def get_queryset(self):
+        ''' Restricts deletion to the logged-in user's BookProgress instances '''
+        user = self.request.user
+        user_profile = UserProfile.objects.get(user=user)
+        return BookProgress.objects.filter(user=user_profile)
+        
 
 class CreateReviewView(LoginRequiredMixin, CreateView):
     ''' A view to show/process the CreateReview form '''
