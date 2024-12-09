@@ -1,0 +1,58 @@
+<!-- project/tmeplates/project/show_user_profile.html -->
+
+{% extends 'project/base.html' %}
+
+<!-- Navigation Bar -->
+
+{% block extra_nav_links %}
+    <!-- Link to the profile of the user that is logged in -->
+    <li><a href="{% url 'show_user_profile' user_profile.pk %}">My Profile</a></li>
+
+{% endblock %}
+
+<!-- Body -->
+{% block content %}
+<div class="friend-requests-container">
+    <h2>Friend Requests</h2>
+    {% if friend_requests %}
+        <ul class="friend-requests-list">
+            {% for request in friend_requests %}
+                <a href="{% url 'show_user_profile' request.sender.pk %}">
+                    <li class="friend-request-card">
+                        <!-- Profile Picture and Name Section -->
+                        <div class="request-info">
+                            <div class="request-picture">
+                                {% if request.sender.user_profile_pic %}
+                                    <img src="{{ request.sender.user_profile_pic.url }}" alt="Profile Picture">
+                                {% else %}
+                                    <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture">
+                                {% endif %}
+                            </div>
+                            <div class="request-details">
+                                
+                                    <h4>{{ request.sender.user_first_name }} {{ request.sender.user_last_name }}</h4>
+                                
+                                <p class="request-timestamp">{{ request.timestamp|date:"F j, Y, g:i a" }}</p>
+                            </div>
+                        </div>
+                        <!-- Actions Section -->
+                        <div class="request-actions">
+                            <form method="POST" action="{% url 'accept_friend_request' request.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="accept-button">Accept</button>
+                            </form>
+                            <form method="POST" action="{% url 'reject_friend_request' request.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="reject-button">Reject</button>
+                            </form>
+                        </div>
+                    </li>
+                </a>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No pending friend requests.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

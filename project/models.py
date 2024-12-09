@@ -196,3 +196,20 @@ class Friendship(models.Model):
         ''' Returns a string representation of a frienship between two users '''
         return f"{self.user1.user_first_name} {self.user1.user_last_name} & \
             {self.user2.user_first_name} {self.user2.user_last_name}"
+
+class FriendRequest(models.Model):
+    '''
+    Model for sending friend requests to a different user 
+    '''
+    sender = models.ForeignKey(UserProfile, related_name="sent_requests", on_delete=models.CASCADE)
+    receiver = models.ForeignKey(UserProfile, related_name="received_requests", on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    status = models.CharField(
+        max_length=20,
+        choices=[('pending', 'Pending')],
+        default='pending'
+    )
+
+    def __str__(self):
+        return f"{self.sender.user_first_name} → {self.receiver.user_first_name}"

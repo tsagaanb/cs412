@@ -9,3 +9,5 @@ admin.site.register(Book)
 admin.site.register(Review)
 admin.site.register(BookProgress)
 admin.site.register(Friendship)
+admin.site.register(FriendRequest)
+

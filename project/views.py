@@ -12,7 +12,7 @@ from django.views.generic import ListView, DetailView, CreateView, \
 from django.urls import reverse
 from collections import defaultdict
 from typing import Any
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 
 from django.contrib.auth.models import User
 from django.contrib.auth import login 
@@ -163,21 +163,97 @@ class ShowAllUserProfileView(ListView):
     ''' A view to show the list of all the users '''
     model = UserProfile
     template_name = 'project/show_all_users.html'
-    context_object_name = 'profile'
+    context_object_name = 'profiles'
 
-    def get_context_data(self):
-         # Call the base implementation first to get the context
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+
         # find the user who is logged in and make sure that they are autenticated
         if self.request.user.is_authenticated: 
             user_profile = UserProfile.objects.get(user = self.request.user)
             context['user_profile'] = user_profile
+            context['other_profiles'] = context['profiles']
+
+            # Add friend status for each profile in the queryset
+            friends_list = user_profile.get_friends()  # Returns a list of friends
+            for profile in context['other_profiles']:
+                profile.is_friend = profile in friends_list
+                profile.has_sent_request = FriendRequest.objects.filter(sender=user_profile, receiver=profile).exists()
+                profile.has_received_request = FriendRequest.objects.filter(sender=profile, receiver=user_profile).exists()
+
 
         return context
 
 
-class ShowUserProfileView(DetailView):
+class CreateFriendRequestView(LoginRequiredMixin, View):
+    ''' A view to send a friend request to a different user '''
+
+    def post(self, request, *args, **kwargs):
+        sender = UserProfile.objects.get(user=request.user)
+        receiver = UserProfile.objects.get(pk=kwargs['pk'])
+
+        # Check if the friend request already exists
+        if not FriendRequest.objects.filter(sender=sender, receiver=receiver).exists():
+            FriendRequest.objects.create(sender=sender, receiver=receiver)
+
+        return redirect('show_all_users')
+
+
+class ShowFriendRequestsView(LoginRequiredMixin, ListView):
+    ''' A view to show the friends requests that a user has '''
+    model = FriendRequest
+    template_name = 'project/friend_requests.html'
+    context_object_name = 'friends_requests'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        user_profile = None
+        # find the user who is logged in and make sure that they are autenticated
+        if self.request.user.is_authenticated:
+            user = self.request.user
+            user_profile = UserProfile.objects.get(user=user)
+            context['user_profile'] = user_profile
+
+            # Get pending friend requests sent to the logged-in user
+            context['friend_requests'] = FriendRequest.objects.filter(receiver=user_profile, status='pending')
+        
+        return context
+
+
+class AcceptFriendRequestView(LoginRequiredMixin, View):
+    ''' A view to accept a friend request '''
+
+    def post(self, request, *args, **kwargs):
+        friend_request_id = self.kwargs.get('request_id')
+        friend_request = FriendRequest.objects.get(id=friend_request_id)
+
+        # Check if the logged-in user is the receiver of the friend request
+        if friend_request.receiver.user == request.user:
+            # Create a friendship
+            Friendship.objects.create(user1=friend_request.sender, user2=friend_request.receiver)
+
+            # Delete the friend request object
+            friend_request.delete()
+
+        return redirect('friend_requests')
+
+
+class RejectFriendRequestView(LoginRequiredMixin, View):
+    ''' A view to reject a friend request '''
+
+    def post(self, request, *args, **kwargs):
+        friend_request_id = self.kwargs.get('request_id')
+        friend_request = FriendRequest.objects.get(id=friend_request_id)
+
+        # Check if the logged-in user is the receiver of the friend request
+        if friend_request.receiver.user == request.user:
+            # Delete the friend request object
+            friend_request.delete()
+
+        return redirect('friend_requests')
+
+class ShowUserProfileView(LoginRequiredMixin, DetailView):
     ''' A view to show the profile of a user '''
     model = UserProfile
     template_name = 'project/show_user_profile.html'
@@ -191,6 +267,29 @@ class ShowUserProfileView(DetailView):
         if self.request.user.is_authenticated: 
             user_profile = UserProfile.objects.get(user = self.request.user)
             context['user_profile'] = user_profile
+
+            # Determine the viewed profile
+            viewed_profile = self.get_object()
+            is_own_profile = user_profile == viewed_profile
+            context['is_own_profile'] = is_own_profile
+
+            if not is_own_profile:
+                # Check friendship status
+                friends_list = user_profile.get_friends()
+                context['is_friend'] = viewed_profile in friends_list
+
+                # Check if a friend request has been sent by the logged-in user
+                context['has_sent_request'] = FriendRequest.objects.filter(
+                    sender=user_profile, receiver=viewed_profile).exists()
+
+                # Check if a friend request exists FROM the viewed profile TO the logged-in user
+                received_request = FriendRequest.objects.filter(
+                    sender=viewed_profile, receiver=user_profile).first()
+                context['has_received_request'] = received_request is not None
+                context['received_request_id'] = received_request.id if received_request else None
+
+                # Determine if a friend request can be sent
+                context['can_send_request'] = not context['is_friend'] and not context['has_sent_request']
 
         # get the books that the user is READING/WANT TO READ/READ
         user_profile = self.get_object()

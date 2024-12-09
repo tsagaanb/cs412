@@ -24,7 +24,8 @@
                         {% block extra_nav_links %}
                         <!-- Block for additional nav links on specific pages -->
                         {% endblock %}
-
+                        <li><a href="{% url 'show_all_users' %}">All Users</a></li>
+                        <li><a href="{% url 'friend_requests' %}">Friend Requests</a></li>
                         <li>
                             <form method="POST" action="{% url 'logout' %}" style="display: inline;">
                                 {% csrf_token %}
