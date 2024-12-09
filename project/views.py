@@ -95,7 +95,9 @@ class ShowAllAuthorsView(ListView):
 
         return authors
 
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
         # pass the User Profile to display the link to their profile on the NAV BAR
         user_profile = None
         # find the user who is logged in and make sure that they are autenticated
@@ -103,6 +105,7 @@ class ShowAllAuthorsView(ListView):
             user_profile = UserProfile.objects.filter(user=self.request.user).first()
         context['user_profile'] = user_profile
 
+        return context 
 
 class ShowBookDetailsView(DetailView):
     ''' A view to show the details of one selected book '''
@@ -217,9 +220,30 @@ class CreateUserProfileView(CreateView):
         ''' displays the UserProfile model '''
         return self.object.get_absolute_url()
 
-    def get_login_url(self):
+    def get_login_url(self) -> str:
         ''' return the URL required for login '''
         return reverse('login')
+
+    def form_valid(self, form):
+        ''' process both forms if valid '''
+        # reconstruct the UserCreateForm ffrom the POST data
+        user_form = UserCreationForm(self.request.POST)
+        
+        # check if both forms are valid
+        if user_form.is_valid():
+            user = user_form.save()
+            form.instance.user = user
+            # automatically log the user in after registration
+            login(self.request, user)
+
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        ''' add UserCreationForm to the context '''
+        context = super().get_context_data(**kwargs)
+        user_form = UserCreationForm
+        context['user_form'] = user_form
+        return context
 
 class CreateBookProgressView(LoginRequiredMixin, CreateView):
     ''' A view to create a BookProgress for a user '''

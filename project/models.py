@@ -2,6 +2,7 @@
 # Data structures for the models in the CS412 Final Project
 
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
@@ -21,6 +22,11 @@ class UserProfile(models.Model):
     def __str__(self):
         ''' Returns a string representation of the userprofile '''
         return f"{self.user_first_name} {self.user_last_name}"
+
+    def get_absolute_url(self):
+        ''' Return the UserProfile '''
+        return reverse('show_user_profile', kwargs={'pk': self.pk})
+
 
     def get_friends(self):
         ''' Returns all the frienships that exist with this User '''

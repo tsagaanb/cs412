@@ -1,7 +1,48 @@
 <!-- project/tmeplates/project/create_user_profile_form.html -->
 
-{% extends 'project/base/html' %}
+{% extends 'project/base.html' %}
 
 {% block content %}
+
+<div class="user-creation-container">
+
+
+    <!-- Cancel Button -->
     
+
+    <!-- Form Container -->
+    <div class="form-container-create-profile">
+        <form action="{% url 'show_all_books' %}">
+            <input type="submit" class="form-button" name="Cancel" value="Cancel">
+        </form>
+        <h2>Create Your Profile</h2>
+
+        <form method="POST" enctype="multipart/form-data" class="profile-form">
+            {% csrf_token %}
+
+            <table class="profile-table">
+                <!-- Section for User Account Information -->
+                <tr>
+                    <th colspan="2"><u>User Account Information</u></th>
+                </tr>
+                <!-- Render fields dynamically -->
+                {{ user_form.as_table }}
+                
+                <!-- Section for Profile Information -->
+                <tr>
+                    <th colspan="2"><u>Profile Information</u></th>
+                </tr>
+                {{ form.as_table }}
+
+                <!-- Submit Button -->
+                <tr>
+                    <td></td>
+                    <td colspan="2" class="button-container">
+                        <input type="submit" class="form-button" name="Create Profile" value="Create Profile">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
 {% endblock %}

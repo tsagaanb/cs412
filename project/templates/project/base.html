@@ -32,6 +32,7 @@
                             </form>
                         </li>
                     {% else %}
+                        <li><a href="{% url 'create_user_profile' %}">Create Profile</a></li>
                         <li><a href="{% url 'login' %}">Login</a></li>
                     {% endif %}
 
