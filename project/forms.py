@@ -24,7 +24,7 @@ class CreateUserProfileForm(forms.ModelForm):
         ''' Method that overrides the __init__ method to add custom behavior to the form when initiliazed '''
 
         super().__init__(*args, **kwargs)
-        
+
         # Add placeholders for each field
         self.fields['user_first_name'].widget.attrs.update({
             'placeholder': 'e.g., John'
@@ -54,7 +54,7 @@ class CreateReviewForm(forms.ModelForm):
         fields = ['book', 'rating', 'content']
 
 
-class UpdateProfileForm(forms.ModelForm):
+class UpdateUserProfileForm(forms.ModelForm):
     ''' A form to update an existing UserProfile object '''
 
     class Meta:

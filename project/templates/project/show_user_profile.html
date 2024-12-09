@@ -29,36 +29,49 @@
                     {% endif %}
                 </div>
                 <div class="profile-details">
-                    <h2>{{ profile.user_first_name }} {{ profile.user_last_name }}</h2>
+                    <h2>{{ profile.user }}</h2>
+                    <h3>{{ profile.user_first_name }} {{ profile.user_last_name }}</h3>
                     <p><strong>Email:</strong> {{ profile.user_email }}</p>
                 </div>
 
-                <!-- Friend Status -->
+                
                 {% if not is_own_profile %}
-                <div class="profile-status">
-                    {% if is_friend %}
-                        <p class="status-text">Friends</p>
-                    {% elif has_received_request %}
-                        <!-- Accept and Reject Buttons -->
-                        <div class="friend-request-actions">
-                            <form method="POST" action="{% url 'accept_friend_request' received_request_id %}">
+                    <!-- Friend Status -->
+                    <div class="profile-status">
+                        {% if is_friend %}
+                            <p class="status-text">Friends</p>
+                        {% elif has_received_request %}
+                            <!-- Accept and Reject Buttons -->
+                            <div class="friend-request-actions">
+                                <form method="POST" action="{% url 'accept_friend_request' received_request_id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="profile-accept-button">Accept</button>
+                                </form>
+                                <form method="POST" action="{% url 'reject_friend_request' received_request_id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="profile-reject-button">Reject</button>
+                                </form>
+                            </div>
+                        {% elif has_sent_request %}
+                            <p class="status-text">Request Sent</p>
+                        {% elif can_send_request %}
+                            <form method="POST" action="{% url 'send_friend_request' profile.pk %}">
                                 {% csrf_token %}
-                                <button type="submit" class="profile-accept-button">Accept</button>
+                                <button type="submit" class="status-button">Add Friend</button>
                             </form>
-                            <form method="POST" action="{% url 'reject_friend_request' received_request_id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="profile-reject-button">Reject</button>
-                            </form>
-                        </div>
-                    {% elif has_sent_request %}
-                        <p class="status-text">Request Sent</p>
-                    {% elif can_send_request %}
-                        <form method="POST" action="{% url 'send_friend_request' profile.pk %}">
+                        {% endif %}
+                    </div>
+
+                {% else %}
+
+                    <!-- Update profile option if the profile is the logged in user's profile -->
+                    <div class="profile-status">
+                        <form method="POST" action="{% url 'update_user_profile' %}">
                             {% csrf_token %}
-                            <button type="submit" class="status-button">Add Friend</button>
+                            <button type="submit" class="status-button">Update Profile</button>
                         </form>
-                    {% endif %}
-                </div>
+                    </div>
+
                 {% endif %}
 
             </div>
@@ -70,7 +83,7 @@
 
                     <!-- Currently Reading Section -->
                     <div class="book-grid-container">
-                        <h4><u>Currently Reading</u></h4>
+                        <h4>Currently Reading</h4>
                         <div class="book-grid">
                             {% for progress in currently_reading %}
                                 <div class="book-card">
@@ -96,7 +109,7 @@
 
                     <!-- Read Section -->
                     <div class="book-grid-container">
-                        <h4><u>Read</u></h4>
+                        <h4>Read</h4>
                         <div class="book-grid">
                             {% for progress in read_books %}
                                 <div class="book-card">
@@ -122,7 +135,7 @@
 
                     <!-- Want to Read Section -->
                     <div class="book-grid-container">
-                        <h4><u>Want to Read</u></h4>
+                        <h4>Want to Read</h4>
                         <div class="book-grid">
                             {% for progress in want_to_read %}
                                 <div class="book-card">
@@ -148,22 +161,25 @@
                 </div>
             {% endif %}
         </div>
-
         <!-- Friends Section -->
         <div class="friends-section">
             <h3>{{ profile.user_first_name }}'s Friends</h3>
-            <ul class="friends-list">
+            <ul>
                 {% for friend in profile.get_friends %}
-                    <li class="friend-card">
-                        <a href="{% url 'show_user_profile' friend.pk %}">
-                            <div class="friend-profile-pic">
-                                {% if friend.user_profile_pic %}
-                                    <img src="{{ friend.user_profile_pic.url }}" alt="Friend Profile Picture">
-                                {% else %}
-                                    <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture">
-                                {% endif %}
+                    <li class="user-card">
+                        <a href="{% url 'show_user_profile' friend.pk %}" class="card-link">
+                            <div class="user-info">
+                                <div class="user-picture">
+                                    {% if friend.user_profile_pic %}
+                                        <img src="{{ friend.user_profile_pic.url }}" alt="{{ friend.user_first_name }}'s Profile Picture">
+                                    {% else %}
+                                        <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture">
+                                    {% endif %}
+                                </div>
+                                <div class="user-details">
+                                    <strong>{{ friend.user }}</strong>
+                                </div>
                             </div>
-                            <h4>{{ friend.user_first_name }} {{ friend.user_last_name }}</h4>
                         </a>
                     </li>
                 {% empty %}

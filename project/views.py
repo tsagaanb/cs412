@@ -403,9 +403,33 @@ class UpdateUserProfileView(LoginRequiredMixin, UpdateView):
     ''' A view to process the UpdateUserProfile form '''
 
     model = UserProfile
-    form_class = UpdateProfileForm
-    temlate_name = 'project/update_profile_form.html'
+    form_class = UpdateUserProfileForm
+    template_name = 'project/update_profile_form.html'
 
+    def get_object(self):
+        ''' find the profile related to the USER '''
+        user = self.request.user
+        user_profile = UserProfile.objects.get(user = user)
+        
+        return user_profile
+
+    def get_success_url(self):
+        ''' redirect back to the Profile page after successful update '''
+        user = self.request.user
+        user_profile = UserProfile.objects.get(user=user)
+        return reverse('show_user_profile', kwargs={'pk': user_profile.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # pass the User Profile to display the link to their profile on the NAV BAR
+        user_profile = None
+        # find the user who is logged in and make sure that they are autenticated
+        if self.request.user.is_authenticated:
+            user_profile = UserProfile.objects.filter(user=self.request.user).first()
+        context['user_profile'] = user_profile
+
+        return context 
 
 class UpdateReviewView(LoginRequiredMixin, UpdateView):
     ''' A view to process the UpdateReview form '''

@@ -15,6 +15,7 @@ urlpatterns = [
     path(r'authors/<int:pk>/', views.ShowAuthorDetailsView.as_view(), name='show_author'),
 
     path(r'profile/<int:pk>/', views.ShowUserProfileView.as_view(), name='show_user_profile'),
+    path(r'profile/update/', views.UpdateUserProfileView.as_view(), name='update_user_profile'),
     path(r'create_user_profile/', views.CreateUserProfileView.as_view(), name='create_user_profile'),
     path(r'users/', views.ShowAllUserProfileView.as_view(), name='show_all_users'),
 

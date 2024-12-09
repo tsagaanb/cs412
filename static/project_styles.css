@@ -178,8 +178,9 @@ nav ul li a:hover {
     font-family: Roboto;
 }
 
-.book-info h4 {
+.book-title-all {
     font-family: Roboto;
+    color: #333;
 }
 
 
@@ -547,8 +548,8 @@ nav ul li a:hover {
     color: #688fce;
     text-decoration: underline;
     font-family: Roboto;
+    font-weight: 300;
     margin-top: -40px;
-
 }
 
 /* Logged Out Page */
@@ -573,18 +574,21 @@ nav ul li a:hover {
     font-size: 1.5rem;
     color: #333;
     font-family: Roboto;
+    font-weight: bold;
 }
 
 .logout-container p {
     font-size: 1rem;
     margin-top: 20px;
-    font-family: 'Roboto';
+    font-family: Roboto;
+    font-weight: 300;
 }
 
 .logout-container a {
     color: #86a3d2;
     text-decoration: none;
     font-family: Roboto;
+    font-weight: 300;
 }
 
 .logout-container a:hover {
@@ -609,8 +613,8 @@ nav ul li a:hover {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
+    font-family: Roboto;
+    font-weight: 300;   
     font-size: 24px;
 }
 
@@ -627,6 +631,8 @@ nav ul li a:hover {
     text-decoration: none; /* Remove underline */
     color: inherit; /* Inherit text color */
     position: relative; /* Ensure button is positioned correctly */
+    font-family: Roboto;
+    font-weight: 300;
 }
 
 .user-card a {
@@ -659,11 +665,14 @@ nav ul li a:hover {
 
 .user-details {
     flex-grow: 1;
+    font-family: Roboto;
+    font-weight: 300;
 }
 
 .user-details a {
     text-decoration: none;
-    font-family: 'Roboto', sans-serif;
+    font-family: Roboto;
+    font-weight: 300;
     font-size: 16px;
     color: #333;
     font-weight: bold;
@@ -696,7 +705,8 @@ nav ul li a:hover {
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    font-family: 'Roboto', sans-serif;
+    font-family: Roboto;
+    font-weight: 300;
     width: 100px;
 }
 
@@ -712,7 +722,8 @@ nav ul li a:hover {
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    font-family: 'Roboto', sans-serif;
+    font-family: Roboto;
+    font-weight: 300;
 }
 
 .all-accept-button {
@@ -786,6 +797,27 @@ nav ul li a:hover {
     margin-right: 30px;
 }
 
+.book-grid-container h4 {
+    color: #333;
+    font-size: 18px;
+    font-family: Roboto;
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+
+.book-progress-section h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333333; 
+    background-color:#91b3ed ;
+    padding: 8px 10px;
+    border-radius: 8px;
+    padding-left: 20px;
+    
+}
+
 .status-text {
     font-size: 16px;
     color: #555;
@@ -800,7 +832,8 @@ nav ul li a:hover {
     padding: 8px 16px;
     cursor: pointer;
     font-size: 14px;
-    font-family: 'Roboto', sans-serif;
+    font-family: Roboto;
+    font-weight: 300;
 }
 
 .status-button:hover {
@@ -820,7 +853,8 @@ nav ul li a:hover {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-family: 'Roboto', sans-serif;
+    font-family: Roboto;
+    font-weight: 300;
 }
 
 .profile-accept-button {
@@ -842,14 +876,20 @@ nav ul li a:hover {
 }
 /* Friends section styling */
 .friends-section {
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .friends-section h3 {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #333333; /* Dark gray */
+    color: white; 
+    background-color: #2c2c90;
+    padding: 8px 10px;
+    border-radius: 8px;
+    padding-left: 18px;
+    font-family: Roboto;
+    font-weight: 300;
 }
 
 /* Friends grid styling */
@@ -1073,4 +1113,116 @@ nav ul li a:hover {
 
 .welcome-gif {
     max-width: 400px; /* Adjust as needed */
+}
+
+
+/* Update Profile Page */
+.update-profile-container {
+    max-width: 500px;
+    margin: 50px auto;
+    margin-top: 140px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+}
+
+.update-profile-container h2 {
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.form-group .current-pic p {
+    margin: 5px 0;
+    font-size: 12px;
+    color: #666;
+}
+
+.form-group .current-pic a {
+    color: #86a3d2;
+    text-decoration: none;
+}
+
+.form-group .current-pic a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.update-button {
+    padding: 10px 20px;
+    background-color: #86a3d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.update-button:hover {
+    background-color: #6483b5;
+}
+
+.cancel-button {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Style for current profile picture */
+.current-profile-pic {
+    display: block;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
