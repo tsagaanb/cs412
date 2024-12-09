@@ -15,7 +15,7 @@
 
 {% block content %}
     <div class="genre-section">
-        <h2><u>Books by Genre</u></h2>
+        <h2>Books by Genre</h2>
 
         {% for genre, genre_books in genre_groups.items %}
 
@@ -28,7 +28,7 @@
         {% endif %}
         
         <div class="book-grid-container">
-            <h3><u>{{ genre }}</u></h3>
+            <h3>{{ genre }}</h3>
             <div class="book-grid">
                 {% for book in genre_books %}
                     <div class="book-card">
