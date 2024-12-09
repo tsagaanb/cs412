@@ -4,17 +4,17 @@
 
 {% block content %}
 
-<div class="user-creation-container">
-
-
-    <!-- Cancel Button -->
-    
+<div class="user-creation-container">    
 
     <!-- Form Container -->
     <div class="form-container-create-profile">
+
+        <!-- Cancel Button -->
         <form action="{% url 'show_all_books' %}">
             <input type="submit" class="form-button" name="Cancel" value="Cancel">
         </form>
+
+    
         <h2>Create Your Profile</h2>
 
         <form method="POST" enctype="multipart/form-data" class="profile-form">
@@ -43,6 +43,12 @@
                 </tr>
             </table>
         </form>
+
+        <!-- WELCOME GIF -->
+        <div class="welcome-gif-container">
+            <img src="/static/images/welcome.gif" alt="welcome_gif" class="welcome-gif">
+        </div>
+
     </div>
 </div>
 {% endblock %}

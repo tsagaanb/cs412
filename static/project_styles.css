@@ -534,6 +534,14 @@ nav ul li a:hover {
     text-align: center;
 }
 
+.login-container a {
+    color: #688fce;
+    text-decoration: underline;
+    font-family: Roboto;
+    margin-top: -40px;
+
+}
+
 /* Logged Out Page */
 .logout-container {
     text-align: center;
@@ -660,20 +668,23 @@ nav ul li a:hover {
 /* User Creation Page */
 /* Form Container */
 .user-creation-container {
-    background-color: rgb(223, 232, 234);
-    margin: 240px;
+    margin: 300px;
     margin-top: 140px;
     padding: 20px;
-
+    background-color: rgb(223, 232, 234);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .form-container-create-profile {
     margin: 40px auto;
     padding: 20px;
     max-width: 600px;
-    background-color: #f9f9f9;
+    background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .form-container-create-profile h2 {
     text-align: center;
     font-family: Roboto;
@@ -717,4 +728,13 @@ nav ul li a:hover {
 
 .form-button:hover {
     background-color: #6483b5;
+}
+
+.welcome-gif-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.welcome-gif {
+    max-width: 400px; /* Adjust as needed */
 }
