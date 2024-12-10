@@ -176,7 +176,6 @@ class BookProgress(models.Model):
 
     # other data attributes:
     status = models.CharField(max_length=50, choices=[('reading', 'Reading'), ('read', 'Read'), ('want to read', 'Want to Read')])
-    rating = models.IntegerField(blank=True, null=True, choices=[(i, i) for i in range(1, 6)])  # 1-5 rating
 
     def __str__(self):
         ''' Returns a string representation of the book progress for a user '''

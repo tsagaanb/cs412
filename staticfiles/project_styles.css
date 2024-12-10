@@ -104,17 +104,19 @@ nav ul li a:hover {
     font-size:18px;
 }
 
-.genre-section h2, u {
+.genre-section h2 {
     text-align: center;
     color: white;
     margin-bottom: 15px;
     font-family: Roboto;
+    text-decoration: underline;
 }
 
-.genre-section h3, u {
+.genre-section h3 {
     color: white;
     margin-bottom: 15px;
     font-family: Roboto;
+    text-decoration: underline;
 }
 
 .book-grid-container {
@@ -176,8 +178,9 @@ nav ul li a:hover {
     font-family: Roboto;
 }
 
-.book-info h4 {
+.book-title-all {
     font-family: Roboto;
+    color: #333;
 }
 
 
@@ -362,6 +365,122 @@ nav ul li a:hover {
 }
 
 
+.user-review-section, .friends-review-section {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.user-review-section h4, .friends-review-section h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+.review-entry, .friend-review-entry {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.review-entry p, .friend-review-entry p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.friends-reviews-list {
+    list-style: none;
+    padding: 0;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
+}
+
+.review-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: -20px;
+}
+
+.user-review-section p {
+    margin-bottom: 10px;
+}
+
+.user-review-section a {
+    background-color: #86a3d2; /* Red background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+.user-review-section a:hover {
+    background-color: #97b5f5; /* Darker red on hover */
+}
+
+.stars {
+    display: inline-block;
+    font-size: 24px;
+    color: #FFD700; /* Yellow for filled stars */
+}
+
+.review-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.update-review-button, .delete-review-button {
+    padding: 8px 15px;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    display: inline-block;
+}
+
+.update-review-button {
+    background-color: #4caf50; /* Green for update */
+}
+
+.update-review-button:hover {
+    background-color: #388e3c;
+}
+
+.delete-review-button {
+    background-color: #f44336; /* Red for delete */
+}
+
+.delete-review-button:hover {
+    background-color: #d32f2f;
+}
+
+
+
 /* All Authors List View */
 /* Container for the list */
 .authors-container {
@@ -402,6 +521,13 @@ nav ul li a:hover {
     border-radius: 5px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.author-card p {
+    font-family: Roboto;
+    text-decoration: none;
+    font-weight: 400;
+
 }
 
 /* Hover effect for cards */
@@ -538,8 +664,8 @@ nav ul li a:hover {
     color: #688fce;
     text-decoration: underline;
     font-family: Roboto;
+    font-weight: 300;
     margin-top: -40px;
-
 }
 
 /* Logged Out Page */
@@ -564,18 +690,21 @@ nav ul li a:hover {
     font-size: 1.5rem;
     color: #333;
     font-family: Roboto;
+    font-weight: bold;
 }
 
 .logout-container p {
     font-size: 1rem;
     margin-top: 20px;
-    font-family: 'Roboto';
+    font-family: Roboto;
+    font-weight: 300;
 }
 
 .logout-container a {
     color: #86a3d2;
     text-decoration: none;
     font-family: Roboto;
+    font-weight: 300;
 }
 
 .logout-container a:hover {
@@ -583,6 +712,159 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
+
+/* All users page */
+/* Container for the list of users */
+.users-container {
+    margin: 50px auto;
+    max-width: 700px;
+    padding: 20px;
+    margin-top: 140px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.users-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: Roboto;
+    font-weight: 300;   
+    font-size: 24px;
+}
+
+/* Each user card */
+.user-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color */
+    position: relative; /* Ensure button is positioned correctly */
+    font-family: Roboto;
+    font-weight: 300;
+}
+
+.user-card a {
+    text-decoration: none;
+    color: #333;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* User picture styling */
+.user-picture img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+/* User info styling */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.user-details {
+    flex-grow: 1;
+    font-family: Roboto;
+    font-weight: 300;
+}
+
+.user-details a {
+    text-decoration: none;
+    font-family: Roboto;
+    font-weight: 300;
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+.user-status {
+    position: absolute;
+    right: 15px; /* Aligns to the right */
+    top: 50%; /* Centers vertically */
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between Accept and Reject buttons */
+    text-align: right;
+    font-weight: bold;
+}
+
+/* Style for add friend button */
+.add-friend-form {
+    position: absolute;
+    right: 15px; /* Adjust to align with the right side */
+    margin: -12px 4px;;
+}
+
+.add-friend-button {
+    padding: 6px 12px;
+    background-color: #86a3d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: Roboto;
+    font-weight: 300;
+    width: 100px;
+}
+
+.add-friend-button:hover {
+    background-color: #6483b5;
+}
+
+/* Accept and Reject Buttons */
+.all-accept-button,
+.all-reject-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: Roboto;
+    font-weight: 300;
+}
+
+.all-accept-button {
+    background-color: #86a3d2;
+    color: white;
+}
+
+.all-accept-button:hover {
+    background-color: #6483b5;
+}
+
+.all-reject-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.all-reject-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Highlight the logged-in user's profile */
+.logged-in-user {
+    background-color: #f0f8ff; /* Light blue background for distinction */
+    border: 2px solid #86a3d2; /* Border color matches theme */
+}
 
 /* User Profile Page */
 .profile-container {
@@ -610,6 +892,10 @@ nav ul li a:hover {
     border: 4px solid #e0e0e0; /* Light border around the profile picture */
 }
 
+.profile-details {
+    flex-grow: 1;
+}
+
 .profile-details h2 {
     font-size: 28px;
     font-weight: bold;
@@ -622,16 +908,104 @@ nav ul li a:hover {
     color: #555555; /* Medium gray */
 }
 
+.profile-status {
+    text-align: right;
+    margin-right: 30px;
+}
+
+.book-grid-container h4 {
+    color: #333;
+    font-size: 18px;
+    font-family: Roboto;
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+
+.book-progress-section h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333333; 
+    background-color:#91b3ed ;
+    padding: 8px 10px;
+    border-radius: 8px;
+    padding-left: 20px;
+    
+}
+
+.status-text {
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
+}
+
+.status-button {
+    background-color: #86a3d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: Roboto;
+    font-weight: 300;
+}
+
+.status-button:hover {
+    background-color: #6483b5;
+}
+
+/* Friend Request Actions */
+.friend-request-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.profile-accept-button, .profile-reject-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: Roboto;
+    font-weight: 300;
+}
+
+.profile-accept-button {
+    background-color: #86a3d2;
+    color: white;
+}
+
+.profile-accept-button:hover {
+    background-color: #6483b5;
+}
+
+.profile-reject-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.profile-reject-button:hover {
+    background-color: #d32f2f;
+}
 /* Friends section styling */
 .friends-section {
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .friends-section h3 {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #333333; /* Dark gray */
+    color: white; 
+    background-color: #2c2c90;
+    padding: 8px 10px;
+    border-radius: 8px;
+    padding-left: 18px;
+    font-family: Roboto;
+    font-weight: 300;
 }
 
 /* Friends grid styling */
@@ -662,6 +1036,124 @@ nav ul li a:hover {
     object-fit: cover;
     border: 3px solid #ddd;
 
+}
+
+/* Friend Requests Page */
+.friend-requests-container {
+    margin: 50px auto;
+    max-width: 700px;
+    padding: 20px;
+    margin-top: 140px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.friend-requests-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.friend-requests-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.friend-requests-list a {
+    text-decoration: none;
+}
+
+/* Friend Request Card */
+.friend-request-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.friend-request-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Profile Picture */
+.request-picture img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 2px solid #86a3d2;
+}
+
+/* Request Details */
+.request-info {
+    display: flex;
+    align-items: center;
+}
+
+.request-details {
+    margin-left: 15px;
+}
+
+.request-details h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+}
+
+.request-details .request-timestamp {
+    font-size: 14px;
+    color: #777;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 5px;
+}
+
+/* Request Actions */
+.request-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.accept-button, .reject-button {
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+}
+
+.accept-button {
+    background-color: #86a3d2;
+    color: white;
+}
+
+.accept-button:hover {
+    background-color: #6483b5;
+}
+
+.reject-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.reject-button:hover {
+    background-color: #d32f2f;
 }
 
 
@@ -737,4 +1229,344 @@ nav ul li a:hover {
 
 .welcome-gif {
     max-width: 400px; /* Adjust as needed */
+}
+
+
+/* Update Profile Page */
+.update-profile-container {
+    max-width: 500px;
+    margin: 50px auto;
+    margin-top: 140px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+}
+
+.update-profile-container h2 {
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.form-group .current-pic p {
+    margin: 5px 0;
+    font-size: 12px;
+    color: #666;
+}
+
+.form-group .current-pic a {
+    color: #86a3d2;
+    text-decoration: none;
+}
+
+.form-group .current-pic a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.update-button {
+    padding: 10px 20px;
+    background-color: #86a3d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.update-button:hover {
+    background-color: #6483b5;
+}
+
+.cancel-button {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Style for current profile picture */
+.current-profile-pic {
+    display: block;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Create Review Page */
+.create-review-container {
+    max-width: 900px;
+    margin: 50px auto;
+    margin-top: 140px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+}
+
+.create-review-container h2 {
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.create-review-container p {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.review-form-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.review-content-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: left;
+}
+
+.review-book-cover {
+    flex: 1;
+    text-align: center;
+    
+}
+
+.review-book-cover-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+}
+
+form {
+    flex: 2;
+}
+
+
+.review-form-group {
+    margin-bottom: 15px;
+}
+
+.review-form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.review-submit-button, .cancel-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    text-align: center;
+}
+
+/* Star Rating */
+.review-star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.rating-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between the label and the stars */
+}
+
+.rating-container label {
+    font-size: 16px;
+    color: #555;
+    margin: 0;
+}
+
+.review-star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0;
+}
+
+.review-star-rating input {
+    display: none;
+}
+
+.review-star-rating label {
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.review-star-rating input:checked ~ label {
+    color: #ffcc00; /* Gold for selected stars */
+}
+
+.review-star-rating label:hover,
+.review-star-rating label:hover ~ label {
+    color: #ffcc00; /* Gold on hover */
+}
+
+
+.review-star-rating input {
+    display: none;
+}
+
+.review-star-rating label {
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.review-star-rating input:checked ~ label {
+    color: #ffcc00; /* Gold color for selected stars */
+}
+
+.review-star-rating label:hover,
+.review-star-rating label:hover ~ label {
+    color: #ffcc00; /* Gold color on hover */
+}
+
+
+.review-submit-button {
+    background-color: #86a3d2;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.review-submit-button:hover {
+    background-color: #6483b5;
+}
+
+.review-cancel-button {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 300;
+
+}
+
+.review-cancel-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Update and Delete Review Pages */
+
+/* Delete Review Page */
+.delete-review-container {
+    max-width: 900px;
+    margin: 50px auto;
+    margin-top: 140px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+}
+
+.delete-review-container h2 {
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.delete-review-container p {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Delete Button Styling */
+.delete-button {
+    background-color: #86a3d2; /* Red for danger */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    margin-left: 300px;
+}
+
+.delete-button:hover {
+    background-color: #6483b5; /* Darker red on hover */
+}
+
+/* Review Summary */
+.review-summary p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: left;
 }

@@ -1,0 +1,45 @@
+<!-- project/templates/project/update_review_form.html -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+<div class="create-review-container">
+    <h2>Update Your Review</h2>
+    <p>Edit your thoughts about <strong>{{ book.book_title }}</strong> by <strong>{{ book.book_author.author_first_name }} {{ book.book_author.author_last_name }}</strong>.</p>
+    <div class="review-form-layout">
+        <!-- Book Cover Section -->
+        <div class="review-book-cover">
+            {% if book.book_cover_image %}
+                <img src="{{ book.book_cover_image }}" alt="{{ book.book_title }}'s Cover" class="review-book-cover-img">
+            {% else %}
+                <img src="/static/images/placeholder.png" alt="No Cover Image" class="review-book-cover-img">
+            {% endif %}
+        </div>
+
+        <!-- Review Form Section -->
+        <form method="POST" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            <div class="review-form-group">
+                <div class="rating-container">
+                    <label for="rating">Rating:</label>
+                    <div class="review-star-rating">
+                        <input type="radio" id="star5" name="rating" value="5" {% if review.rating == 5 %}checked{% endif %}><label for="star5" title="5 stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4" {% if review.rating == 4 %}checked{% endif %}><label for="star4" title="4 stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3" {% if review.rating == 3 %}checked{% endif %}><label for="star3" title="3 stars">★</label>
+                        <input type="radio" id="star2" name="rating" value="2" {% if review.rating == 2 %}checked{% endif %}><label for="star2" title="2 stars">★</label>
+                        <input type="radio" id="star1" name="rating" value="1" {% if review.rating == 1 %}checked{% endif %}><label for="star1" title="1 star">★</label>
+                    </div>
+                </div>
+            </div>
+            <div class="review-form-group">
+                <label for="content">Content:</label><br>
+                {{ form.content }}
+            </div>
+            <div class="review-form-actions">
+                <button type="submit" class="review-submit-button">Update Review</button>
+                <a href="{% url 'show_book' book.pk %}" class="review-cancel-button">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

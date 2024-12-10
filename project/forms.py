@@ -51,7 +51,7 @@ class CreateReviewForm(forms.ModelForm):
     class Meta:
         ''' Associate this form with the Review model '''
         model = Review
-        fields = ['book', 'rating', 'content']
+        fields = ['rating', 'content']
 
 
 class UpdateUserProfileForm(forms.ModelForm):

@@ -137,6 +137,19 @@ class ShowBookDetailsView(DetailView):
 
             context['friends_progress'] = friends_progress
 
+            # Get the user's review for this book
+            try:
+                user_review = Review.objects.get(book=book, user=user_profile)
+                context['user_review'] = user_review
+            except Review.DoesNotExist:
+                context['user_review'] = None  # Set to None if no review exists
+
+            # Add friends' reviews for the book
+            friends_review =  Review.objects.filter(book=book, user__in=friends)
+            if friends_review: 
+                context['friends_reviews'] = friends_review
+
+
         return context
 
 class ShowAuthorDetailsView(DetailView):
@@ -291,6 +304,11 @@ class ShowUserProfileView(LoginRequiredMixin, DetailView):
                 # Determine if a friend request can be sent
                 context['can_send_request'] = not context['is_friend'] and not context['has_sent_request']
 
+            # Add reviews to context if the profile is the logged-in user's or a friend's
+            if is_own_profile or context.get('is_friend', False):
+                context['reviews'] = Review.objects.filter(user=viewed_profile)
+
+
         # get the books that the user is READING/WANT TO READ/READ
         user_profile = self.get_object()
         context['currently_reading'] = BookProgress.objects.filter(user=user_profile, status='reading')
@@ -395,9 +413,55 @@ class DeleteBookProgressView(LoginRequiredMixin, DeleteView):
 
 class CreateReviewView(LoginRequiredMixin, CreateView):
     ''' A view to show/process the CreateReview form '''
-
+    model = Review
     form_class = CreateReviewForm
     template_name = 'project/create_review_form.html'
+
+    def get_object(self):
+        ''' find the profile related to the USER '''
+        user = self.request.user
+        profile = UserProfile.objects.get(user = user)
+        
+        return profile
+
+    def form_valid(self, form):
+        # Automatically assign the user and book to the review
+        user = self.request.user
+        user_profile = UserProfile.objects.get(user=user)
+
+        book_pk = self.kwargs.get('book_pk')
+        book = Book.objects.get(pk=book_pk)
+
+        # Redirect to the update review page if a review already exists
+        existing_review = Review.objects.filter(book=book, user=user_profile).first()
+
+        if existing_review:
+            return HttpResponseRedirect(reverse('update_review', args=[existing_review.pk]))
+
+        form.instance.user = user_profile
+        form.instance.book = book  # Use the book set in dispatch
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # get the logged in user 
+        user = self.request.user
+        user_profile = UserProfile.objects.get(user = user)
+        context['user_profile'] = user_profile
+
+        book_pk = self.kwargs.get('book_pk')
+        book = Book.objects.get(pk=book_pk)
+
+        context['book'] = book # Pass the book object to the template
+        return context
+
+    def get_success_url(self, **kwargs):
+        # Redirect to the book detail page after the review is created
+        book_pk = self.kwargs.get('book_pk')
+
+        return reverse('show_book', kwargs={'pk': book_pk})
+
 
 class UpdateUserProfileView(LoginRequiredMixin, UpdateView):
     ''' A view to process the UpdateUserProfile form '''
@@ -439,12 +503,32 @@ class UpdateReviewView(LoginRequiredMixin, UpdateView):
     template_name = 'project/update_review_form.html'
     context_object_name = 'review'
 
+    def get_context_data(self, **kwargs):
+        ''' Pass the book related to the review into the context '''
+        context = super().get_context_data(**kwargs)
+        context['book'] = self.object.book
+        return context
+
 class DeleteReviewView(LoginRequiredMixin, DeleteView):
     ''' A view to delete a review '''
 
     model = Review
     template_name = 'project/delete_review_form.html'
     context_object_name = 'review'
+
+    def get_context_data(self, **kwargs):
+        ''' Pass the book related to the review into the context '''
+        context = super().get_context_data(**kwargs)
+        context['book'] = self.object.book
+        return context
+
+    def get_success_url(self):
+        ''' redirect back to the Profile page after successful deletion '''
+        review_pk = self.kwargs.get('pk')
+        review = Review.objects.get(pk=review_pk)
+        book = review.book
+        return reverse('show_book', kwargs={'pk': book.pk})
+       
 
 class CreateFriendshipView(LoginRequiredMixin, View):
     ''' A view to create a Friendship between two UserProfile objects '''
