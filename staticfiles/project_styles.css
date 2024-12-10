@@ -99,7 +99,7 @@ nav ul li a:hover {
 /* Show All Books Page */
 .genre-section {
     margin: 60px;
-    margin-top: 140px;
+    margin-top: 20px;
     margin-bottom: 40px;
     font-size:18px;
 }
@@ -489,7 +489,7 @@ nav ul li a:hover {
     border-radius: 8px;
     margin: 40px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 140px;
+    margin-top: 20px;
 }
 
 /* Section title */
@@ -1569,4 +1569,31 @@ form {
     color: #333;
     margin-bottom: 10px;
     text-align: left;
+}
+
+/* Search Engine Styles */
+.search-container {
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 140px;
+}
+
+.search-bar {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-button {
+    padding: 10px 20px;
+    background-color: #86a3d2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #6483b5;
 }
