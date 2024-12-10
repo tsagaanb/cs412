@@ -229,7 +229,7 @@ class ShowAuthorDetailsView(DetailView):
 
         return context
     
-class ShowAllUserProfileView(ListView):
+class ShowAllUserProfileView(LoginRequiredMixin, ListView):
     ''' A view to show the list of all the users '''
     model = UserProfile
     template_name = 'project/show_all_users.html'
@@ -251,8 +251,14 @@ class ShowAllUserProfileView(ListView):
                 profile.has_sent_request = FriendRequest.objects.filter(sender=user_profile, receiver=profile).exists()
                 profile.has_received_request = FriendRequest.objects.filter(sender=profile, receiver=user_profile).exists()
 
-
         return context
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect(reverse('login'))
+
+        return super().dispatch(request, *args, **kwargs)
+
 
 
 class CreateFriendRequestView(LoginRequiredMixin, View):
@@ -267,6 +273,20 @@ class CreateFriendRequestView(LoginRequiredMixin, View):
             FriendRequest.objects.create(sender=sender, receiver=receiver)
 
         return redirect('show_all_users')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect(reverse('login'))
+
+        user = self.request.user
+        user_profile = UserProfile.objects.get(user=user)
+        receiver = UserProfile.objects.get(pk=kwargs['pk'])
+        friends_list = user_profile.get_friends()
+        is_friend = receiver in friends_list
+        if is_friend:
+            return redirect(reverse('show_user_profile' , kwargs={'pk': receiver.pk }))
+
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ShowFriendRequestsView(LoginRequiredMixin, ListView):
@@ -289,6 +309,12 @@ class ShowFriendRequestsView(LoginRequiredMixin, ListView):
             context['friend_requests'] = FriendRequest.objects.filter(receiver=user_profile, status='pending')
         
         return context
+        
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect(reverse('login'))
+        
+        return super().dispatch(request, *args, **kwargs)
 
 
 class AcceptFriendRequestView(LoginRequiredMixin, View):
@@ -308,6 +334,17 @@ class AcceptFriendRequestView(LoginRequiredMixin, View):
 
         return redirect('friend_requests')
 
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect(reverse('login'))
+            
+        friend_request_id = self.kwargs.get('request_id')
+        friend_request = FriendRequest.objects.get(id=friend_request_id)
+        if self.request.user != friend_request.receiver.user:
+            return redirect('show_all_books')
+            
+        return super().dispatch(request, *args, **kwargs)
+
 
 class RejectFriendRequestView(LoginRequiredMixin, View):
     ''' A view to reject a friend request '''
@@ -322,6 +359,18 @@ class RejectFriendRequestView(LoginRequiredMixin, View):
             friend_request.delete()
 
         return redirect('friend_requests')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect(reverse('login'))
+            
+        friend_request_id = self.kwargs.get('request_id')
+        friend_request = FriendRequest.objects.get(id=friend_request_id)
+        if self.request.user != friend_request.receiver.user:
+            return redirect('show_all_books')
+            
+        return super().dispatch(request, *args, **kwargs)
+
 
 class ShowUserProfileView(LoginRequiredMixin, DetailView):
     ''' A view to show the profile of a user '''
@@ -373,6 +422,10 @@ class ShowUserProfileView(LoginRequiredMixin, DetailView):
         context['read_books'] = BookProgress.objects.filter(user=user_profile, status='read')
         return context
 
+    def dispatch(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                return redirect(reverse('login'))
+            return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         ''' Ensure we fetch the correct user profile based on the pk '''
@@ -419,10 +472,15 @@ class CreateUserProfileView(CreateView):
         context['user_form'] = user_form
         return context
 
+
 class CreateBookProgressView(LoginRequiredMixin, CreateView):
     ''' A view to create a BookProgress for a user '''
 
     def dispatch(self, request, *args, **kwargs):
+        
+        if not self.request.user.is_authenticated:
+            return redirect(reverse('login'))
+
         # get the logged in user
         user = self.request.user
         # get the user_profile instance of the logged in user
@@ -466,6 +524,16 @@ class DeleteBookProgressView(LoginRequiredMixin, DeleteView):
         user = self.request.user
         user_profile = UserProfile.objects.get(user=user)
         return BookProgress.objects.filter(user=user_profile)
+
+    def dispatch(self, request, *args, **kwargs):
+        book_progress_pk = self.kwargs.get('pk')
+        book_progress = BookProgress.objects.get(pk= book_progress_pk)
+        user_profile = UserProfile.objects.get(user=request.user)
+
+        if book_progress.user != user_profile:
+            return redirect('show_all_books')  # Redirect unauthorized users
+        return super().dispatch(request, *args, **kwargs)
+
         
 
 class CreateReviewView(LoginRequiredMixin, CreateView):
@@ -519,6 +587,21 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
 
         return reverse('show_book', kwargs={'pk': book_pk})
 
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect(reverse('login'))
+
+        user = self.request.user
+        user_profile = UserProfile.objects.get(user=user)
+        book_pk = self.kwargs.get('book_pk')
+        book = Book.objects.get(pk=book_pk)
+        # Redirect to the update review page if a review already exists
+        existing_review = Review.objects.filter(book=book, user=user_profile).first()
+        if existing_review:
+            return redirect(reverse('update_review', kwargs={'pk': existing_review.pk }))
+
+        return super().dispatch(request, *args, **kwargs)
+
 
 class UpdateUserProfileView(LoginRequiredMixin, UpdateView):
     ''' A view to process the UpdateUserProfile form '''
@@ -552,6 +635,12 @@ class UpdateUserProfileView(LoginRequiredMixin, UpdateView):
 
         return context 
 
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect(reverse('login'))
+        return super().dispatch(request, *args, **kwargs)
+
+
 class UpdateReviewView(LoginRequiredMixin, UpdateView):
     ''' A view to process the UpdateReview form '''
 
@@ -579,6 +668,17 @@ class UpdateReviewView(LoginRequiredMixin, UpdateView):
         book = review.book
         return reverse('show_book', kwargs={'pk': book.pk})
        
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect(reverse('login'))
+
+        review = self.get_object()
+        user_profile = UserProfile.objects.get(user=request.user)
+        # Check if the logged-in user is the owner of the review
+        if review.user != user_profile:
+            return redirect('show_all_books')  # Redirect unauthorized users
+        return super().dispatch(request, *args, **kwargs)
+
 
 class DeleteReviewView(LoginRequiredMixin, DeleteView):
     ''' A view to delete a review '''
@@ -606,27 +706,13 @@ class DeleteReviewView(LoginRequiredMixin, DeleteView):
         book = review.book
         return reverse('show_book', kwargs={'pk': book.pk})
        
-
-class CreateFriendshipView(LoginRequiredMixin, View):
-    ''' A view to create a Friendship between two UserProfile objects '''
-
     def dispatch(self, request, *args, **kwargs):
-        ''' creates a frienship using the add_friend method between the 
-            current User and a different user '''
+        if not self.request.user.is_authenticated:
+            return redirect(reverse('login'))
 
-        user = self.request.user
-        userProfile = UserProfile.objects.get(user = user)
-        other_pk = self.kwargs.get('other_pk')
-        other_UserProfile = UserProfile.objects.get(pk = other_pk)
-
-        userProfile.add_friend(other_UserProfile)
-
-        return redirect(reverse('show_profile', kwargs={'pk': userProfile.id}))
-    
-    def get_object(self):
-        ''' find the profile related to the USER '''
-
-        user = self.request.user
-        userProfile = UserProfile.objects.get(user=user)
-
-        return userProfile
+        review = self.get_object()
+        user_profile = UserProfile.objects.get(user=request.user)
+        # Check if the logged-in user is the owner of the review
+        if review.user != user_profile:
+            return redirect('show_all_books')  # Redirect unauthorized users
+        return super().dispatch(request, *args, **kwargs)

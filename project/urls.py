@@ -24,7 +24,7 @@ urlpatterns = [
     path(r'users/', views.ShowAllUserProfileView.as_view(), name='show_all_users'),
 
     # Book Review links
-    path(r'book/<int:book_pk>/create-review/', views.CreateReviewView.as_view(), name='create_review'),
+    path(r'book/<int:book_pk>/create_review/', views.CreateReviewView.as_view(), name='create_review'),
     path(r'review/<int:pk>/update/', views.UpdateReviewView.as_view(), name='update_review'),
     path(r'review/<int:pk>/delete/', views.DeleteReviewView.as_view(), name='delete_review'),
 
