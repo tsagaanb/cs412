@@ -509,6 +509,14 @@ class UpdateReviewView(LoginRequiredMixin, UpdateView):
         context['book'] = self.object.book
         return context
 
+    def get_success_url(self):
+        ''' redirect back to the Profile page after successful deletion '''
+        review_pk = self.kwargs.get('pk')
+        review = Review.objects.get(pk=review_pk)
+        book = review.book
+        return reverse('show_book', kwargs={'pk': book.pk})
+       
+
 class DeleteReviewView(LoginRequiredMixin, DeleteView):
     ''' A view to delete a review '''
 

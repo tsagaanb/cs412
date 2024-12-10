@@ -62,123 +62,124 @@
                 {% endif %}
             </div>
         </div>
-
+        {% if user.is_authenticated %}
         <!-- Right Section -->
-        <div class="right-section">
-            <!-- Add to Shelf Container -->
-            <div class="add-to-shelf-container">
-                <form method="POST" action="{% url 'add_book_progress' book.pk %}">
-                    {% csrf_token %}
-                    <b><label for="status">Add to Shelf:</label></b>
-                    <select name="status" id="status">
-                        <option value="-" {% if book_progress.status == None %}selected{% endif %}>-</option>
-                        <option value="want to read" {% if book_progress.status == "want to read" %}selected{% endif %}>Want to Read</option>
-                        <option value="reading" {% if book_progress.status == "reading" %}selected{% endif %}>Currently Reading</option>
-                        <option value="read" {% if book_progress.status == "read" %}selected{% endif %}>Read</option>
-                    </select>
-                    <button type="submit">Add</button>
-                </form>
-                <!-- delete from shelf button -->
-                {% if book_progress != None %}
-                    <form method="POST" action="{% url 'delete_book_progress' book_progress.pk %}" style="margin-top: 10px;">
+            <div class="right-section">
+                <!-- Add to Shelf Container -->
+                <div class="add-to-shelf-container">
+                    <form method="POST" action="{% url 'add_book_progress' book.pk %}">
                         {% csrf_token %}
-                        <button type="submit" class="remove-button">Remove from Shelf</button>
+                        <b><label for="status">Add to Shelf:</label></b>
+                        <select name="status" id="status">
+                            <option value="-" {% if book_progress.status == None %}selected{% endif %}>-</option>
+                            <option value="want to read" {% if book_progress.status == "want to read" %}selected{% endif %}>Want to Read</option>
+                            <option value="reading" {% if book_progress.status == "reading" %}selected{% endif %}>Currently Reading</option>
+                            <option value="read" {% if book_progress.status == "read" %}selected{% endif %}>Read</option>
+                        </select>
+                        <button type="submit">Add</button>
                     </form>
-                {% endif %}
-
-            </div>
-
-            <!-- Friends Who Shelved This Book Container -->
-            <div class="friends-who-shelved-container">
-                <h4>Friends Who Shelved This Book</h4>
-                {% if friends_progress %}
-                    <ul class="friends-list">
-                        {% for progress in friends_progress %}
-                            <li class="friend-entry">
-                                <a href="{% url 'show_user_profile' progress.user.pk %}" class="friend-link">
-                                    <div class="friend-profile">
-                                        {% if progress.user.user_profile_pic %}
-                                            <img src="{{ progress.user.user_profile_pic.url }}" alt="{{ progress.user.user_first_name }}'s Profile Picture" class="friend-profile-pic">
-                                        {% else %}
-                                            <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture" class="friend-profile-pic">
-                                        {% endif %}
-                                        <div class="friend-info">
-                                            <strong>{{ progress.user.user }}</strong>
-                                            <p class="friend-status">{{ progress.status|title }}</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No friends have shelved this book yet.</p>
-                {% endif %}
-            </div>
-
-            <!-- Reviews Section -->
-            <div class="reviews-container">
-                <!-- User's Review -->
-                <div class="user-review-section">
-                    <h4>Your Review</h4>
-                    {% if user_review %}
-                        <div class="review-entry">
-                            <div class="review-header">
-                                {% if user_profile.user_profile_pic %}
-                                    <img src="{{ user_profile.user_profile_pic.url }}" alt="{{ user_profile.user }}'s Profile Picture" class="profile-pic">
-                                {% else %}
-                                    <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture" class="profile-pic">
-                                {% endif %}
-                                <div class="review-header-text">
-                                    <p><strong>{{ user_profile.user }}</strong></p>
-                                    <p><small>{{ user_review.timestamp|date:"F j, Y, g:i a" }}</small></p>
-                                </div>
-                            </div>
-                            <p class="stars" data-rating="{{ user_review.rating }}"></p>
-                            <p>{{ user_review.content }}</p>
-
-                            <!-- Update and Delete Buttons -->
-                            <div class="review-actions">
-                                <a href="{% url 'update_review' user_review.pk %}" class="update-review-button">Update</a>
-                                <a href="{% url 'delete_review' user_review.pk %}" class="delete-review-button">Delete</a>
-                            </div>
-                            
-                        </div>
-                    {% else %}
-                        <p>You have not reviewed this book yet.</p>
-                        <a class="write-review-button" href="{% url 'create_review' book.pk %}">Write a Review</a>
+                    <!-- delete from shelf button -->
+                    {% if book_progress != None %}
+                        <form method="POST" action="{% url 'delete_book_progress' book_progress.pk %}" style="margin-top: 10px;">
+                            {% csrf_token %}
+                            <button type="submit" class="remove-button">Remove from Shelf</button>
+                        </form>
                     {% endif %}
+
                 </div>
-            
-                <!-- Friends' Reviews -->
-                <div class="friends-review-section">
-                    <h4>Friends' Reviews</h4>
-                    {% if friends_reviews %}
-                        <ul class="friends-reviews-list">
-                            {% for review in friends_reviews %}
-                                <li class="friend-review-entry">
-                                    <div class="review-header">
-                                        {% if review.user.user_profile_pic %}
-                                            <img src="{{ review.user.user_profile_pic.url }}" alt="{{ review.user.user }}'s Profile Picture" class="profile-pic">
-                                        {% else %}
-                                            <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture" class="profile-pic">
-                                        {% endif %}
-                                        <div class="review-header-text">
-                                            <p><strong>{{ review.user.user }}</strong></p>
-                                            <p><small>{{ review.timestamp|date:"F j, Y, g:i a" }}</small></p>
+
+                <!-- Friends Who Shelved This Book Container -->
+                <div class="friends-who-shelved-container">
+                    <h4>Friends Who Shelved This Book</h4>
+                    {% if friends_progress %}
+                        <ul class="friends-list">
+                            {% for progress in friends_progress %}
+                                <li class="friend-entry">
+                                    <a href="{% url 'show_user_profile' progress.user.pk %}" class="friend-link">
+                                        <div class="friend-profile">
+                                            {% if progress.user.user_profile_pic %}
+                                                <img src="{{ progress.user.user_profile_pic.url }}" alt="{{ progress.user.user_first_name }}'s Profile Picture" class="friend-profile-pic">
+                                            {% else %}
+                                                <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture" class="friend-profile-pic">
+                                            {% endif %}
+                                            <div class="friend-info">
+                                                <strong>{{ progress.user.user }}</strong>
+                                                <p class="friend-status">{{ progress.status|title }}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <p class="stars" data-rating="{{ review.rating }}"></p>
-                                    <p>{{ review.content }}</p>
+                                    </a>
                                 </li>
                             {% endfor %}
                         </ul>
                     {% else %}
-                        <p>No reviews from your friends yet.</p>
+                        <p>No friends have shelved this book yet.</p>
                     {% endif %}
                 </div>
-            </div>            
-        </div>
+
+                <!-- Reviews Section -->
+                <div class="reviews-container">
+                    <!-- User's Review -->
+                    <div class="user-review-section">
+                        <h4>Your Review</h4>
+                        {% if user_review %}
+                            <div class="review-entry">
+                                <div class="review-header">
+                                    {% if user_profile.user_profile_pic %}
+                                        <img src="{{ user_profile.user_profile_pic.url }}" alt="{{ user_profile.user }}'s Profile Picture" class="profile-pic">
+                                    {% else %}
+                                        <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture" class="profile-pic">
+                                    {% endif %}
+                                    <div class="review-header-text">
+                                        <p><strong>{{ user_profile.user }}</strong></p>
+                                        <p><small>{{ user_review.timestamp|date:"F j, Y, g:i a" }}</small></p>
+                                    </div>
+                                </div>
+                                <p class="stars" data-rating="{{ user_review.rating }}"></p>
+                                <p>{{ user_review.content }}</p>
+
+                                <!-- Update and Delete Buttons -->
+                                <div class="review-actions">
+                                    <a href="{% url 'update_review' user_review.pk %}" class="update-review-button">Update</a>
+                                    <a href="{% url 'delete_review' user_review.pk %}" class="delete-review-button">Delete</a>
+                                </div>
+                                
+                            </div>
+                        {% else %}
+                            <p>You have not reviewed this book yet.</p>
+                            <a class="write-review-button" href="{% url 'create_review' book.pk %}">Write a Review</a>
+                        {% endif %}
+                    </div>
+                
+                    <!-- Friends' Reviews -->
+                    <div class="friends-review-section">
+                        <h4>Friends' Reviews</h4>
+                        {% if friends_reviews %}
+                            <ul class="friends-reviews-list">
+                                {% for review in friends_reviews %}
+                                    <li class="friend-review-entry">
+                                        <div class="review-header">
+                                            {% if review.user.user_profile_pic %}
+                                                <img src="{{ review.user.user_profile_pic.url }}" alt="{{ review.user.user }}'s Profile Picture" class="profile-pic">
+                                            {% else %}
+                                                <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture" class="profile-pic">
+                                            {% endif %}
+                                            <div class="review-header-text">
+                                                <p><strong>{{ review.user.user }}</strong></p>
+                                                <p><small>{{ review.timestamp|date:"F j, Y, g:i a" }}</small></p>
+                                            </div>
+                                        </div>
+                                        <p class="stars" data-rating="{{ review.rating }}"></p>
+                                        <p>{{ review.content }}</p>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No reviews from your friends yet.</p>
+                        {% endif %}
+                    </div>
+                </div>            
+            </div>
+        {% endif %}
         
     </div>
 </div>
