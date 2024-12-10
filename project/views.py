@@ -768,7 +768,7 @@ class UpdateReviewView(LoginRequiredMixin, UpdateView):
         book = review.book
         return reverse('show_book', kwargs={'pk': book.pk})
        
-    def dispatch(self, request, *args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
         '''
         1) Makes sure the user is authenticated
         2) Check if the user is the creator of the Review object
