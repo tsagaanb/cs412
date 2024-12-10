@@ -19,7 +19,6 @@
 
     <!-- Search Bar -->
     <div class="search-container">
-
         <form method="GET" action="">
             <input type="text" name="q" placeholder="Search by Author" value="" class="search-bar">
             <button type="submit" class="search-button">Search</button>
@@ -28,10 +27,9 @@
 
     <!-- All Authors -->
     <div class="authors-container">
-        
         <h3 class="section-title">All Authors</h3>
-
         <div class="authors-grid">
+            <!-- Loop through all the authors passed though context -->
             {% for author in authors %}
                     <div class="author-card">
                         <a href="{% url 'show_author' author.pk %}">

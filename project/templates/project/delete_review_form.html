@@ -14,53 +14,53 @@
 
 <!-- Body -->
 {% block content %}
-<div class="delete-review-container">
-    <h2>Delete Your Review</h2>
-    <p>Are you sure you want to delete your review for <strong>{{ review.book.book_title }}</strong> by <strong>{{ review.book.book_author.author_first_name }} {{ review.book.book_author.author_last_name }}</strong>?</p>
-    
-    <!-- Layout for Review Details -->
-    <div class="review-form-layout">
-        <!-- Book Cover Section -->
-        <div class="review-book-cover">
-            {% if review.book.book_cover_image %}
-                <img src="{{ review.book.book_cover_image }}" alt="{{ review.book.book_title }}'s Cover" class="review-book-cover-img">
-            {% else %}
-                <img src="/static/images/placeholder.png" alt="No Cover Image" class="review-book-cover-img">
-            {% endif %}
-        </div>
+    <div class="delete-review-container">
+        <h2>Delete Your Review</h2>
+        <p>Are you sure you want to delete your review for <strong>{{ review.book.book_title }}</strong> by <strong>{{ review.book.book_author.author_first_name }} {{ review.book.book_author.author_last_name }}</strong>?</p>
+        
+        <!-- Layout for Review Details -->
+        <div class="review-form-layout">
+            <!-- Book Cover Section -->
+            <div class="review-book-cover">
+                {% if review.book.book_cover_image %}
+                    <img src="{{ review.book.book_cover_image }}" alt="{{ review.book.book_title }}'s Cover" class="review-book-cover-img">
+                {% else %}
+                    <img src="/static/images/placeholder.png" alt="No Cover Image" class="review-book-cover-img">
+                {% endif %}
+            </div>
 
-        <!-- Review Content Section -->
-        <div class="review-content-section">
-            <div class="review-summary">
-                <p><strong>Rating:</strong> <span class="stars" data-rating="{{ review.rating }}"></span></p>
-                <p><strong>Content:</strong></p>
-                <p>{{ review.content }}</p>
+            <!-- Review Content Section -->
+            <div class="review-content-section">
+                <div class="review-summary">
+                    <p><strong>Rating:</strong> <span class="stars" data-rating="{{ review.rating }}"></span></p>
+                    <p><strong>Content:</strong></p>
+                    <p>{{ review.content }}</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Delete Confirmation -->
-    <form method="POST" action="">
-        {% csrf_token %}
-        <div class="review-form-actions">
-            <button type="submit" class="review-submit-button delete-button">Delete Review</button>
-            <a href="{% url 'show_book' review.book.pk %}" class="review-cancel-button">Cancel</a>
-        </div>
-    </form>
-</div>
+        <!-- Delete Confirmation -->
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="review-form-actions">
+                <button type="submit" class="review-submit-button delete-button">Delete Review</button>
+                <a href="{% url 'show_book' review.book.pk %}" class="review-cancel-button">Cancel</a>
+            </div>
+        </form>
+    </div>
 {% endblock %}
 
 <!-- For the star ratings -->
 {% block extra_js %}
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const starsContainers = document.querySelectorAll('.stars');
-        starsContainers.forEach((container) => {
-            const rating = container.getAttribute('data-rating');
-            const filledStars = '★'.repeat(rating);
-            const emptyStars = '☆'.repeat(5 - rating);
-            container.textContent = filledStars + emptyStars;
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const starsContainers = document.querySelectorAll('.stars');
+            starsContainers.forEach((container) => {
+                const rating = container.getAttribute('data-rating');
+                const filledStars = '★'.repeat(rating);
+                const emptyStars = '☆'.repeat(5 - rating);
+                container.textContent = filledStars + emptyStars;
+            });
         });
-    });
-</script>
+    </script>
 {% endblock %}

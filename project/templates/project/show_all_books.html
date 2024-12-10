@@ -26,39 +26,43 @@
     <!-- Books by Genre -->
     <div class="genre-section">
         <h2>Books by Genre</h2>
-
+        <!-- Loop through all the genres that exists in the books returned from context -->
         {% for genre, genre_books in genre_groups.items %}
 
-        <!-- FROG GIF! -->
-        {% if forloop.first %}
-            <!-- Add the Frog GIF for the first genre -->
-            <div class="frog-container">
-                <img src="/static/images/frog.gif" alt="Frog">
-            </div>
-        {% endif %}
-        
-        <div class="book-grid-container">
-            <h3>{{ genre }}</h3>
-            <div class="book-grid">
-                {% for book in genre_books %}
-                    <div class="book-card">
-                        <a href="{% url 'show_book' book.pk %}">
-                        <div class="book-cover-image">
-                            {% if book.book_cover_image %}
-                                <img src="{{ book.book_cover_image }}" alt="{{ book.book_title }}'s cover image">
-                            {% else %}
-                                <img src="/static/images/placeholder.png" alt="No Cover Image">
-                            {% endif %}
+            <!-- FROG GIF! -->
+            {% if forloop.first %}
+                <!-- Add the Frog GIF for the first genre -->
+                <div class="frog-container">
+                    <img src="/static/images/frog.gif" alt="Frog">
+                </div>
+            {% endif %}
+            
+            <div class="book-grid-container">
+                <h3>{{ genre }}</h3>
+                <div class="book-grid">
+                    <!-- Loop through the books in each genre section -->
+                    {% for book in genre_books %}
+                        <div class="book-card">
+                            <a href="{% url 'show_book' book.pk %}">
+
+                            <div class="book-cover-image">
+                                {% if book.book_cover_image %}
+                                    <img src="{{ book.book_cover_image }}" alt="{{ book.book_title }}'s cover image">
+                                {% else %}
+                                    <img src="/static/images/placeholder.png" alt="No Cover Image">
+                                {% endif %}
+                            </div>
+
+                            <div class="book-info">
+                                <h4 class ="book-title-all">{{ book.book_title }}</h4>
+                                <p>by {{ book.book_author }}</p>
+                            </div>
+                            
+                            </a>
                         </div>
-                        <div class="book-info">
-                            <h4 class ="book-title-all">{{ book.book_title }}</h4>
-                            <p>by {{ book.book_author }}</p>
-                        </div>
-                        </a>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
         {% endfor %}
     </div>
 {% endblock %}

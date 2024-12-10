@@ -14,75 +14,86 @@
 
 <!-- Body -->
 {% block content %}
-<div class="users-container">
-    <h2>All Users</h2>
+    <div class="users-container">
+        <h2>All Users</h2>
 
-    <!-- Logged-in User Section -->
-    {% if user_profile %}
-        <div class="user-card logged-in-user">
-            <a href="{% url 'show_user_profile' user_profile.pk %}" class="card-link">
-                <div class="user-info">
-                    <div class="user-picture">
-                        {% if user_profile.user_profile_pic %}
-                            <img src="{{ user_profile.user_profile_pic.url }}" alt="Your Profile Picture">
-                        {% else %}
-                            <img src="/static/images/default_profile_img.jpg" alt="Default Profile Picture">
-                        {% endif %}
-                    </div>
-                    <div class="user-details">
-                        <strong>{{ user_profile.user}}</strong>
-                        <span class="user-status">Me</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    {% endif %}
-
-    <!-- Other Users Section -->
-    <ul>
-        {% for profile in other_profiles %}
-            {% if profile != user_profile %}
-                <li class="user-card">
-                    <a href="{% url 'show_user_profile' profile.pk %}" class="card-link">
-                        <div class="user-info">
-                            <div class="user-picture">
-                                {% if profile.user_profile_pic %}
-                                    <img src="{{ profile.user_profile_pic.url }}" alt="Profile Picture">
-                                {% else %}
-                                    <img src="/static/images/default_profile_img.jpg" alt="Default Profile Picture">
-                                {% endif %}
-                            </div>
-                            <div class="user-details">
-                                <strong>{{ profile.user }}</strong>
-                            </div>
+        <!-- Logged-in User Section -->
+        {% if user_profile %}
+            <!-- Place the logged-in user on the top of the list -->
+            <div class="user-card logged-in-user">
+                <a href="{% url 'show_user_profile' user_profile.pk %}" class="card-link">
+                    <div class="user-info">
+                        <div class="user-picture">
+                            {% if user_profile.user_profile_pic %}
+                                <img src="{{ user_profile.user_profile_pic.url }}" alt="Your Profile Picture">
+                            {% else %}
+                                <img src="/static/images/default_profile_img.jpg" alt="Default Profile Picture">
+                            {% endif %}
                         </div>
-                    </a>
-                    <div class="user-status">
-                        {% if profile.is_friend %}
-                            <span>Friends</span>
-                        {% elif profile.has_received_request %}
-                            <form method="POST" action="{% url 'accept_friend_request' profile.pk %}">
-                                {% csrf_token %}
-                                <button type="submit" class="all-accept-button">Accept</button>
-                            </form>
-                            <form method="POST" action="{% url 'reject_friend_request' profile.pk %}">
-                                {% csrf_token %}
-                                <button type="submit" class="all-reject-button">Reject</button>
-                            </form>
-                        {% elif profile.has_sent_request %}
-                            <span>Request Sent</span>
-                        {% else %}
-                            <form method="POST" action="{% url 'send_friend_request' profile.pk %}" class="add-friend-form">
-                                {% csrf_token %}
-                                <button type="submit" class="add-friend-button">Add Friend</button>
-                            </form>
-                        {% endif %}
+                        <div class="user-details">
+                            <strong>{{ user_profile.user}}</strong>
+                            <span class="user-status">Me</span>
+                        </div>
                     </div>
-                </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-    
+                </a>
+            </div>
+        {% endif %}
 
-</div>
+        <!-- Other Users Section -->
+        <ul>
+            <!-- Loop through all the other profiles -->
+            {% for profile in other_profiles %}
+                {% if profile != user_profile %}
+                    <li class="user-card">
+                        <a href="{% url 'show_user_profile' profile.pk %}" class="card-link">
+                            <div class="user-info">
+
+                                <div class="user-picture">
+                                    {% if profile.user_profile_pic %}
+                                        <img src="{{ profile.user_profile_pic.url }}" alt="Profile Picture">
+                                    {% else %}
+                                        <img src="/static/images/default_profile_img.jpg" alt="Default Profile Picture">
+                                    {% endif %}
+                                </div>
+
+                                <div class="user-details">
+                                    <strong>{{ profile.user }}</strong>
+                                </div>
+
+                            </div>
+                        </a>
+
+                        <!-- Show the friend status next ot the users -->
+                        <div class="user-status">
+                            {% if profile.is_friend %}
+                                <!-- Indicated that a friendship exists between the current user and this user -->
+                                <span>Friends</span>
+                            {% elif profile.has_received_request %}
+                                <!-- If a request was sent by the other user, add option to accept or reject friend request -->
+                                <form method="POST" action="{% url 'accept_friend_request' profile.pk %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="all-accept-button">Accept</button>
+                                </form>
+
+                                <form method="POST" action="{% url 'reject_friend_request' profile.pk %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="all-reject-button">Reject</button>
+                                </form>
+
+                            {% elif profile.has_sent_request %}
+                                <!-- Indicates that the current user sent a friendrequest to this other user -->
+                                <span>Request Sent</span>
+                            {% else %}
+                                <!-- Add an option to send a friendrequest to this other user -->
+                                <form method="POST" action="{% url 'send_friend_request' profile.pk %}" class="add-friend-form">
+                                    {% csrf_token %}
+                                    <button type="submit" class="add-friend-button">Add Friend</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

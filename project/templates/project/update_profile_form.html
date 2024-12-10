@@ -14,7 +14,6 @@
 
 <!-- Body -->
 {% block content %}
-
     <div class="update-profile-container">
         <h2>Update Your Profile</h2>
         <form method="POST" enctype="multipart/form-data">
@@ -22,7 +21,8 @@
             <div class="form-group">
                 {{ form.non_field_errors }}
             </div>
-            
+
+            <!-- Displaying the current profile fields that can be edited -->
             <div class="form-group">
                 <label for="id_user_email">User Email:</label>
                 {{ form.user_email }}
@@ -40,11 +40,11 @@
                 {{ form.user_profile_pic }}
             </div>
 
+            <!-- Update or Cancel Buttons -->
             <div class="form-actions">
                 <button type="submit" class="update-button">Update Profile</button>
                 <a href="{% url 'show_user_profile' user_profile.pk %}" class="cancel-button">Cancel</a>
             </div>
         </form>
     </div>
-
 {% endblock %}

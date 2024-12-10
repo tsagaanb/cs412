@@ -3,52 +3,50 @@
 {% extends 'project/base.html' %}
 
 {% block content %}
+    <div class="user-creation-container">    
 
-<div class="user-creation-container">    
+        <!-- Form Container -->
+        <div class="form-container-create-profile">
 
-    <!-- Form Container -->
-    <div class="form-container-create-profile">
+            <!-- Cancel Button -->
+            <form action="{% url 'show_all_books' %}">
+                <input type="submit" class="form-button" name="Cancel" value="Cancel">
+            </form>
+        
+            <h2>Create Your Profile</h2>
 
-        <!-- Cancel Button -->
-        <form action="{% url 'show_all_books' %}">
-            <input type="submit" class="form-button" name="Cancel" value="Cancel">
-        </form>
+            <form method="POST" enctype="multipart/form-data" class="profile-form">
+                {% csrf_token %}
 
-    
-        <h2>Create Your Profile</h2>
+                <table class="profile-table">
+                    <!-- Section for User Account Information -->
+                    <tr>
+                        <th colspan="2"><u>User Account Information</u></th>
+                    </tr>
+                    <!-- Render fields dynamically -->
+                    {{ user_form.as_table }}
+                    
+                    <!-- Section for Profile Information -->
+                    <tr>
+                        <th colspan="2"><u>Profile Information</u></th>
+                    </tr>
+                    {{ form.as_table }}
 
-        <form method="POST" enctype="multipart/form-data" class="profile-form">
-            {% csrf_token %}
+                    <!-- Submit Button -->
+                    <tr>
+                        <td></td>
+                        <td colspan="2" class="button-container">
+                            <input type="submit" class="form-button" name="Create Profile" value="Create Profile">
+                        </td>
+                    </tr>
+                </table>
+            </form>
 
-            <table class="profile-table">
-                <!-- Section for User Account Information -->
-                <tr>
-                    <th colspan="2"><u>User Account Information</u></th>
-                </tr>
-                <!-- Render fields dynamically -->
-                {{ user_form.as_table }}
-                
-                <!-- Section for Profile Information -->
-                <tr>
-                    <th colspan="2"><u>Profile Information</u></th>
-                </tr>
-                {{ form.as_table }}
+            <!-- WELCOME GIF -->
+            <div class="welcome-gif-container">
+                <img src="/static/images/welcome.gif" alt="welcome_gif" class="welcome-gif">
+            </div>
 
-                <!-- Submit Button -->
-                <tr>
-                    <td></td>
-                    <td colspan="2" class="button-container">
-                        <input type="submit" class="form-button" name="Create Profile" value="Create Profile">
-                    </td>
-                </tr>
-            </table>
-        </form>
-
-        <!-- WELCOME GIF -->
-        <div class="welcome-gif-container">
-            <img src="/static/images/welcome.gif" alt="welcome_gif" class="welcome-gif">
         </div>
-
     </div>
-</div>
 {% endblock %}
