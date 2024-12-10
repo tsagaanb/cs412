@@ -14,7 +14,7 @@ class Command(BaseCommand):
     OPEN_LIBRARY_AUTHOR_DETAILS_URL = "https://openlibrary.org/authors/{}.json"
     GOOGLE_API_KEY = "AIzaSyDlKkk-tLl71yvjuolcGBnbpdfCO7JI_po"  # Replace with your Google Books API key
 
-    def fetch_books_from_google(self, query="*", start_index=0, max_results=40, language='id'):
+    def fetch_books_from_google(self, query="Brigid Kemmerer", start_index=0, max_results=40, language='en'):
         """
         Fetch books from Google Books API using a query.
         """
@@ -179,10 +179,10 @@ class Command(BaseCommand):
         """
         Main command execution logic.
         """
-        query = "*"  # Modify this query to fetch different types of books
+        query = "Brigid Kemmerer"  # Modify this query to fetch different types of books
         max_results = 40
         start_index = 0
-        language = "id"     
+        language = "en"     
 
         self.stdout.write("Starting to fetch and save books and authors...")
 

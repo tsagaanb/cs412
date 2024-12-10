@@ -22,6 +22,11 @@ from django.contrib.auth.forms import UserCreationForm
 # imports used for language selection
 from django.views.decorators.csrf import csrf_exempt
 
+# FOR SEARCH ENGINE
+# to find fuzzy matches for the search query from a list of book titles or author names.
+from difflib import get_close_matches
+# to dynamically build queries to filter the database for those fuzzy matches.
+from django.db.models import Q
 
 @csrf_exempt
 def set_language(request):
@@ -42,6 +47,42 @@ def get_books(request):
     return books
 
 
+def fuzzy_filter_books(queryset, field, query):
+    ''' Filter books by partial and fuzzy matching on title '''
+    # Partial matching using icontains
+    partial_matches = queryset.filter(book_title__icontains=query)
+
+    # Fuzzy matching using difflib
+    field_values = queryset.values_list("book_title", flat=True)
+    close_matches = get_close_matches(query.lower(), [title.lower() for title in field_values], n=10, cutoff=0.6)
+
+    # Combine both sets of matches
+    return queryset.filter(
+        Q(book_title__in=close_matches) | Q(book_title__icontains=query)
+    )
+
+
+def fuzzy_filter_authors(queryset, fields, query, cutoff=0.6):
+    """Filter authors by partial and fuzzy matching on multiple fields."""
+    # Partial matching using icontains
+    partial_matches = queryset.filter(
+        Q(author_first_name__icontains=query) | Q(author_last_name__icontains=query)
+    ).distinct()  # Apply distinct here
+
+    # Fuzzy matching using difflib
+    field_values = {
+        obj.pk: " ".join([str(getattr(obj, field, '')).lower() for field in fields])
+        for obj in queryset
+    }
+    matches = get_close_matches(query.lower(), field_values.values(), cutoff=cutoff)
+    matching_pks = [pk for pk, value in field_values.items() if value in matches]
+    fuzzy_matches = queryset.filter(pk__in=matching_pks).distinct()  # Apply distinct here
+
+    # Combine partial and fuzzy matches
+    combined_queryset = partial_matches.union(fuzzy_matches, all=True)  # Do not apply distinct here
+    return combined_queryset
+
+# VIEWS START HERE
 class ShowAllBooksView(ListView):
     ''' A view to show a list of all the Books '''
 
@@ -71,8 +112,16 @@ class ShowAllBooksView(ListView):
         return context
 
     def get_queryset(self):
+        query = self.request.GET.get('q', '')  # Get the search query
+
         # Use the get_books function to get books based on language
-        return get_books(self.request)
+        books = get_books(self.request)  
+
+        if query:
+            # Filter books based on title or author name with fuzzy matching
+            books = fuzzy_filter_books(books, 'book_title', query)
+
+        return books
 
 
 class ShowAllAuthorsView(ListView):
@@ -85,15 +134,22 @@ class ShowAllAuthorsView(ListView):
     def get_queryset(self):
         # Get the selected language from the session
         selected_language = self.request.session.get('language', 'all')  # Default to "all"
-        
+
         if selected_language == 'all' or not selected_language:
-            # Return all authors if "All Books" is selected
-            authors = Author.objects.all().order_by('author_first_name')
+            authors = Author.objects.all()
         else:
             # Filter authors who have books in the selected language
-            authors = Author.objects.filter(book__book_languages=selected_language).distinct().order_by('author_first_name')
+            authors = Author.objects.filter(book__book_languages=selected_language).distinct()
 
-        return authors
+        # Get the search query
+        query = self.request.GET.get('q', '')
+
+        if query:
+            # Apply fuzzy filtering to match both first and last names
+            authors = fuzzy_filter_authors(authors, ['author_first_name', 'author_last_name'], query)
+
+        # Apply ordering after filtering
+        return authors.order_by('author_first_name')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
