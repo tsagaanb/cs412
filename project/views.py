@@ -562,12 +562,13 @@ class UpdateReviewView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         ''' Pass the book related to the review into the context '''
+        context = super().get_context_data(**kwargs)
         # get the logged in user 
         user = self.request.user
         user_profile = UserProfile.objects.get(user = user)
         context['user_profile'] = user_profile
 
-        context = super().get_context_data(**kwargs)
+        
         context['book'] = self.object.book
         return context
 

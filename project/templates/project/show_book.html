@@ -102,7 +102,7 @@
                                             {% if progress.user.user_profile_pic %}
                                                 <img src="{{ progress.user.user_profile_pic.url }}" alt="{{ progress.user.user_first_name }}'s Profile Picture" class="friend-profile-pic">
                                             {% else %}
-                                                <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture" class="friend-profile-pic">
+                                                <img src="/static/images/default_profile_img.jpg" alt="Default Profile Picture" class="friend-profile-pic">
                                             {% endif %}
                                             <div class="friend-info">
                                                 <strong>{{ progress.user.user }}</strong>
@@ -129,7 +129,7 @@
                                     {% if user_profile.user_profile_pic %}
                                         <img src="{{ user_profile.user_profile_pic.url }}" alt="{{ user_profile.user }}'s Profile Picture" class="profile-pic">
                                     {% else %}
-                                        <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture" class="profile-pic">
+                                        <img src="/static/images/default_profile_img.jpg" alt="Default Profile Picture" class="profile-pic">
                                     {% endif %}
                                     <div class="review-header-text">
                                         <p><strong>{{ user_profile.user }}</strong></p>
@@ -163,7 +163,7 @@
                                             {% if review.user.user_profile_pic %}
                                                 <img src="{{ review.user.user_profile_pic.url }}" alt="{{ review.user.user }}'s Profile Picture" class="profile-pic">
                                             {% else %}
-                                                <img src="/static/images/default_profile_pic.png" alt="Default Profile Picture" class="profile-pic">
+                                                <img src="/static/images/default_profile_img.jpg" alt="Default Profile Picture" class="profile-pic">
                                             {% endif %}
                                             <div class="review-header-text">
                                                 <p><strong>{{ review.user.user }}</strong></p>
