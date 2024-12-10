@@ -173,11 +173,11 @@ class ShowBookDetailsView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         book = self.get_object()
+        user_profile = None
 
         # find the user who is logged in and make sure that they are autenticated
         if self.request.user.is_authenticated: 
             user_profile = UserProfile.objects.get(user = self.request.user)
-            context['user_profile'] = user_profile
 
             # book progress (for add to shelf feature)
             book_progress = BookProgress.objects.filter(user=user_profile, book=book).first()
@@ -205,7 +205,7 @@ class ShowBookDetailsView(DetailView):
             if friends_review: 
                 context['friends_reviews'] = friends_review
 
-
+        context['user_profile'] = user_profile
         return context
 
 class ShowAuthorDetailsView(DetailView):
@@ -222,9 +222,10 @@ class ShowAuthorDetailsView(DetailView):
         context['books'] = all_books.filter(book_author=self.object).order_by('book_publish_date')
 
         # find the user who is logged in and make sure that they are autenticated
+        user_profile = None
         if self.request.user.is_authenticated: 
             user_profile = UserProfile.objects.get(user = self.request.user)
-            context['user_profile'] = user_profile
+        context['user_profile'] = user_profile
 
         return context
     
@@ -561,6 +562,11 @@ class UpdateReviewView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         ''' Pass the book related to the review into the context '''
+        # get the logged in user 
+        user = self.request.user
+        user_profile = UserProfile.objects.get(user = user)
+        context['user_profile'] = user_profile
+
         context = super().get_context_data(**kwargs)
         context['book'] = self.object.book
         return context
@@ -583,6 +589,12 @@ class DeleteReviewView(LoginRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         ''' Pass the book related to the review into the context '''
         context = super().get_context_data(**kwargs)
+        # get the logged in user 
+        user = self.request.user
+        user_profile = UserProfile.objects.get(user = user)
+        context['user_profile'] = user_profile
+
+        # get the book that the review is for
         context['book'] = self.object.book
         return context
 

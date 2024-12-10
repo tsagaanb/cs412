@@ -6,7 +6,9 @@
 
 {% block extra_nav_links %}
     <!-- Link to the profile of the user that is logged in -->
-    <li><a href="{% url 'show_user_profile' user_profile.pk %}">My Profile</a></li>
+    {% if user_profile %}
+        <li><a href="{% url 'show_user_profile' user_profile.pk %}">My Profile</a></li>
+    {% endif %}
 
 {% endblock %}
 
@@ -31,7 +33,6 @@
                 <div class="profile-details">
                     <h2>{{ profile.user }}</h2>
                     <h3>{{ profile.user_first_name }} {{ profile.user_last_name }}</h3>
-                    <p><strong>Email:</strong> {{ profile.user_email }}</p>
                 </div>
 
                 

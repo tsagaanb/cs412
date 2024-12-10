@@ -6,8 +6,10 @@
 
 {% block extra_nav_links %}
     <!-- Link to the profile of the user that is logged in -->
-    <li><a href="{% url 'show_user_profile' user_profile.pk %}">My Profile</a></li>
-
+    {% if user_profile %}
+        <li><a href="{% url 'show_user_profile' user_profile.pk %}">My Profile</a></li>
+    {% endif %}
+    
 {% endblock %}
 
 
