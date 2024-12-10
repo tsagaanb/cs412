@@ -64,6 +64,21 @@ nav ul li a:hover {
     color: #87CEFA;
 }
 
+.language-selection {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+
+.language-label {
+    font-size: 18px;
+    color: white;
+    font-family: Roboto;
+    font-weight: 300;
+    font-style: italic;
+
+}
+
 .back-button {
     display: inline-block;
     margin: 20px auto;
@@ -93,6 +108,11 @@ nav ul li a:hover {
     padding: 0;
     font-size: 18px;
     display: inline;
+    margin-top: 3px;
+}
+
+.logout-link:hover {
+    color: #87CEFA;
 }
 
 
