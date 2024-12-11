@@ -1,4 +1,4 @@
-Tester uesr information for the final Project:
+Tester user information for the final Project:
 
 **username:** helloword
 
