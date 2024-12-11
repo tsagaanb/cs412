@@ -70,12 +70,12 @@
                                 <span>Friends</span>
                             {% elif profile.has_received_request %}
                                 <!-- If a request was sent by the other user, add option to accept or reject friend request -->
-                                <form method="POST" action="{% url 'accept_friend_request' profile.pk %}">
+                                <form method="POST" action="{% url 'accept_friend_request' profile.friend_request_id %}">
                                     {% csrf_token %}
                                     <button type="submit" class="all-accept-button">Accept</button>
                                 </form>
 
-                                <form method="POST" action="{% url 'reject_friend_request' profile.pk %}">
+                                <form method="POST" action="{% url 'reject_friend_request' profile.friend_request_id %}">
                                     {% csrf_token %}
                                     <button type="submit" class="all-reject-button">Reject</button>
                                 </form>

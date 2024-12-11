@@ -278,6 +278,10 @@ class ShowAllUserProfileView(LoginRequiredMixin, ListView):
                 profile.has_sent_request = FriendRequest.objects.filter(sender=user_profile, receiver=profile).exists()
                 profile.has_received_request = FriendRequest.objects.filter(sender=profile, receiver=user_profile).exists()
 
+                # If a friend request exists, add the request_id to the profile
+                friend_request = FriendRequest.objects.filter(sender=profile, receiver=user_profile).first()
+                profile.friend_request_id = friend_request.id if friend_request else None
+                
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -829,4 +833,3 @@ class DeleteReviewView(LoginRequiredMixin, DeleteView):
             return redirect('show_all_books')  # Redirect unauthorized users
 
         return super().dispatch(request, *args, **kwargs)
-        
