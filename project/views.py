@@ -829,3 +829,4 @@ class DeleteReviewView(LoginRequiredMixin, DeleteView):
             return redirect('show_all_books')  # Redirect unauthorized users
 
         return super().dispatch(request, *args, **kwargs)
+        
